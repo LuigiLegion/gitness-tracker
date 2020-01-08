@@ -49,3 +49,10 @@ export const burgerStyles = {
 export const navbarStyle = {
   boxShadow: '0 0 2px #000000, 0 0 5px #000000',
 };
+
+export const generateStyle = {
+  paddingRight: '0px',
+  paddingLeft: '0px',
+};
+
+export const displayStyle = { paddingRight: '15px', paddingLeft: '15px' };
