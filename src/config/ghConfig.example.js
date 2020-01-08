@@ -1,1 +1,1 @@
-const githubAccessToken = 'yourGithubAcessToken';
+const githubAccessToken = 'YOUR_GITHUB_ACCESS_TOKEN';
