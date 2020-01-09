@@ -16,9 +16,7 @@ const githubDataFetcher = async query => {
       { headers }
     );
 
-    const {
-      data: { data },
-    } = fetchedGithubData;
+    const { data } = fetchedGithubData;
 
     console.log({ data });
 
