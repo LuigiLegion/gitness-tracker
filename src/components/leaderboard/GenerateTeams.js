@@ -33,15 +33,15 @@ export class GenerateTeams extends Component {
 
     event.preventDefault();
 
-    const { organization } = this.props;
+    const { organization } = this.state;
 
     // console.log('organization in GenerateTeams handleSubmit: ', organization);
   }
 
   render() {
-    const { organization } = this.state;
+    const { organizations } = this.props;
 
-    // console.log('organization in GenerateTeams: ', organization);
+    // console.log('organizations in GenerateTeams: ', organizations);
 
     return (
       <div className="container">
@@ -67,17 +67,33 @@ export class GenerateTeams extends Component {
                 required
                 onChange={this.handleChange}
               >
-                <option value="" disabled>
-                  --Please choose an organization--
-                </option>
+                <option value="">Choose Organization</option>
+
+                {organizations.length
+                  ? organizations.map(curOrganization => (
+                      <option
+                        key={curOrganization.id}
+                        value={curOrganization.login}
+                      >
+                        {curOrganization.login}
+                      </option>
+                    ))
+                  : null}
               </select>
             </div>
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!organization.length}
+              disabled={!this.state.organization.length}
             >
               Generate Teams
+            </button>
+
+            <button
+              className="btn black lighten-1 z-depth-0"
+              disabled={!this.state.organization.length}
+            >
+              Generate (Org)
             </button>
           </form>
         </div>
@@ -87,7 +103,9 @@ export class GenerateTeams extends Component {
 }
 
 // Container
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  organizations: state.leaderboard.organizations,
+});
 
 const mapDispatchToProps = dispatch => ({});
 
@@ -97,4 +115,6 @@ export default connect(
 )(GenerateTeams);
 
 // Prop Types
-GenerateTeams.propTypes = {};
+GenerateTeams.propTypes = {
+  organizations: PropTypes.array,
+};
