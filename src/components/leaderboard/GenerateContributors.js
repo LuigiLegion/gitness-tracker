@@ -33,17 +33,15 @@ export class GenerateContributors extends Component {
 
     event.preventDefault();
 
-    const { team } = this.props;
+    const { team } = this.state;
 
     // console.log('team in GenerateContributors handleSubmit: ', team);
   }
 
   render() {
-    const { team } = this.state;
-    const { organization } = this.props;
+    const { teams } = this.props;
 
-    // console.log('team in GenerateContributors: ', team);
-    // console.log('organization in GenerateContributors: ', organization);
+    // console.log('teams in GenerateContributors: ', teams);
 
     return (
       <div className="container">
@@ -69,24 +67,23 @@ export class GenerateContributors extends Component {
                 required
                 onChange={this.handleChange}
               >
-                <option value="" disabled>
-                  --Please choose a team--
-                </option>
+                <option value="">Choose Team</option>
+
+                {teams.length
+                  ? teams.map(curTeam => (
+                      <option key={curTeam.id} value={curTeam.slug}>
+                        {curTeam.slug}
+                      </option>
+                    ))
+                  : null}
               </select>
             </div>
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!team.length}
+              disabled={!this.state.team.length}
             >
               Generate (Team)
-            </button>
-
-            <button
-              className="btn black lighten-1 z-depth-0"
-              disabled={!organization.login}
-            >
-              Generate (Org)
             </button>
           </form>
         </div>
@@ -97,7 +94,7 @@ export class GenerateContributors extends Component {
 
 // Container
 const mapStateToProps = state => ({
-  organization: state.leaderboard.organization,
+  teams: state.leaderboard.teams,
 });
 
 const mapDispatchToProps = dispatch => ({});
@@ -109,5 +106,5 @@ export default connect(
 
 // Prop Types
 GenerateContributors.propTypes = {
-  organization: PropTypes.object,
+  teams: PropTypes.array,
 };
