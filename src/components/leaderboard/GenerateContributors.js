@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
