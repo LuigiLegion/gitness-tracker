@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { getTeamsThunkCreator } from '../../store/reducers/leaderboardReducer';
+
 // Component
 export class GenerateTeams extends Component {
   constructor() {
@@ -34,8 +36,12 @@ export class GenerateTeams extends Component {
     event.preventDefault();
 
     const { organization } = this.state;
+    const { getTeamsThunk } = this.props;
 
     // console.log('organization in GenerateTeams handleSubmit: ', organization);
+    // console.log('getTeamsThunk in GenerateTeams handleSubmit: ', getTeamsThunk);
+
+    getTeamsThunk(organization);
   }
 
   render() {
@@ -107,7 +113,11 @@ const mapStateToProps = state => ({
   organizations: state.leaderboard.organizations,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  getTeamsThunk(organizationLogin) {
+    dispatch(getTeamsThunkCreator(organizationLogin));
+  },
+});
 
 export default connect(
   mapStateToProps,
@@ -117,4 +127,5 @@ export default connect(
 // Prop Types
 GenerateTeams.propTypes = {
   organizations: PropTypes.array,
+  getTeamsThunk: PropTypes.func,
 };
