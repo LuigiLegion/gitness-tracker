@@ -2,8 +2,8 @@
 import {
   organizationsQueryGenerator,
   teamsQueryGenerator,
-  organizationContributionsQueryGenerator,
-  teamContributionsQueryGenerator,
+  organizationContributorsQueryGenerator,
+  teamContributorsQueryGenerator,
   githubDataFetcher,
 } from '../../data';
 
@@ -12,12 +12,14 @@ const initialState = {
   organizations: [],
   teams: [],
   contributors: [],
+  organization: '',
   disabledClear: true,
 };
 
 // Action Types
 const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
 const GOT_TEAMS = 'GOT_TEAMS';
+const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
 const CLEARED_ALL_DATA = 'CLEARED_ALL_DATA';
 
 // Action Creators
@@ -26,9 +28,15 @@ export const gotOrganizationsActionCreator = organizations => ({
   organizations,
 });
 
-export const gotTeamsActionCreator = teams => ({
+export const gotTeamsActionCreator = (teams, organization) => ({
   type: GOT_TEAMS,
   teams,
+  organization,
+});
+
+export const gotTeamContributorsActionCreator = contributors => ({
+  type: GOT_TEAM_CONTRIBUTORS,
+  contributors,
 });
 
 export const clearedAllDataActionCreator = () => ({
@@ -68,7 +76,39 @@ export const getTeamsThunkCreator = organizationLogin => {
 
       // console.log('teams in getTeamsThunkCreator: ', teams);
 
-      dispatch(gotTeamsActionCreator(teams));
+      dispatch(gotTeamsActionCreator(teams, organizationLogin));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const getTeamContributorsThunkCreator = (
+  teamSlug,
+  fullYear,
+  fullMonth
+) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    try {
+      const organizationLogin = getState().leaderboard.organization;
+
+      const customQuery = teamContributorsQueryGenerator(
+        organizationLogin,
+        teamSlug,
+        fullYear,
+        fullMonth
+      );
+
+      const { data } = await githubDataFetcher(customQuery);
+
+      const contributors = data.organization.team.members.edges;
+
+      // console.log(
+      //   'contributors in getTeamContributorsThunkCreator: ',
+      //   contributors
+      // );
+
+      dispatch(gotTeamContributorsActionCreator(contributors));
     } catch (error) {
       console.error(error);
     }
@@ -88,10 +128,20 @@ const leaderboardReducer = (state = initialState, action) => {
 
     case GOT_TEAMS:
       // console.log('action.teams in GOT_TEAMS: ', action.teams);
+      // console.log('action.organization in GOT_TEAMS: ', action.organization);
 
       return {
         ...state,
         teams: [...action.teams],
+        organization: action.organization,
+      };
+
+    case GOT_TEAM_CONTRIBUTORS:
+      // console.log('action.contributors in GOT_TEAM_CONTRIBUTORS: ', action.contributors);
+
+      return {
+        ...state,
+        contributors: [...action.contributors],
       };
 
     case CLEARED_ALL_DATA:
@@ -100,6 +150,7 @@ const leaderboardReducer = (state = initialState, action) => {
         organizations: [],
         teams: [],
         contributors: [],
+        organization: '',
         disabledClear: true,
       };
 
