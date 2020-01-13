@@ -44,7 +44,7 @@ export class GenerateContributors extends Component {
     //   getTeamContributorsThunk
     // );
 
-    getTeamContributorsThunk(team, '2019', '12');
+    getTeamContributorsThunk(team, '2020', '01');
   }
 
   render() {
