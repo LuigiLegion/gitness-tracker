@@ -1,10 +1,10 @@
 // Query Generator
-const organizationContributionsQueryGenerator = (
+const organizationContributorsQueryGenerator = (
   organizationLogin,
   fullYear,
   fullMonth
 ) => {
-  const organizationContributionsQuery = `
+  const organizationContributorsQuery = `
     {
       organization(login: "${organizationLogin}") {
         membersWithRole(first: 100) {
@@ -22,10 +22,10 @@ const organizationContributionsQueryGenerator = (
     }
   `;
 
-  console.log({ organizationContributionsQuery });
+  console.log({ organizationContributorsQuery });
 
-  return organizationContributionsQuery;
+  return organizationContributorsQuery;
 };
 
 // Exports
-module.exports = organizationContributionsQueryGenerator;
+module.exports = organizationContributorsQueryGenerator;

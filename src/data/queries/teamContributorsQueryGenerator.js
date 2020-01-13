@@ -1,11 +1,11 @@
 // Query Generator
-const teamContributionsQueryGenerator = (
+const teamContributorsQueryGenerator = (
   organizationLogin,
   teamSlug,
   fullYear,
   fullMonth
 ) => {
-  const teamContributionsQuery = `
+  const teamContributorsQuery = `
     {
       organization(login: "${organizationLogin}") {
         team(slug: "${teamSlug}") {
@@ -25,10 +25,10 @@ const teamContributionsQueryGenerator = (
     }
   `;
 
-  console.log({ teamContributionsQuery });
+  console.log({ teamContributorsQuery });
 
-  return teamContributionsQuery;
+  return teamContributorsQuery;
 };
 
 // Exports
-module.exports = teamContributionsQueryGenerator;
+module.exports = teamContributorsQueryGenerator;
