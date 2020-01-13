@@ -17,12 +17,18 @@ const initialState = {
 
 // Action Types
 const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
+const GOT_TEAMS = 'GOT_TEAMS';
 const CLEARED_ALL_DATA = 'CLEARED_ALL_DATA';
 
 // Action Creators
 export const gotOrganizationsActionCreator = organizations => ({
   type: GOT_ORGANIZATIONS,
   organizations,
+});
+
+export const gotTeamsActionCreator = teams => ({
+  type: GOT_TEAMS,
+  teams,
 });
 
 export const clearedAllDataActionCreator = () => ({
@@ -51,6 +57,24 @@ export const getOrganizationsThunkCreator = username => {
   };
 };
 
+export const getTeamsThunkCreator = organizationLogin => {
+  return async (dispatch, getState, { getFirestore }) => {
+    try {
+      const customQuery = teamsQueryGenerator(organizationLogin);
+
+      const { data } = await githubDataFetcher(customQuery);
+
+      const teams = data.organization.teams.edges;
+
+      // console.log('teams in getTeamsThunkCreator: ', teams);
+
+      dispatch(gotTeamsActionCreator(teams));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 // Reducer
 const leaderboardReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -62,13 +86,19 @@ const leaderboardReducer = (state = initialState, action) => {
         organizations: [...action.organizations],
       };
 
+    case GOT_TEAMS:
+      // console.log('action.teams in GOT_TEAMS: ', action.teams);
+
+      return {
+        ...state,
+        teams: [...action.teams],
+      };
+
     case CLEARED_ALL_DATA:
       return {
         ...state,
         organizations: [],
-        organization: {},
         teams: [],
-        team: {},
         contributors: [],
         disabledClear: true,
       };
