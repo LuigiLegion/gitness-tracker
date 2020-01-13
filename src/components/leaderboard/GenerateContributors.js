@@ -71,8 +71,8 @@ export class GenerateContributors extends Component {
 
                 {teams.length
                   ? teams.map(curTeam => (
-                      <option key={curTeam.id} value={curTeam.slug}>
-                        {curTeam.slug}
+                      <option key={curTeam.node.id} value={curTeam.node.slug}>
+                        {curTeam.node.slug}
                       </option>
                     ))
                   : null}
