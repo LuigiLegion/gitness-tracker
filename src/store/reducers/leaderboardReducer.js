@@ -10,9 +10,7 @@ import {
 // Initial State
 const initialState = {
   organizations: [],
-  organization: {},
   teams: [],
-  team: {},
   contributors: [],
   disabledClear: true,
 };
