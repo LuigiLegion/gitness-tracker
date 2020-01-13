@@ -43,9 +43,19 @@ class DisplayContributors extends Component {
               {contributors.length ? (
                 <Fragment>
                   {contributors.map((curContributor, idx) => {
+                    const {
+                      id,
+                      login,
+                      contributionsCollection,
+                    } = curContributor.node;
+
                     return (
-                      <li key={idx}>
-                        <span>{`${idx + 1}. ${curContributor.login}`}</span>
+                      <li key={id}>
+                        <span>
+                          {`${idx + 1}. ${login} - ${
+                            contributionsCollection.totalCommitContributions
+                          }`}
+                        </span>
                       </li>
                     );
                   })}
