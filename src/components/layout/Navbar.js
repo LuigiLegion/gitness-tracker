@@ -36,13 +36,13 @@ class Navbar extends Component {
 
     return (
       <div className="navbar-fixed">
-        <nav className="nav-wrapper black" style={navbarStyle}>
+        <nav className="nav-wrapper grey lighten-5" style={navbarStyle}>
           <div>
             <NavLink
               to="/"
               className="left brand-logo navbar-logo name-text-positioning"
             >
-              <span className="bold-text-style glow-text-style">
+              <span className="gray-text-color bold-text-style">
                 Gitness Tracker
               </span>
             </NavLink>

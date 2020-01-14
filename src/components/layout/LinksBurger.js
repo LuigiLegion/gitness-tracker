@@ -39,7 +39,7 @@ class LinksBurger extends Component {
           <div className="remove-outline">
             <div>
               <NavLink to="/about" onClick={() => this.closeMenu()}>
-                <span className="bold-text-style glow-text-style">About</span>
+                <span className="gray-text-color bold-text-style">About</span>
               </NavLink>
             </div>
 
@@ -50,7 +50,7 @@ class LinksBurger extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="bold-text-style glow-text-style">
+                <span className="gray-text-color  bold-text-style">
                   GitHub Repo
                 </span>
               </a>
@@ -63,7 +63,7 @@ class LinksBurger extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="bold-text-style glow-text-style">
+                <span className="gray-text-color bold-text-style">
                   Contact Info
                 </span>
               </a>
