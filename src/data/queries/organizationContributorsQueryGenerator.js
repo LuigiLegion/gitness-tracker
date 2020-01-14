@@ -22,7 +22,7 @@ const organizationContributorsQueryGenerator = (
     }
   `;
 
-  console.log({ organizationContributorsQuery });
+  // console.log({ organizationContributorsQuery });
 
   return organizationContributorsQuery;
 };

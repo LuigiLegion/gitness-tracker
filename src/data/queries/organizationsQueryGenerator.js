@@ -19,7 +19,7 @@ const organizationsQueryGenerator = userLogin => {
     }
   `;
 
-  console.log({ organizationsQuery });
+  // console.log({ organizationsQuery });
 
   return organizationsQuery;
 };

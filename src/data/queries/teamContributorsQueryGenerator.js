@@ -25,7 +25,7 @@ const teamContributorsQueryGenerator = (
     }
   `;
 
-  console.log({ teamContributorsQuery });
+  // console.log({ teamContributorsQuery });
 
   return teamContributorsQuery;
 };
