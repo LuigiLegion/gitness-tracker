@@ -11,7 +11,7 @@ const Links = props => {
     <ul className="right">
       <li>
         <NavLink to="/about">
-          <span className="bold-text-style glow-text-style">About</span>
+          <span className="gray-text-color bold-text-style">About</span>
         </NavLink>
       </li>
 
@@ -21,7 +21,7 @@ const Links = props => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="bold-text-style glow-text-style">GitHub Repo</span>
+          <span className="gray-text-color bold-text-style">GitHub Repo</span>
         </a>
       </li>
 
@@ -31,7 +31,7 @@ const Links = props => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="bold-text-style glow-text-style">Contact Info</span>
+          <span className="gray-text-color bold-text-style">Contact Info</span>
         </a>
       </li>
     </ul>

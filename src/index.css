@@ -11,10 +11,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #fafafa;
+  color: #424242;
   background-size: 100%;
   background-position: bottom;
-  background-color: #000000;
+  background-color: #fafafa;
 }
 
 code {
@@ -53,7 +53,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #212121;
+  color: #fafafa;
 }
 
 .navigation-containee {
@@ -82,10 +82,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .red-text-color {
   color: #ef5350;
-}
-
-.glow-text-style {
-  text-shadow: 0 0 2px #ffffff, 0 0 5px #ffffff;
 }
 
 .bold-text-style {
