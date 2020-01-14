@@ -16,21 +16,21 @@ const Dashboard = props => {
     <div className="dashboard container">
       <div>
         <div className="row">
-          <div className="col s11 m4" style={generateStyle}>
+          <div className="col s12 m4" style={generateStyle}>
             <GenerateOrganizations />
           </div>
 
-          <div className="col s11 m4" style={generateStyle}>
+          <div className="col s12 m4" style={generateStyle}>
             <GenerateTeams />
           </div>
 
-          <div className="col s11 m4" style={generateStyle}>
+          <div className="col s12 m4" style={generateStyle}>
             <GenerateContributors />
           </div>
         </div>
 
         <div className="row">
-          <div className="col s11 m12" style={displayStyle}>
+          <div className="col s12 m12" style={displayStyle}>
             <DisplayContributors />
           </div>
         </div>
