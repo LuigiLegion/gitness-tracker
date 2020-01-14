@@ -33,7 +33,7 @@ class DisplayContributors extends Component {
 
     return (
       <div className="section center">
-        <div className="card z-depth-0 center">
+        <div className="card white center">
           <div className="card-content grey-text text-darken-3 center">
             <span className="card-title">
               <span className="bold-text-style">Contributors Leaderboard</span>
