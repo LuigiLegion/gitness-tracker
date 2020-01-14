@@ -197,10 +197,7 @@ const leaderboardReducer = (state = initialState, action) => {
     case CLEARED_ALL_DATA:
       return {
         ...state,
-        organizations: [],
-        teams: [],
         contributors: [],
-        organization: '',
         disabledClear: true,
       };
 
