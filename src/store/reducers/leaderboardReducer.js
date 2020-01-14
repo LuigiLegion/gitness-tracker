@@ -158,6 +158,7 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         contributors: [...action.contributors],
+        disabledClear: false,
       };
 
     case CLEARED_ALL_DATA:
