@@ -50,9 +50,9 @@ export class GenerateTeams extends Component {
     // console.log('organizations in GenerateTeams: ', organizations);
 
     return (
-      <div className="container">
-        <div className="section">
-          <form onSubmit={this.handleSubmit} className="card white">
+      <div className="container center">
+        <div className="section center">
+          <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
                 Generate Teams
