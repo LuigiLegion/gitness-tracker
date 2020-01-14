@@ -1,3 +1,4 @@
+// Sorter
 const contributorsSorter = contributors => {
   contributors.sort((contributorOne, contributorTwo) => {
     if (
@@ -16,4 +17,5 @@ const contributorsSorter = contributors => {
   });
 };
 
+// Exports
 module.exports = contributorsSorter;
