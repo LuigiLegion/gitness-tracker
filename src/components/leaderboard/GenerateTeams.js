@@ -1,9 +1,14 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import {
+  getTeamsThunkCreator,
+  getOrganizationContributorsThunkCreator,
+} from '../../store/reducers/leaderboardReducer';
 
 // Component
 export class GenerateTeams extends Component {
@@ -16,6 +21,7 @@ export class GenerateTeams extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGenerate = this.handleGenerate.bind(this);
   }
 
   handleChange(event) {
@@ -33,20 +39,39 @@ export class GenerateTeams extends Component {
 
     event.preventDefault();
 
-    const { organization } = this.props;
+    const { organization } = this.state;
+    const { getTeamsThunk } = this.props;
 
     // console.log('organization in GenerateTeams handleSubmit: ', organization);
+    // console.log('getTeamsThunk in GenerateTeams handleSubmit: ', getTeamsThunk);
+
+    getTeamsThunk(organization);
+  }
+
+  handleGenerate(event) {
+    // console.log('event.target.id: ', event.target.id);
+    // console.log('event.target.value: ', event.target.value);
+
+    event.preventDefault();
+
+    const { organization } = this.state;
+    const { getOrganizationContributorsThunk } = this.props;
+
+    // console.log('organization in GenerateTeams handleSubmit: ', organization);
+    // console.log('getOrganizationContributorsThunk in GenerateTeams handleSubmit: ', getOrganizationContributorsThunk);
+
+    getOrganizationContributorsThunk(organization, '2020', '01');
   }
 
   render() {
-    const { organization } = this.state;
+    const { organizations } = this.props;
 
-    // console.log('organization in GenerateTeams: ', organization);
+    // console.log('organizations in GenerateTeams: ', organizations);
 
     return (
-      <div className="container">
-        <div className="section">
-          <form onSubmit={this.handleSubmit} className="card white">
+      <div className="container center">
+        <div className="section center">
+          <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
                 Generate Teams
@@ -67,17 +92,34 @@ export class GenerateTeams extends Component {
                 required
                 onChange={this.handleChange}
               >
-                <option value="" disabled>
-                  --Please choose an organization--
-                </option>
+                <option value="">Choose Organization</option>
+
+                {organizations.length
+                  ? organizations.map(curOrganization => (
+                      <option
+                        key={curOrganization.id}
+                        value={curOrganization.login}
+                      >
+                        {curOrganization.login}
+                      </option>
+                    ))
+                  : null}
               </select>
             </div>
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!organization.length}
+              disabled={!this.state.organization.length}
             >
               Generate Teams
+            </button>
+
+            <button
+              className="btn black lighten-1 z-depth-0"
+              disabled={!this.state.organization.length}
+              onClick={this.handleGenerate}
+            >
+              Generate (Org)
             </button>
           </form>
         </div>
@@ -87,9 +129,24 @@ export class GenerateTeams extends Component {
 }
 
 // Container
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  organizations: state.leaderboard.organizations,
+});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  getTeamsThunk(organizationLogin) {
+    dispatch(getTeamsThunkCreator(organizationLogin));
+  },
+  getOrganizationContributorsThunk(organizationLogin, fullYear, fullMonth) {
+    dispatch(
+      getOrganizationContributorsThunkCreator(
+        organizationLogin,
+        fullYear,
+        fullMonth
+      )
+    );
+  },
+});
 
 export default connect(
   mapStateToProps,
@@ -97,4 +154,8 @@ export default connect(
 )(GenerateTeams);
 
 // Prop Types
-GenerateTeams.propTypes = {};
+GenerateTeams.propTypes = {
+  organizations: PropTypes.array,
+  getTeamsThunk: PropTypes.func,
+  getOrganizationContributorsThunk: PropTypes.func,
+};

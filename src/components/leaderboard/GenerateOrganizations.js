@@ -1,9 +1,11 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
 export class GenerateOrganizations extends Component {
@@ -33,20 +35,20 @@ export class GenerateOrganizations extends Component {
 
     event.preventDefault();
 
-    const { username } = this.props;
+    const { username } = this.state;
+    const { getOrganizationsThunk } = this.props;
 
     // console.log('username in GenerateOrganizations handleSubmit: ', username);
+    // console.log('getOrganizationsThunk in GenerateOrganizations handleSubmit: ', getOrganizationsThunk);
+
+    getOrganizationsThunk(username);
   }
 
   render() {
-    const { username } = this.state;
-
-    // console.log('username in GenerateOrganizations: ', username);
-
     return (
-      <div className="container">
-        <div className="section">
-          <form onSubmit={this.handleSubmit} className="card white">
+      <div className="container center">
+        <div className="section center">
+          <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
                 Generate Organizations
@@ -68,7 +70,7 @@ export class GenerateOrganizations extends Component {
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!username.length}
+              disabled={!this.state.username.length}
             >
               Generate Orgs
             </button>
@@ -80,14 +82,18 @@ export class GenerateOrganizations extends Component {
 }
 
 // Container
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  getOrganizationsThunk(username) {
+    dispatch(getOrganizationsThunkCreator(username));
+  },
+});
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(GenerateOrganizations);
 
 // Prop Types
-GenerateOrganizations.propTypes = {};
+GenerateOrganizations.propTypes = {
+  getOrganizationsThunk: PropTypes.func,
+};

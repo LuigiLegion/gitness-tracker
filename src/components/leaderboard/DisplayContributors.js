@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -32,32 +32,67 @@ class DisplayContributors extends Component {
     // console.log('disabledClear in DisplayContributors: ', DisplayContributors);
 
     return (
-      <div className="section">
-        <div className="card z-depth-0">
-          <div className="card-content grey-text text-darken-3">
+      <div className="section center">
+        <div className="card z-depth-0 center">
+          <div className="card-content grey-text text-darken-3 center">
             <span className="card-title">
               <span className="bold-text-style">Contributors Leaderboard</span>
             </span>
 
-            <ul className="contributors">
+            <div className="contributors">
               {contributors.length ? (
-                <Fragment>
-                  {contributors.map((curContributor, idx) => {
-                    return (
-                      <li key={idx}>
-                        <span>{`${idx + 1}. ${curContributor.login}`}</span>
-                      </li>
-                    );
-                  })}
-                </Fragment>
+                <table className="striped centered">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+
+                      <th>Username</th>
+
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {contributors.map((curContributor, idx) => {
+                      const {
+                        id,
+                        login,
+                        contributionsCollection,
+                      } = curContributor.node;
+
+                      return (
+                        <tr key={id}>
+                          <td>
+                            <strong>{idx + 1}</strong>
+                          </td>
+
+                          <td>
+                            <a
+                              className="events-time-and-rsvp-containee"
+                              href={`https://github.com/${login}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>
+                                <strong>{login}</strong>
+                              </span>
+                            </a>
+                          </td>
+
+                          <td>
+                            <strong>
+                              {contributionsCollection.totalCommitContributions}
+                            </strong>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               ) : (
-                <li>
-                  <span>
-                    Generate contributors to populate this leaderboard.
-                  </span>
-                </li>
+                <div>Generate contributors to populate this leaderboard.</div>
               )}
-            </ul>
+            </div>
 
             <form className="clear-form" onSubmit={this.handleSubmit}>
               <button

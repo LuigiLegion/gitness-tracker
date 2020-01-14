@@ -1,9 +1,11 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { getTeamContributorsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
 export class GenerateContributors extends Component {
@@ -33,22 +35,27 @@ export class GenerateContributors extends Component {
 
     event.preventDefault();
 
-    const { team } = this.props;
+    const { team } = this.state;
+    const { getTeamContributorsThunk } = this.props;
 
     // console.log('team in GenerateContributors handleSubmit: ', team);
+    // console.log(
+    //   'getTeamContributorsThunk in GenerateContributors handleSubmit: ',
+    //   getTeamContributorsThunk
+    // );
+
+    getTeamContributorsThunk(team, '2020', '01');
   }
 
   render() {
-    const { team } = this.state;
-    const { organization } = this.props;
+    const { teams } = this.props;
 
-    // console.log('team in GenerateContributors: ', team);
-    // console.log('organization in GenerateContributors: ', organization);
+    // console.log('teams in GenerateContributors: ', teams);
 
     return (
-      <div className="container">
-        <div className="section">
-          <form onSubmit={this.handleSubmit} className="card white">
+      <div className="container center">
+        <div className="section center">
+          <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
                 Generate Contributors
@@ -69,24 +76,23 @@ export class GenerateContributors extends Component {
                 required
                 onChange={this.handleChange}
               >
-                <option value="" disabled>
-                  --Please choose a team--
-                </option>
+                <option value="">Choose Team</option>
+
+                {teams.length
+                  ? teams.map(curTeam => (
+                      <option key={curTeam.node.id} value={curTeam.node.slug}>
+                        {curTeam.node.slug}
+                      </option>
+                    ))
+                  : null}
               </select>
             </div>
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!team.length}
+              disabled={!this.state.team.length}
             >
               Generate (Team)
-            </button>
-
-            <button
-              className="btn black lighten-1 z-depth-0"
-              disabled={!organization.login}
-            >
-              Generate (Org)
             </button>
           </form>
         </div>
@@ -97,10 +103,14 @@ export class GenerateContributors extends Component {
 
 // Container
 const mapStateToProps = state => ({
-  organization: state.leaderboard.organization,
+  teams: state.leaderboard.teams,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  getTeamContributorsThunk(teamSlug, fullYear, fullMonth) {
+    dispatch(getTeamContributorsThunkCreator(teamSlug, fullYear, fullMonth));
+  },
+});
 
 export default connect(
   mapStateToProps,
@@ -109,5 +119,6 @@ export default connect(
 
 // Prop Types
 GenerateContributors.propTypes = {
-  organization: PropTypes.object,
+  teams: PropTypes.array,
+  getTeamContributorsThunk: PropTypes.func,
 };
