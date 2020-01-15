@@ -92,15 +92,16 @@ export const getTeamsThunkCreator = organizationLogin => {
 
 export const getOrganizationContributorsThunkCreator = (
   organizationLogin,
-  fullYear,
-  fullMonth
+  time
 ) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
+      const customTimeUTC = new Date(Date.now() - time);
+      const customTimeISO = customTimeUTC.toISOString();
+
       const customQuery = organizationContributorsQueryGenerator(
         organizationLogin,
-        fullYear,
-        fullMonth
+        customTimeISO
       );
 
       const { data } = await githubDataFetcher(customQuery);
