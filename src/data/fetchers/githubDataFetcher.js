@@ -1,7 +1,7 @@
 // Imports
-const axios = require('axios');
+import axios from 'axios';
 
-const githubAccessToken = require('../../config/ghConfig');
+import githubAccessToken from '../../config/ghConfig';
 
 // Initializations
 const githubApiEndpoint = 'https://api.github.com/graphql';
@@ -27,4 +27,4 @@ const githubDataFetcher = async query => {
 };
 
 // Exports
-module.exports = githubDataFetcher;
+export default githubDataFetcher;

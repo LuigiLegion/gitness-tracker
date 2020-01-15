@@ -1,17 +1,15 @@
-// Imports
-const organizationsQueryGenerator = require('./generators/organizationsQueryGenerator');
-const teamsQueryGenerator = require('./generators/teamsQueryGenerator');
-const organizationContributorsQueryGenerator = require('./generators/organizationContributorsQueryGenerator');
-const teamContributorsQueryGenerator = require('./generators/teamContributorsQueryGenerator');
-const githubDataFetcher = require('./fetchers/githubDataFetcher');
-const contributorsSorter = require('./sorters/contributorsSorter');
-
 // Exports
-module.exports = {
-  organizationsQueryGenerator,
-  teamsQueryGenerator,
-  organizationContributorsQueryGenerator,
-  teamContributorsQueryGenerator,
-  githubDataFetcher,
-  contributorsSorter,
-};
+export {
+  default as organizationsQueryGenerator,
+} from './generators/organizationsQueryGenerator';
+export {
+  default as teamsQueryGenerator,
+} from './generators/teamsQueryGenerator';
+export {
+  default as organizationContributorsQueryGenerator,
+} from './generators/organizationContributorsQueryGenerator';
+export {
+  default as teamContributorsQueryGenerator,
+} from './generators/teamContributorsQueryGenerator';
+export { default as githubDataFetcher } from './fetchers/githubDataFetcher';
+export { default as contributorsSorter } from './sorters/contributorsSorter';
