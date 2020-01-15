@@ -55,13 +55,14 @@ export class GenerateTeams extends Component {
 
     event.preventDefault();
 
-    const { organization } = this.state;
+    const { organization, organizationTime } = this.state;
     const { getOrganizationContributorsThunk } = this.props;
 
     // console.log('organization in GenerateTeams handleSubmit: ', organization);
+    // console.log('organizationTime in GenerateTeams handleSubmit: ', organizationTime);
     // console.log('getOrganizationContributorsThunk in GenerateTeams handleSubmit: ', getOrganizationContributorsThunk);
 
-    getOrganizationContributorsThunk(organization, '2020', '01');
+    getOrganizationContributorsThunk(organization, organizationTime);
   }
 
   render() {
@@ -175,14 +176,8 @@ const mapDispatchToProps = dispatch => ({
   getTeamsThunk(organizationLogin) {
     dispatch(getTeamsThunkCreator(organizationLogin));
   },
-  getOrganizationContributorsThunk(organizationLogin, fullYear, fullMonth) {
-    dispatch(
-      getOrganizationContributorsThunkCreator(
-        organizationLogin,
-        fullYear,
-        fullMonth
-      )
-    );
+  getOrganizationContributorsThunk(organizationLogin, time) {
+    dispatch(getOrganizationContributorsThunkCreator(organizationLogin, time));
   },
 });
 
