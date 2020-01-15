@@ -28,4 +28,4 @@ const organizationContributorsQueryGenerator = (
 };
 
 // Exports
-module.exports = organizationContributorsQueryGenerator;
+export default organizationContributorsQueryGenerator;

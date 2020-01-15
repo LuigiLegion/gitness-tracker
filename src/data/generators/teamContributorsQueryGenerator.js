@@ -31,4 +31,4 @@ const teamContributorsQueryGenerator = (
 };
 
 // Exports
-module.exports = teamContributorsQueryGenerator;
+export default teamContributorsQueryGenerator;

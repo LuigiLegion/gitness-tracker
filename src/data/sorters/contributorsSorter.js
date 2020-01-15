@@ -18,4 +18,4 @@ const contributorsSorter = contributors => {
 };
 
 // Exports
-module.exports = contributorsSorter;
+export default contributorsSorter;
