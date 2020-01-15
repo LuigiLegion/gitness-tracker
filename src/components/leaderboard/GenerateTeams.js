@@ -17,6 +17,7 @@ export class GenerateTeams extends Component {
 
     this.state = {
       organization: '',
+      organizationTime: '0',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -80,7 +81,7 @@ export class GenerateTeams extends Component {
 
             <div className="input-field col s12">
               <label htmlFor="organization">
-                Organizations<span className="red-text-color">*</span>
+                Organization<span className="red-text-color">*</span>
               </label>
 
               <br />
@@ -124,11 +125,36 @@ export class GenerateTeams extends Component {
               </span>
             </span>
 
+            <div className="input-field col s12">
+              <label htmlFor="time">
+                Time<span className="red-text-color">*</span>
+              </label>
+
+              <br />
+              <br />
+
+              <select
+                id="organizationTime"
+                className="browser-default"
+                required
+                onChange={this.handleChange}
+              >
+                <option value="0">Choose Time</option>
+                <option value="2629746000">Past Month</option>
+                <option value="7889238000">Past 3 Months</option>
+                <option value="15778476000">Past 6 Months</option>
+                <option value="31556952000">Past Year</option>
+              </select>
+            </div>
+
             <br />
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!this.state.organization.length}
+              disabled={
+                !this.state.organization.length ||
+                !Number(this.state.organizationTime)
+              }
               onClick={this.handleGenerate}
             >
               Generate
