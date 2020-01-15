@@ -107,19 +107,31 @@ export class GenerateTeams extends Component {
               </select>
             </div>
 
+            <br />
+
             <button
               className="btn black lighten-1 z-depth-0"
               disabled={!this.state.organization.length}
             >
-              Generate Teams
+              Generate
             </button>
+
+            <hr />
+
+            <span className="card-title">
+              <span className="gray-text-color bold-text-style">
+                Generate Org Leaderboard
+              </span>
+            </span>
+
+            <br />
 
             <button
               className="btn black lighten-1 z-depth-0"
               disabled={!this.state.organization.length}
               onClick={this.handleGenerate}
             >
-              Generate (Org)
+              Generate
             </button>
           </form>
         </div>

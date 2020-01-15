@@ -58,7 +58,7 @@ export class GenerateContributors extends Component {
           <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
-                Generate Contributors
+                Generate Team Leaderboard
               </span>
             </span>
 
@@ -88,11 +88,13 @@ export class GenerateContributors extends Component {
               </select>
             </div>
 
+            <br />
+
             <button
               className="btn black lighten-1 z-depth-0"
               disabled={!this.state.team.length}
             >
-              Generate (Team)
+              Generate
             </button>
           </form>
         </div>
