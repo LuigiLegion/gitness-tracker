@@ -1,9 +1,5 @@
 // Query Generator
-const organizationContributorsQueryGenerator = (
-  organizationLogin,
-  fullYear,
-  fullMonth
-) => {
+const organizationContributorsQueryGenerator = (organizationLogin, timeISO) => {
   const organizationContributorsQuery = `
     {
       organization(login: "${organizationLogin}") {
@@ -12,7 +8,7 @@ const organizationContributorsQueryGenerator = (
             node {
               id,
               login,
-              contributionsCollection(from: "${fullYear}-${fullMonth}-01T00:00:00Z") {
+              contributionsCollection(from: "${timeISO}") {
                 totalCommitContributions
               }
             }
