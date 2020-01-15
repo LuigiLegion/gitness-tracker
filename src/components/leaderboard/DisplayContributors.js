@@ -94,6 +94,8 @@ class DisplayContributors extends Component {
               )}
             </div>
 
+            <br />
+
             <form className="clear-form" onSubmit={this.handleSubmit}>
               <button
                 className="btn black black-1 z-depth-0"

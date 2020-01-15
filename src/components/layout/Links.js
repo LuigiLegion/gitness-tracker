@@ -10,7 +10,7 @@ const Links = props => {
   return (
     <ul className="right">
       <li>
-        <NavLink to="/about">
+        <NavLink to="/about" className="gray-text-color">
           <span className="gray-text-color bold-text-style">About</span>
         </NavLink>
       </li>
@@ -20,6 +20,7 @@ const Links = props => {
           href="https://github.com/LuigiLegion/gitness-tracker"
           target="_blank"
           rel="noopener noreferrer"
+          className="gray-text-color"
         >
           <span className="gray-text-color bold-text-style">GitHub Repo</span>
         </a>
@@ -30,6 +31,7 @@ const Links = props => {
           href="http://taluigi.netlify.com"
           target="_blank"
           rel="noopener noreferrer"
+          className="gray-text-color"
         >
           <span className="gray-text-color bold-text-style">Contact Info</span>
         </a>

@@ -17,6 +17,7 @@ export class GenerateTeams extends Component {
 
     this.state = {
       organization: '',
+      organizationTime: '0',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -54,13 +55,14 @@ export class GenerateTeams extends Component {
 
     event.preventDefault();
 
-    const { organization } = this.state;
+    const { organization, organizationTime } = this.state;
     const { getOrganizationContributorsThunk } = this.props;
 
     // console.log('organization in GenerateTeams handleSubmit: ', organization);
+    // console.log('organizationTime in GenerateTeams handleSubmit: ', organizationTime);
     // console.log('getOrganizationContributorsThunk in GenerateTeams handleSubmit: ', getOrganizationContributorsThunk);
 
-    getOrganizationContributorsThunk(organization, '2020', '01');
+    getOrganizationContributorsThunk(organization, organizationTime);
   }
 
   render() {
@@ -80,7 +82,7 @@ export class GenerateTeams extends Component {
 
             <div className="input-field col s12">
               <label htmlFor="organization">
-                Organizations<span className="red-text-color">*</span>
+                Organization<span className="red-text-color">*</span>
               </label>
 
               <br />
@@ -107,19 +109,56 @@ export class GenerateTeams extends Component {
               </select>
             </div>
 
-            <button
-              className="btn black lighten-1 z-depth-0"
-              disabled={!this.state.organization.length}
-            >
-              Generate Teams
-            </button>
+            <br />
 
             <button
               className="btn black lighten-1 z-depth-0"
               disabled={!this.state.organization.length}
+            >
+              Generate
+            </button>
+
+            <hr />
+
+            <span className="card-title">
+              <span className="gray-text-color bold-text-style">
+                Generate Org Leaderboard
+              </span>
+            </span>
+
+            <div className="input-field col s12">
+              <label htmlFor="time">
+                Time<span className="red-text-color">*</span>
+              </label>
+
+              <br />
+              <br />
+
+              <select
+                id="organizationTime"
+                className="browser-default"
+                required
+                onChange={this.handleChange}
+              >
+                <option value="0">Choose Time</option>
+                <option value="2629746000">Past Month</option>
+                <option value="7889238000">Past 3 Months</option>
+                <option value="15778476000">Past 6 Months</option>
+                <option value="31556952000">Past Year</option>
+              </select>
+            </div>
+
+            <br />
+
+            <button
+              className="btn black lighten-1 z-depth-0"
+              disabled={
+                !this.state.organization.length ||
+                !Number(this.state.organizationTime)
+              }
               onClick={this.handleGenerate}
             >
-              Generate (Org)
+              Generate
             </button>
           </form>
         </div>
@@ -137,14 +176,8 @@ const mapDispatchToProps = dispatch => ({
   getTeamsThunk(organizationLogin) {
     dispatch(getTeamsThunkCreator(organizationLogin));
   },
-  getOrganizationContributorsThunk(organizationLogin, fullYear, fullMonth) {
-    dispatch(
-      getOrganizationContributorsThunkCreator(
-        organizationLogin,
-        fullYear,
-        fullMonth
-      )
-    );
+  getOrganizationContributorsThunk(organizationLogin, time) {
+    dispatch(getOrganizationContributorsThunkCreator(organizationLogin, time));
   },
 });
 

@@ -14,6 +14,7 @@ export class GenerateContributors extends Component {
 
     this.state = {
       team: '',
+      teamTime: '0',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,16 +36,14 @@ export class GenerateContributors extends Component {
 
     event.preventDefault();
 
-    const { team } = this.state;
+    const { team, teamTime } = this.state;
     const { getTeamContributorsThunk } = this.props;
 
     // console.log('team in GenerateContributors handleSubmit: ', team);
-    // console.log(
-    //   'getTeamContributorsThunk in GenerateContributors handleSubmit: ',
-    //   getTeamContributorsThunk
-    // );
+    // console.log('teamTime in GenerateContributors handleSubmit: ', teamTime);
+    // console.log('getTeamContributorsThunk in GenerateContributors handleSubmit: ', getTeamContributorsThunk);
 
-    getTeamContributorsThunk(team, '2020', '01');
+    getTeamContributorsThunk(team, teamTime);
   }
 
   render() {
@@ -58,13 +57,13 @@ export class GenerateContributors extends Component {
           <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
-                Generate Contributors
+                Generate Team Leaderboard
               </span>
             </span>
 
             <div className="input-field col s12">
               <label htmlFor="team">
-                Teams<span className="red-text-color">*</span>
+                Team<span className="red-text-color">*</span>
               </label>
 
               <br />
@@ -88,11 +87,35 @@ export class GenerateContributors extends Component {
               </select>
             </div>
 
+            <div className="input-field col s12">
+              <label htmlFor="time">
+                Time<span className="red-text-color">*</span>
+              </label>
+
+              <br />
+              <br />
+
+              <select
+                id="teamTime"
+                className="browser-default"
+                required
+                onChange={this.handleChange}
+              >
+                <option value="0">Choose Time</option>
+                <option value="2629746000">Past Month</option>
+                <option value="7889238000">Past 3 Months</option>
+                <option value="15778476000">Past 6 Months</option>
+                <option value="31556952000">Past Year</option>
+              </select>
+            </div>
+
+            <br />
+
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!this.state.team.length}
+              disabled={!this.state.team.length || !Number(this.state.teamTime)}
             >
-              Generate (Team)
+              Generate
             </button>
           </form>
         </div>
@@ -107,8 +130,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getTeamContributorsThunk(teamSlug, fullYear, fullMonth) {
-    dispatch(getTeamContributorsThunkCreator(teamSlug, fullYear, fullMonth));
+  getTeamContributorsThunk(teamSlug, time) {
+    dispatch(getTeamContributorsThunkCreator(teamSlug, time));
   },
 });
 
