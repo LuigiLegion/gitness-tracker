@@ -63,7 +63,7 @@ export class GenerateContributors extends Component {
 
             <div className="input-field col s12">
               <label htmlFor="team">
-                Team<span className="red-text-color">*</span>
+                Teams<span className="red-text-color">*</span>
               </label>
 
               <br />
@@ -89,7 +89,7 @@ export class GenerateContributors extends Component {
 
             <div className="input-field col s12">
               <label htmlFor="time">
-                Time<span className="red-text-color">*</span>
+                Times<span className="red-text-color">*</span>
               </label>
 
               <br />
