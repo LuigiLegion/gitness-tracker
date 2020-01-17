@@ -6,6 +6,7 @@ import {
   teamContributorsQueryGenerator,
   githubDataFetcher,
   contributorsSorter,
+  toastNotificationGenerator,
 } from '../../data';
 
 // Initial State
@@ -22,7 +23,7 @@ const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
 const GOT_TEAMS = 'GOT_TEAMS';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
-const CLEARED_ALL_DATA = 'CLEARED_ALL_DATA';
+const CLEARED_CONTRIBUTORS = 'CLEARED_CONTRIBUTORS';
 
 // Action Creators
 export const gotOrganizationsActionCreator = organizations => ({
@@ -46,8 +47,8 @@ export const gotTeamContributorsActionCreator = contributors => ({
   contributors,
 });
 
-export const clearedAllDataActionCreator = () => ({
-  type: CLEARED_ALL_DATA,
+export const clearedContributorsActionCreator = () => ({
+  type: CLEARED_CONTRIBUTORS,
 });
 
 // Thunk Creators
@@ -66,8 +67,19 @@ export const getOrganizationsThunkCreator = username => {
       // );
 
       dispatch(gotOrganizationsActionCreator(organizations));
+
+      if (organizations.length) {
+        toastNotificationGenerator(
+          'Organizations Generated Successfully',
+          'green'
+        );
+      } else {
+        toastNotificationGenerator('No Organizations Were Found', 'red');
+      }
     } catch (error) {
       console.error(error);
+
+      toastNotificationGenerator('Error! Invalid GitHub Username', 'red');
     }
   };
 };
@@ -84,6 +96,12 @@ export const getTeamsThunkCreator = organizationLogin => {
       // console.log('teams in getTeamsThunkCreator: ', teams);
 
       dispatch(gotTeamsActionCreator(teams, organizationLogin));
+
+      if (teams.length) {
+        toastNotificationGenerator('Teams Generated Successfully', 'green');
+      } else {
+        toastNotificationGenerator('No Teams Were Found', 'red');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -116,8 +134,18 @@ export const getOrganizationContributorsThunkCreator = (
       // );
 
       dispatch(gotOrganizationContributorsActionCreator(contributors));
+
+      toastNotificationGenerator(
+        'Organization Leaderboard Generated Successfully',
+        'green'
+      );
     } catch (error) {
       console.error(error);
+
+      toastNotificationGenerator(
+        'Error! Please Try A Shorter Time Period',
+        'red'
+      );
     }
   };
 };
@@ -148,8 +176,18 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
       // );
 
       dispatch(gotTeamContributorsActionCreator(contributors));
+
+      toastNotificationGenerator(
+        'Team Leaderboard Generated Successfully',
+        'green'
+      );
     } catch (error) {
       console.error(error);
+
+      toastNotificationGenerator(
+        'Error! Please Try A Shorter Time Period',
+        'red'
+      );
     }
   };
 };
@@ -193,7 +231,7 @@ const leaderboardReducer = (state = initialState, action) => {
         disabledClear: false,
       };
 
-    case CLEARED_ALL_DATA:
+    case CLEARED_CONTRIBUTORS:
       return {
         ...state,
         contributors: [],

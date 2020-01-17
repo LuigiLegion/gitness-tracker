@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { clearedAllDataActionCreator } from '../../store/reducers/leaderboardReducer';
+import { clearedContributorsActionCreator } from '../../store/reducers/leaderboardReducer';
+import { toastNotificationGenerator } from '../../data/index';
 
 // Component
 class DisplayContributors extends Component {
@@ -18,11 +19,13 @@ class DisplayContributors extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { clearedAllDataAction } = this.props;
+    const { clearedContributorsAction } = this.props;
 
-    // console.log('clearedAllDataAction in DisplayContributors handleSubmit: ', clearedAllDataAction);
+    // console.log('clearedContributorsAction in DisplayContributors handleSubmit: ', clearedContributorsAction);
 
-    clearedAllDataAction();
+    clearedContributorsAction();
+
+    toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
   }
 
   render() {
@@ -90,7 +93,7 @@ class DisplayContributors extends Component {
                   </tbody>
                 </table>
               ) : (
-                <div>Generate contributors to populate this leaderboard.</div>
+                <div>Generate a leaderboard to populate this section.</div>
               )}
             </div>
 
@@ -118,8 +121,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearedAllDataAction() {
-    dispatch(clearedAllDataActionCreator());
+  clearedContributorsAction() {
+    dispatch(clearedContributorsActionCreator());
   },
 });
 
@@ -132,5 +135,5 @@ export default connect(
 DisplayContributors.propTypes = {
   contributors: PropTypes.array,
   disabledClear: PropTypes.bool,
-  clearedAllDataAction: PropTypes.func,
+  clearedContributorsAction: PropTypes.func,
 };

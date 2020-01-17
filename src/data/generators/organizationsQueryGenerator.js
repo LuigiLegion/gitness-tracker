@@ -25,4 +25,4 @@ const organizationsQueryGenerator = userLogin => {
 };
 
 // Exports
-module.exports = organizationsQueryGenerator;
+export default organizationsQueryGenerator;

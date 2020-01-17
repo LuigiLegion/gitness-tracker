@@ -82,7 +82,7 @@ export class GenerateTeams extends Component {
 
             <div className="input-field col s12">
               <label htmlFor="organization">
-                Organization<span className="red-text-color">*</span>
+                Organizations<span className="red-text-color">*</span>
               </label>
 
               <br />
@@ -128,7 +128,7 @@ export class GenerateTeams extends Component {
 
             <div className="input-field col s12">
               <label htmlFor="time">
-                Time<span className="red-text-color">*</span>
+                Times<span className="red-text-color">*</span>
               </label>
 
               <br />

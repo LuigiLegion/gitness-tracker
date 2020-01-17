@@ -23,4 +23,4 @@ const teamsQueryGenerator = organizationLogin => {
 };
 
 // Exports
-module.exports = teamsQueryGenerator;
+export default teamsQueryGenerator;
