@@ -13,3 +13,6 @@ export {
 } from './generators/teamContributorsQueryGenerator';
 export { default as githubDataFetcher } from './fetchers/githubDataFetcher';
 export { default as contributorsSorter } from './sorters/contributorsSorter';
+export {
+  default as toastMessageGenerator,
+} from './generators/toastMessageGenerator';
