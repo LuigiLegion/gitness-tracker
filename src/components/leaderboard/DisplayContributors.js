@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { clearedContributorsActionCreator } from '../../store/reducers/leaderboardReducer';
-import { toastMessageGenerator } from '../../data/index';
+import { toastNotificationGenerator } from '../../data/index';
 
 // Component
 class DisplayContributors extends Component {
@@ -25,7 +25,7 @@ class DisplayContributors extends Component {
 
     clearedContributorsAction();
 
-    toastMessageGenerator('Leaderboard Cleared Succesfully', 'green');
+    toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
   }
 
   render() {

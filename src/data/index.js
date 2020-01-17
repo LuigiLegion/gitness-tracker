@@ -14,5 +14,5 @@ export {
 export { default as githubDataFetcher } from './fetchers/githubDataFetcher';
 export { default as contributorsSorter } from './sorters/contributorsSorter';
 export {
-  default as toastMessageGenerator,
-} from './generators/toastMessageGenerator';
+  default as toastNotificationGenerator,
+} from './generators/toastNotificationGenerator';
