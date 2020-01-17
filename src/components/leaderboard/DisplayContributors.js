@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { clearedContributorsActionCreator } from '../../store/reducers/leaderboardReducer';
+import { toastMessageGenerator } from '../../data/index';
 
 // Component
 class DisplayContributors extends Component {
@@ -23,6 +24,8 @@ class DisplayContributors extends Component {
     // console.log('clearedContributorsAction in DisplayContributors handleSubmit: ', clearedContributorsAction);
 
     clearedContributorsAction();
+
+    toastMessageGenerator('Leaderboard Cleared Succesfully', 'green');
   }
 
   render() {
@@ -90,7 +93,7 @@ class DisplayContributors extends Component {
                   </tbody>
                 </table>
               ) : (
-                <div>Generate contributors to populate this leaderboard.</div>
+                <div>Generate a leaderboard to populate this section.</div>
               )}
             </div>
 
