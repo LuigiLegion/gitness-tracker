@@ -51,7 +51,7 @@ class DisplayContributors extends Component {
 
                       <th>Username</th>
 
-                      <th>Total</th>
+                      <th>Commits</th>
                     </tr>
                   </thead>
 
