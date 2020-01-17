@@ -55,6 +55,11 @@ export const clearedContributorsActionCreator = () => ({
 export const getOrganizationsThunkCreator = username => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
+      toastNotificationGenerator(
+        'Generating Organizations...',
+        'yellow darken-3'
+      );
+
       const customQuery = organizationsQueryGenerator(username);
 
       const { data } = await githubDataFetcher(customQuery);
@@ -87,6 +92,8 @@ export const getOrganizationsThunkCreator = username => {
 export const getTeamsThunkCreator = organizationLogin => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
+      toastNotificationGenerator('Generating Teams...', 'yellow darken-3');
+
       const customQuery = teamsQueryGenerator(organizationLogin);
 
       const { data } = await githubDataFetcher(customQuery);
@@ -114,6 +121,11 @@ export const getOrganizationContributorsThunkCreator = (
 ) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
+      toastNotificationGenerator(
+        'Generating Organization Leaderboard...',
+        'yellow darken-3'
+      );
+
       const customTimeUTC = new Date(Date.now() - time);
       const customTimeISO = customTimeUTC.toISOString();
 
@@ -153,6 +165,11 @@ export const getOrganizationContributorsThunkCreator = (
 export const getTeamContributorsThunkCreator = (teamSlug, time) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
+      toastNotificationGenerator(
+        'Generating Team Leaderboard...',
+        'yellow darken-3'
+      );
+
       const customTimeUTC = new Date(Date.now() - time);
       const customTimeISO = customTimeUTC.toISOString();
 
