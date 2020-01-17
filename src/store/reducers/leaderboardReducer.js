@@ -22,7 +22,7 @@ const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
 const GOT_TEAMS = 'GOT_TEAMS';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
-const CLEARED_ALL_DATA = 'CLEARED_ALL_DATA';
+const CLEARED_CONTRIBUTORS = 'CLEARED_CONTRIBUTORS';
 
 // Action Creators
 export const gotOrganizationsActionCreator = organizations => ({
@@ -46,8 +46,8 @@ export const gotTeamContributorsActionCreator = contributors => ({
   contributors,
 });
 
-export const clearedAllDataActionCreator = () => ({
-  type: CLEARED_ALL_DATA,
+export const clearedContributorsActionCreator = () => ({
+  type: CLEARED_CONTRIBUTORS,
 });
 
 // Thunk Creators
@@ -193,7 +193,7 @@ const leaderboardReducer = (state = initialState, action) => {
         disabledClear: false,
       };
 
-    case CLEARED_ALL_DATA:
+    case CLEARED_CONTRIBUTORS:
       return {
         ...state,
         contributors: [],
