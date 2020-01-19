@@ -106,7 +106,7 @@ export class GenerateContributors extends Component {
               </select>
             </div>
 
-            <div className="col">
+            <div className="col s12">
               <hr />
 
               <span className="card-title">
