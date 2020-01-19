@@ -1,9 +1,12 @@
 // Imports
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Links from './Links';
 import LinksBurger from './LinksBurger';
+import Preloader from './Preloader';
 import { navbarStyle } from '../../styles';
 
 // Component
@@ -33,6 +36,7 @@ class Navbar extends Component {
 
   render() {
     const largeViewCheck = this.state.width > 1007;
+    const { isLoading } = this.props;
 
     return (
       <div className="navbar-fixed">
@@ -49,10 +53,22 @@ class Navbar extends Component {
 
             {largeViewCheck ? <Links /> : <LinksBurger />}
           </div>
+
+          {isLoading ? <Preloader /> : null}
         </nav>
       </div>
     );
   }
 }
 
-export default Navbar;
+// Container
+const mapStateToProps = state => ({
+  isLoading: state.leaderboard.isLoading,
+});
+
+export default connect(mapStateToProps)(Navbar);
+
+// Prop Types
+Navbar.propTypes = {
+  isLoading: PropTypes.bool,
+};
