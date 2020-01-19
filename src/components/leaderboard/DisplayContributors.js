@@ -47,11 +47,11 @@ class DisplayContributors extends Component {
                 <table className="striped centered">
                   <thead>
                     <tr>
-                      <th>Rank</th>
+                      <th title="Leaderboard Rank">Rank</th>
 
-                      <th>Username</th>
+                      <th title="GitHub Username">Username</th>
 
-                      <th>Commits</th>
+                      <th title="Total GitHub Commits">Score</th>
                     </tr>
                   </thead>
 
