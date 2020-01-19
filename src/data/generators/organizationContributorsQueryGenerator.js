@@ -1,10 +1,15 @@
 // Query Generator
-const organizationContributorsQueryGenerator = (organizationLogin, timeISO) => {
+const organizationContributorsQueryGenerator = (
+  organizationLogin,
+  cursor,
+  timeISO
+) => {
   const organizationContributorsQuery = `
     {
       organization(login: "${organizationLogin}") {
-        membersWithRole(first: 100) {
+        membersWithRole(first: 25${cursor ? `, after: "${cursor}"` : ''}) {
           edges {
+            cursor,
             node {
               id,
               login,
