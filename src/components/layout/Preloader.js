@@ -7,7 +7,7 @@ const Preloader = props => {
   // console.log('props in Preloader: ', props);
 
   return (
-    <div className="progress">
+    <div className="progress preloader">
       <div className="indeterminate" />
     </div>
   );
