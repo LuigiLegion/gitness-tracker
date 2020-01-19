@@ -5,7 +5,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getTeamContributorsThunkCreator } from '../../store/reducers/leaderboardReducer';
+import {
+  getOrganizationContributorsThunkCreator,
+  getTeamContributorsThunkCreator,
+} from '../../store/reducers/leaderboardReducer';
 
 // Component
 export class GenerateContributors extends Component {
@@ -14,11 +17,18 @@ export class GenerateContributors extends Component {
 
     this.state = {
       team: '',
-      teamTime: '0',
+      time: '0',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.organization !== this.props.organization) {
+      this.setState({ team: '' });
+    }
   }
 
   handleChange(event) {
@@ -30,25 +40,36 @@ export class GenerateContributors extends Component {
     });
   }
 
-  handleSubmit(event) {
-    // console.log('event.target.id: ', event.target.id);
-    // console.log('event.target.value: ', event.target.value);
-
+  handleClick(event) {
     event.preventDefault();
 
-    const { team, teamTime } = this.state;
+    const { time } = this.state;
+    const { organization, getOrganizationContributorsThunk } = this.props;
+
+    // console.log('time in GenerateTeams handleClick: ', time);
+    // console.log('organization in GenerateTeams handleClick: ', organization);
+    // console.log('getOrganizationContributorsThunk in GenerateTeams handleClick: ', getOrganizationContributorsThunk);
+
+    getOrganizationContributorsThunk(organization, time);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const { team, time } = this.state;
     const { getTeamContributorsThunk } = this.props;
 
     // console.log('team in GenerateContributors handleSubmit: ', team);
-    // console.log('teamTime in GenerateContributors handleSubmit: ', teamTime);
+    // console.log('time in GenerateContributors handleSubmit: ', time);
     // console.log('getTeamContributorsThunk in GenerateContributors handleSubmit: ', getTeamContributorsThunk);
 
-    getTeamContributorsThunk(team, teamTime);
+    getTeamContributorsThunk(team, time);
   }
 
   render() {
-    const { teams } = this.props;
+    const { organization, teams } = this.props;
 
+    // console.log('organization in GenerateContributors: ', organization);
     // console.log('teams in GenerateContributors: ', teams);
 
     return (
@@ -57,35 +78,11 @@ export class GenerateContributors extends Component {
           <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
               <span className="gray-text-color bold-text-style">
-                Generate Team Leaderboard
+                Generate Leaderboard
               </span>
             </span>
 
-            <div className="input-field col s12">
-              <label htmlFor="team">
-                Teams<span className="red-text-color">*</span>
-              </label>
-
-              <br />
-              <br />
-
-              <select
-                id="team"
-                className="browser-default"
-                required
-                onChange={this.handleChange}
-              >
-                <option value="">Choose Team</option>
-
-                {teams.length
-                  ? teams.map(curTeam => (
-                      <option key={curTeam.node.id} value={curTeam.node.slug}>
-                        {curTeam.node.slug}
-                      </option>
-                    ))
-                  : null}
-              </select>
-            </div>
+            <br />
 
             <div className="input-field col s12">
               <label htmlFor="time">
@@ -96,7 +93,7 @@ export class GenerateContributors extends Component {
               <br />
 
               <select
-                id="teamTime"
+                id="time"
                 className="browser-default"
                 required
                 onChange={this.handleChange}
@@ -109,11 +106,74 @@ export class GenerateContributors extends Component {
               </select>
             </div>
 
+            <div className="col">
+              <hr />
+
+              <span className="card-title">
+                <span className="gray-text-color bold-text-style">Team</span>
+              </span>
+
+              <div className="input-field col s12">
+                <label htmlFor="team">
+                  Teams<span className="red-text-color">*</span>
+                </label>
+
+                <br />
+                <br />
+
+                <select
+                  id="team"
+                  className="browser-default"
+                  required
+                  onChange={this.handleChange}
+                >
+                  <option value="">Choose Team</option>
+
+                  {teams.length
+                    ? teams.map(curTeam => (
+                        <option key={curTeam.node.id} value={curTeam.node.slug}>
+                          {curTeam.node.slug}
+                        </option>
+                      ))
+                    : null}
+                </select>
+              </div>
+            </div>
+
             <br />
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!this.state.team.length || !Number(this.state.teamTime)}
+              disabled={
+                !teams.length ||
+                !this.state.team.length ||
+                !Number(this.state.time)
+              }
+            >
+              Generate
+            </button>
+
+            <br />
+
+            <hr />
+
+            <span className="card-title">
+              <span className="gray-text-color bold-text-style">Org</span>
+            </span>
+
+            <br />
+            <br />
+
+            <span className="italic-text-style">
+              {organization ? organization : 'Not Chosen Yet'}
+            </span>
+
+            <br />
+
+            <button
+              className="btn black lighten-1 z-depth-0"
+              disabled={!organization.length || !Number(this.state.time)}
+              onClick={this.handleClick}
             >
               Generate
             </button>
@@ -126,10 +186,14 @@ export class GenerateContributors extends Component {
 
 // Container
 const mapStateToProps = state => ({
+  organization: state.leaderboard.organization,
   teams: state.leaderboard.teams,
 });
 
 const mapDispatchToProps = dispatch => ({
+  getOrganizationContributorsThunk(organizationLogin, time) {
+    dispatch(getOrganizationContributorsThunkCreator(organizationLogin, time));
+  },
   getTeamContributorsThunk(teamSlug, time) {
     dispatch(getTeamContributorsThunkCreator(teamSlug, time));
   },
@@ -142,6 +206,8 @@ export default connect(
 
 // Prop Types
 GenerateContributors.propTypes = {
+  organization: PropTypes.string,
   teams: PropTypes.array,
+  getOrganizationContributorsThunk: PropTypes.func,
   getTeamContributorsThunk: PropTypes.func,
 };

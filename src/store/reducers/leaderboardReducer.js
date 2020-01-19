@@ -12,9 +12,9 @@ import {
 // Initial State
 const initialState = {
   organizations: [],
+  organization: '',
   teams: [],
   contributors: [],
-  organization: '',
   isLoading: false,
   disabledClear: true,
 };
@@ -33,10 +33,10 @@ export const gotOrganizationsActionCreator = organizations => ({
   organizations,
 });
 
-export const gotTeamsActionCreator = (teams, organization) => ({
+export const gotTeamsActionCreator = (organization, teams) => ({
   type: GOT_TEAMS,
-  teams,
   organization,
+  teams,
 });
 
 export const gotOrganizationContributorsActionCreator = contributors => ({
@@ -105,7 +105,7 @@ export const getTeamsThunkCreator = organizationLogin => {
 
       // console.log('teams in getTeamsThunkCreator: ', teams);
 
-      dispatch(gotTeamsActionCreator(teams, organizationLogin));
+      dispatch(gotTeamsActionCreator(organizationLogin, teams));
 
       if (teams.length) {
         toastNotificationGenerator('Teams Generated Successfully', 'green');
@@ -263,13 +263,13 @@ const leaderboardReducer = (state = initialState, action) => {
       };
 
     case GOT_TEAMS:
-      // console.log('action.teams in GOT_TEAMS: ', action.teams);
       // console.log('action.organization in GOT_TEAMS: ', action.organization);
+      // console.log('action.teams in GOT_TEAMS: ', action.teams);
 
       return {
         ...state,
-        teams: [...action.teams],
         organization: action.organization,
+        teams: [...action.teams],
         isLoading: false,
       };
 
