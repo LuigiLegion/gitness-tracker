@@ -22,7 +22,7 @@ const Links = props => {
           rel="noopener noreferrer"
           className="gray-text-color"
         >
-          <span className="gray-text-color bold-text-style">GitHub Repo</span>
+          <span className="gray-text-color bold-text-style">Source</span>
         </a>
       </li>
 
