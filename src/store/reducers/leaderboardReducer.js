@@ -66,10 +66,7 @@ export const getOrganizationsThunkCreator = username => {
 
       const organizations = data.user.organizations.nodes;
 
-      // console.log(
-      //   'organizations in getOrganizationsThunkCreator: ',
-      //   organizations
-      // );
+      // console.log('organizations in getOrganizationsThunkCreator: ', organizations);
 
       dispatch(gotOrganizationsActionCreator(organizations));
 
@@ -126,24 +123,44 @@ export const getOrganizationContributorsThunkCreator = (
         'yellow darken-3'
       );
 
-      const customTimeUTC = new Date(Date.now() - time);
-      const customTimeISO = customTimeUTC.toISOString();
+      const timeUTC = new Date(Date.now() - time);
+      const timeISO = timeUTC.toISOString();
 
-      const customQuery = organizationContributorsQueryGenerator(
-        organizationLogin,
-        customTimeISO
-      );
+      const getAllContributors = async (totalContributors = []) => {
+        let cursor = null;
 
-      const { data } = await githubDataFetcher(customQuery);
+        if (totalContributors.length) {
+          cursor = totalContributors[totalContributors.length - 1].cursor;
+        }
 
-      const contributors = data.organization.membersWithRole.edges;
+        const customQuery = organizationContributorsQueryGenerator(
+          organizationLogin,
+          cursor,
+          timeISO
+        );
+
+        const { data } = await githubDataFetcher(customQuery);
+
+        const curContributors = data.organization.membersWithRole.edges;
+
+        // console.log('curContributors in : getOrganizationContributorsThunkCreator', curContributors);
+
+        if (curContributors.length) {
+          const updatedTotalContributors = totalContributors.concat(
+            curContributors
+          );
+
+          return getAllContributors(updatedTotalContributors);
+        } else {
+          return totalContributors;
+        }
+      };
+
+      const contributors = await getAllContributors();
 
       contributorsSorter(contributors);
 
-      // console.log(
-      //   'contributors in getOrganizationContributorsThunkCreator: ',
-      //   contributors
-      // );
+      // console.log('contributors in getOrganizationContributorsThunkCreator: ', contributors);
 
       dispatch(gotOrganizationContributorsActionCreator(contributors));
 
@@ -170,27 +187,47 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
         'yellow darken-3'
       );
 
-      const customTimeUTC = new Date(Date.now() - time);
-      const customTimeISO = customTimeUTC.toISOString();
+      const timeUTC = new Date(Date.now() - time);
+      const timeISO = timeUTC.toISOString();
 
       const organizationLogin = getState().leaderboard.organization;
 
-      const customQuery = teamContributorsQueryGenerator(
-        organizationLogin,
-        teamSlug,
-        customTimeISO
-      );
+      const getAllContributors = async (totalContributors = []) => {
+        let cursor = null;
 
-      const { data } = await githubDataFetcher(customQuery);
+        if (totalContributors.length) {
+          cursor = totalContributors[totalContributors.length - 1].cursor;
+        }
 
-      const contributors = data.organization.team.members.edges;
+        const customQuery = teamContributorsQueryGenerator(
+          organizationLogin,
+          teamSlug,
+          cursor,
+          timeISO
+        );
+
+        const { data } = await githubDataFetcher(customQuery);
+
+        const curContributors = data.organization.team.members.edges;
+
+        // console.log('curContributors in getTeamContributorsThunkCreator: ', curContributors);
+
+        if (curContributors.length) {
+          const updatedTotalContributors = totalContributors.concat(
+            curContributors
+          );
+
+          return getAllContributors(updatedTotalContributors);
+        } else {
+          return totalContributors;
+        }
+      };
+
+      const contributors = await getAllContributors();
 
       contributorsSorter(contributors);
 
-      // console.log(
-      //   'contributors in getTeamContributorsThunkCreator: ',
-      //   contributors
-      // );
+      // console.log('contributors in getTeamContributorsThunkCreator: ', contributors);
 
       dispatch(gotTeamContributorsActionCreator(contributors));
 
