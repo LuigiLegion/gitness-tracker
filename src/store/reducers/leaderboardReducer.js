@@ -15,6 +15,7 @@ const initialState = {
   teams: [],
   contributors: [],
   organization: '',
+  isLoading: false,
   disabledClear: true,
 };
 
@@ -23,6 +24,7 @@ const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
 const GOT_TEAMS = 'GOT_TEAMS';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
+const TOGGLED_PRELOADER = 'TOGGLED_PRELOADER';
 const CLEARED_CONTRIBUTORS = 'CLEARED_CONTRIBUTORS';
 
 // Action Creators
@@ -47,6 +49,10 @@ export const gotTeamContributorsActionCreator = contributors => ({
   contributors,
 });
 
+export const toggledPreloaderActionCreator = () => ({
+  type: TOGGLED_PRELOADER,
+});
+
 export const clearedContributorsActionCreator = () => ({
   type: CLEARED_CONTRIBUTORS,
 });
@@ -55,10 +61,7 @@ export const clearedContributorsActionCreator = () => ({
 export const getOrganizationsThunkCreator = username => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      toastNotificationGenerator(
-        'Generating Organizations...',
-        'yellow darken-3'
-      );
+      dispatch(toggledPreloaderActionCreator());
 
       const customQuery = organizationsQueryGenerator(username);
 
@@ -89,7 +92,7 @@ export const getOrganizationsThunkCreator = username => {
 export const getTeamsThunkCreator = organizationLogin => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      toastNotificationGenerator('Generating Teams...', 'yellow darken-3');
+      dispatch(toggledPreloaderActionCreator());
 
       const customQuery = teamsQueryGenerator(organizationLogin);
 
@@ -118,10 +121,7 @@ export const getOrganizationContributorsThunkCreator = (
 ) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      toastNotificationGenerator(
-        'Generating Organization Leaderboard...',
-        'yellow darken-3'
-      );
+      dispatch(toggledPreloaderActionCreator());
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
@@ -182,10 +182,7 @@ export const getOrganizationContributorsThunkCreator = (
 export const getTeamContributorsThunkCreator = (teamSlug, time) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      toastNotificationGenerator(
-        'Generating Team Leaderboard...',
-        'yellow darken-3'
-      );
+      dispatch(toggledPreloaderActionCreator());
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
@@ -255,6 +252,7 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         organizations: [...action.organizations],
+        isLoading: false,
       };
 
     case GOT_TEAMS:
@@ -265,6 +263,7 @@ const leaderboardReducer = (state = initialState, action) => {
         ...state,
         teams: [...action.teams],
         organization: action.organization,
+        isLoading: false,
       };
 
     case GOT_ORGANIZATION_CONTRIBUTORS:
@@ -273,6 +272,7 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         contributors: [...action.contributors],
+        isLoading: false,
         disabledClear: false,
       };
 
@@ -282,7 +282,14 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         contributors: [...action.contributors],
+        isLoading: false,
         disabledClear: false,
+      };
+
+    case TOGGLED_PRELOADER:
+      return {
+        ...state,
+        isLoading: true,
       };
 
     case CLEARED_CONTRIBUTORS:
