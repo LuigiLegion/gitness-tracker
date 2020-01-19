@@ -40,7 +40,10 @@ class Navbar extends Component {
 
     return (
       <div className="navbar-fixed">
-        <nav className="nav-wrapper grey lighten-5" style={navbarStyle}>
+        <nav
+          className="nav-wrapper grey lighten-5 preloader-container"
+          style={navbarStyle}
+        >
           <div>
             <NavLink
               to="/"
@@ -54,7 +57,7 @@ class Navbar extends Component {
             {largeViewCheck ? <Links /> : <LinksBurger />}
           </div>
 
-          {isLoading ? <Preloader /> : null}
+          <div>{isLoading ? <Preloader /> : null}</div>
         </nav>
       </div>
     );
