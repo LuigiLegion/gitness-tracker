@@ -30,9 +30,6 @@ export class GenerateTeams extends Component {
   }
 
   handleSubmit(event) {
-    // console.log('event.target.id: ', event.target.id);
-    // console.log('event.target.value: ', event.target.value);
-
     event.preventDefault();
 
     const { organization } = this.state;
