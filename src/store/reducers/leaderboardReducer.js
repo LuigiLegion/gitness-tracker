@@ -210,7 +210,7 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
 
         const curContributors = data.organization.team.members.edges;
 
-        // console.log('curContributors in : getTeamContributorsThunkCreator', curContributors);
+        // console.log('curContributors in getTeamContributorsThunkCreator: ', curContributors);
 
         if (curContributors.length) {
           const updatedTotalContributors = totalContributors.concat(
