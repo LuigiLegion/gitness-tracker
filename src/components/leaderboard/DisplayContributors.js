@@ -39,7 +39,7 @@ class DisplayContributors extends Component {
         <div className="card white center">
           <div className="card-content grey-text text-darken-3 center">
             <span className="card-title">
-              <span className="bold-text-style">Contributors Leaderboard</span>
+              <span className="bold-text-style">Commits Leaderboard</span>
             </span>
 
             <div className="contributors">
