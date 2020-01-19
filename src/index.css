@@ -115,3 +115,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .padding-bottom {
   padding-bottom: 40px;
 }
+
+.preloader-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.preloader {
+  margin: 0px;
+}
