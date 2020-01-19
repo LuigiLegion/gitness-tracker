@@ -49,8 +49,9 @@ export const gotTeamContributorsActionCreator = contributors => ({
   contributors,
 });
 
-export const toggledPreloaderActionCreator = () => ({
+export const toggledPreloaderActionCreator = status => ({
   type: TOGGLED_PRELOADER,
+  status,
 });
 
 export const clearedContributorsActionCreator = () => ({
@@ -61,7 +62,7 @@ export const clearedContributorsActionCreator = () => ({
 export const getOrganizationsThunkCreator = username => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      dispatch(toggledPreloaderActionCreator());
+      dispatch(toggledPreloaderActionCreator(true));
 
       const customQuery = organizationsQueryGenerator(username);
 
@@ -84,6 +85,8 @@ export const getOrganizationsThunkCreator = username => {
     } catch (error) {
       console.error(error);
 
+      dispatch(toggledPreloaderActionCreator(false));
+
       toastNotificationGenerator('Error! Invalid GitHub Username', 'red');
     }
   };
@@ -92,7 +95,7 @@ export const getOrganizationsThunkCreator = username => {
 export const getTeamsThunkCreator = organizationLogin => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      dispatch(toggledPreloaderActionCreator());
+      dispatch(toggledPreloaderActionCreator(true));
 
       const customQuery = teamsQueryGenerator(organizationLogin);
 
@@ -121,7 +124,7 @@ export const getOrganizationContributorsThunkCreator = (
 ) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      dispatch(toggledPreloaderActionCreator());
+      dispatch(toggledPreloaderActionCreator(true));
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
@@ -171,6 +174,8 @@ export const getOrganizationContributorsThunkCreator = (
     } catch (error) {
       console.error(error);
 
+      dispatch(toggledPreloaderActionCreator(false));
+
       toastNotificationGenerator(
         'Error! Please Try A Shorter Time Period',
         'red'
@@ -182,7 +187,7 @@ export const getOrganizationContributorsThunkCreator = (
 export const getTeamContributorsThunkCreator = (teamSlug, time) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
-      dispatch(toggledPreloaderActionCreator());
+      dispatch(toggledPreloaderActionCreator(true));
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
@@ -234,6 +239,8 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
       );
     } catch (error) {
       console.error(error);
+
+      dispatch(toggledPreloaderActionCreator(false));
 
       toastNotificationGenerator(
         'Error! Please Try A Shorter Time Period',
@@ -287,9 +294,11 @@ const leaderboardReducer = (state = initialState, action) => {
       };
 
     case TOGGLED_PRELOADER:
+      // console.log('action.status in TOGGLED_PRELOADER: ', action.status);
+
       return {
         ...state,
-        isLoading: true,
+        isLoading: action.status,
       };
 
     case CLEARED_CONTRIBUTORS:
