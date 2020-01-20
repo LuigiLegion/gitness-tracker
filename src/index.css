@@ -40,10 +40,6 @@ a:hover {
   text-decoration: underline;
 }
 
-hr {
-  margin-bottom: 15px;
-}
-
 input[type='text']:not(.browser-default):focus:not([readonly]),
 input[type='email']:not(.browser-default):focus:not([readonly]),
 input[type='password']:not(.browser-default):focus:not([readonly]),
@@ -123,4 +119,13 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .preloader {
   margin: 0px;
+}
+
+.select-hr {
+  margin-top: 12.5px;
+  margin-bottom: 15px;
+}
+
+.button-hr {
+  margin-bottom: 15px;
 }
