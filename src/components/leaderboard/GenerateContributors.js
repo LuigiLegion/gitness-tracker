@@ -99,15 +99,18 @@ export class GenerateContributors extends Component {
                 onChange={this.handleChange}
               >
                 <option value="0">Choose Time</option>
+                <option value="86400000">Past Day</option>
+                <option value="604800000">Past Week</option>
                 <option value="2629746000">Past Month</option>
                 <option value="7889238000">Past 3 Months</option>
                 <option value="15778476000">Past 6 Months</option>
+                <option value="23667714000">Past 9 Months</option>
                 <option value="31556952000">Past Year</option>
               </select>
             </div>
 
             <div className="col s12">
-              <hr />
+              <hr className="select-hr" />
 
               <span className="card-title">
                 <span className="gray-text-color bold-text-style">Team</span>
@@ -155,7 +158,7 @@ export class GenerateContributors extends Component {
 
             <br />
 
-            <hr />
+            <hr className="button-hr" />
 
             <span className="card-title">
               <span className="gray-text-color bold-text-style">Org</span>
