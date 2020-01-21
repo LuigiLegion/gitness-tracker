@@ -6,7 +6,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { clearedContributorsActionCreator } from '../../store/reducers/leaderboardReducer';
-import { toastNotificationGenerator } from '../../data/index';
+import {
+  contributorsSorter,
+  toastNotificationGenerator,
+} from '../../data/index';
 
 // Component
 class DisplayContributors extends Component {
@@ -30,6 +33,8 @@ class DisplayContributors extends Component {
 
   render() {
     const { contributors, disabledClear } = this.props;
+
+    contributorsSorter(contributors);
 
     // console.log('contributors in DisplayContributors: ', DisplayContributors);
     // console.log('disabledClear in DisplayContributors: ', DisplayContributors);
