@@ -5,7 +5,6 @@ import {
   organizationContributorsQueryGenerator,
   teamContributorsQueryGenerator,
   githubDataFetcher,
-  contributorsSorter,
   toastNotificationGenerator,
 } from '../../data';
 
@@ -73,6 +72,7 @@ export const getOrganizationsThunkCreator = username => {
       // console.log('organizations in getOrganizationsThunkCreator: ', organizations);
 
       dispatch(gotOrganizationsActionCreator(organizations));
+      dispatch(toggledPreloaderActionCreator(false));
 
       if (organizations.length) {
         toastNotificationGenerator(
@@ -106,6 +106,7 @@ export const getTeamsThunkCreator = organizationLogin => {
       // console.log('teams in getTeamsThunkCreator: ', teams);
 
       dispatch(gotTeamsActionCreator(organizationLogin, teams));
+      dispatch(toggledPreloaderActionCreator(false));
 
       if (teams.length) {
         toastNotificationGenerator('Teams Generated Successfully', 'green');
@@ -114,6 +115,8 @@ export const getTeamsThunkCreator = organizationLogin => {
       }
     } catch (error) {
       console.error(error);
+
+      dispatch(toggledPreloaderActionCreator(false));
     }
   };
 };
@@ -125,6 +128,7 @@ export const getOrganizationContributorsThunkCreator = (
   return async (dispatch, getState, { getFirestore }) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
+      dispatch(clearedContributorsActionCreator());
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
@@ -148,24 +152,18 @@ export const getOrganizationContributorsThunkCreator = (
 
         // console.log('curContributors in : getOrganizationContributorsThunkCreator', curContributors);
 
-        if (curContributors.length) {
-          const updatedTotalContributors = totalContributors.concat(
-            curContributors
-          );
+        dispatch(gotOrganizationContributorsActionCreator(curContributors));
 
-          return getAllContributors(updatedTotalContributors);
+        if (curContributors.length === 25) {
+          return getAllContributors(curContributors);
         } else {
           return totalContributors;
         }
       };
 
-      const contributors = await getAllContributors();
+      await getAllContributors();
 
-      contributorsSorter(contributors);
-
-      // console.log('contributors in getOrganizationContributorsThunkCreator: ', contributors);
-
-      dispatch(gotOrganizationContributorsActionCreator(contributors));
+      dispatch(toggledPreloaderActionCreator(false));
 
       toastNotificationGenerator(
         'Organization Leaderboard Generated Successfully',
@@ -188,6 +186,7 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
+      dispatch(clearedContributorsActionCreator());
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
@@ -214,24 +213,18 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
 
         // console.log('curContributors in getTeamContributorsThunkCreator: ', curContributors);
 
-        if (curContributors.length) {
-          const updatedTotalContributors = totalContributors.concat(
-            curContributors
-          );
+        dispatch(gotTeamContributorsActionCreator(curContributors));
 
-          return getAllContributors(updatedTotalContributors);
+        if (curContributors.length === 25) {
+          return getAllContributors(curContributors);
         } else {
           return totalContributors;
         }
       };
 
-      const contributors = await getAllContributors();
+      await getAllContributors();
 
-      contributorsSorter(contributors);
-
-      // console.log('contributors in getTeamContributorsThunkCreator: ', contributors);
-
-      dispatch(gotTeamContributorsActionCreator(contributors));
+      dispatch(toggledPreloaderActionCreator(false));
 
       toastNotificationGenerator(
         'Team Leaderboard Generated Successfully',
@@ -259,7 +252,6 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         organizations: [...action.organizations],
-        isLoading: false,
       };
 
     case GOT_TEAMS:
@@ -270,7 +262,6 @@ const leaderboardReducer = (state = initialState, action) => {
         ...state,
         organization: action.organization,
         teams: [...action.teams],
-        isLoading: false,
       };
 
     case GOT_ORGANIZATION_CONTRIBUTORS:
@@ -278,8 +269,7 @@ const leaderboardReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        contributors: [...action.contributors],
-        isLoading: false,
+        contributors: [...state.contributors, ...action.contributors],
         disabledClear: false,
       };
 
@@ -288,8 +278,7 @@ const leaderboardReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        contributors: [...action.contributors],
-        isLoading: false,
+        contributors: [...state.contributors, ...action.contributors],
         disabledClear: false,
       };
 
