@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+
 // Imports
 import {
   organizationsQueryGenerator,
@@ -10,32 +12,51 @@ import {
 
 // Initial State
 const initialState = {
+  userLogin: '',
   organizations: [],
-  organization: '',
+  organizationLogin: '',
   teams: [],
+  teamSlug: '',
   contributors: [],
   isLoading: false,
   disabledClear: true,
 };
 
 // Action Types
+const GOT_USER_LOGIN = 'GOT_USER_LOGIN';
 const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
+const GOT_ORGANIZATION_LOGIN = 'GOT_ORGANIZATION_LOGIN';
 const GOT_TEAMS = 'GOT_TEAMS';
+const GOT_TEAM_SLUG = 'GOT_TEAM_SLUG';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
 const TOGGLED_PRELOADER = 'TOGGLED_PRELOADER';
 const CLEARED_CONTRIBUTORS = 'CLEARED_CONTRIBUTORS';
 
 // Action Creators
+export const gotUserLoginActionCreator = userLogin => ({
+  type: GOT_USER_LOGIN,
+  userLogin,
+});
+
 export const gotOrganizationsActionCreator = organizations => ({
   type: GOT_ORGANIZATIONS,
   organizations,
 });
 
-export const gotTeamsActionCreator = (organization, teams) => ({
+export const gotOrganizationLoginActionCreator = organizationLogin => ({
+  type: GOT_ORGANIZATION_LOGIN,
+  organizationLogin,
+});
+
+export const gotTeamsActionCreator = teams => ({
   type: GOT_TEAMS,
-  organization,
   teams,
+});
+
+export const gotTeamSlugActionCreator = teamSlug => ({
+  type: GOT_TEAM_SLUG,
+  teamSlug,
 });
 
 export const gotOrganizationContributorsActionCreator = contributors => ({
@@ -58,15 +79,15 @@ export const clearedContributorsActionCreator = () => ({
 });
 
 // Thunk Creators
-export const getOrganizationsThunkCreator = username => {
+export const getOrganizationsThunkCreator = userLogin => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
+      dispatch(gotUserLoginActionCreator(userLogin));
 
-      const customQuery = organizationsQueryGenerator(username);
+      const customQuery = organizationsQueryGenerator(userLogin);
 
       const { data } = await githubDataFetcher(customQuery);
-
       const organizations = data.user.organizations.nodes;
 
       // console.log('organizations in getOrganizationsThunkCreator: ', organizations);
@@ -96,16 +117,16 @@ export const getTeamsThunkCreator = organizationLogin => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
+      dispatch(gotOrganizationLoginActionCreator(organizationLogin));
 
       const customQuery = teamsQueryGenerator(organizationLogin);
 
       const { data } = await githubDataFetcher(customQuery);
-
       const teams = data.organization.teams.edges;
 
       // console.log('teams in getTeamsThunkCreator: ', teams);
 
-      dispatch(gotTeamsActionCreator(organizationLogin, teams));
+      dispatch(gotTeamsActionCreator(teams));
       dispatch(toggledPreloaderActionCreator(false));
 
       if (teams.length) {
@@ -121,10 +142,7 @@ export const getTeamsThunkCreator = organizationLogin => {
   };
 };
 
-export const getOrganizationContributorsThunkCreator = (
-  organizationLogin,
-  time
-) => {
+export const getOrganizationContributorsThunkCreator = time => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
@@ -132,6 +150,8 @@ export const getOrganizationContributorsThunkCreator = (
 
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
+
+      const { organizationLogin } = getState().leaderboard;
 
       const getAllContributors = async (totalContributors = []) => {
         let cursor = null;
@@ -147,7 +167,6 @@ export const getOrganizationContributorsThunkCreator = (
         );
 
         const { data } = await githubDataFetcher(customQuery);
-
         const curContributors = data.organization.membersWithRole.edges;
 
         // console.log('curContributors in : getOrganizationContributorsThunkCreator', curContributors);
@@ -182,7 +201,7 @@ export const getOrganizationContributorsThunkCreator = (
   };
 };
 
-export const getTeamContributorsThunkCreator = (teamSlug, time) => {
+export const getTeamContributorsThunkCreator = time => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
@@ -191,7 +210,7 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
       const timeUTC = new Date(Date.now() - time);
       const timeISO = timeUTC.toISOString();
 
-      const organizationLogin = getState().leaderboard.organization;
+      const { organizationLogin, teamSlug } = getState().leaderboard;
 
       const getAllContributors = async (totalContributors = []) => {
         let cursor = null;
@@ -208,7 +227,6 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
         );
 
         const { data } = await githubDataFetcher(customQuery);
-
         const curContributors = data.organization.team.members.edges;
 
         // console.log('curContributors in getTeamContributorsThunkCreator: ', curContributors);
@@ -246,6 +264,14 @@ export const getTeamContributorsThunkCreator = (teamSlug, time) => {
 // Reducer
 const leaderboardReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GOT_USER_LOGIN:
+      // console.log('action.userLogin in GOT_USER_LOGIN: ', action.userLogin);
+
+      return {
+        ...state,
+        userLogin: action.userLogin,
+      };
+
     case GOT_ORGANIZATIONS:
       // console.log('action.organizations in GOT_ORGANIZATIONS: ', action.organizations);
 
@@ -254,14 +280,28 @@ const leaderboardReducer = (state = initialState, action) => {
         organizations: [...action.organizations],
       };
 
+    case GOT_ORGANIZATION_LOGIN:
+      // console.log('action.organizationLogin in GOT_ORGANIZATION_LOGIN: ', action.organizationLogin);
+
+      return {
+        ...state,
+        organizationLogin: action.organizationLogin,
+      };
+
     case GOT_TEAMS:
-      // console.log('action.organization in GOT_TEAMS: ', action.organization);
       // console.log('action.teams in GOT_TEAMS: ', action.teams);
 
       return {
         ...state,
-        organization: action.organization,
         teams: [...action.teams],
+      };
+
+    case GOT_TEAM_SLUG:
+      // console.log('action.teamSlug in GOT_TEAM_SLUG: ', action.teamSlug);
+
+      return {
+        ...state,
+        teamSlug: action.teamSlug,
       };
 
     case GOT_ORGANIZATION_CONTRIBUTORS:

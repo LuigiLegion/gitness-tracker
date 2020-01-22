@@ -61,9 +61,7 @@ class LinksBurger extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="gray-text-color bold-text-style">
-                  Contact Info
-                </span>
+                <span className="gray-text-color bold-text-style">Contact</span>
               </a>
             </div>
           </div>

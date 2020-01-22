@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class GenerateOrganizations extends Component {
+export class SelectUser extends Component {
   constructor() {
     super();
 
     this.state = {
-      username: '',
+      userLogin: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,34 +32,36 @@ export class GenerateOrganizations extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { username } = this.state;
+    const { userLogin } = this.state;
     const { getOrganizationsThunk } = this.props;
 
-    // console.log('username in GenerateOrganizations handleSubmit: ', username);
-    // console.log('getOrganizationsThunk in GenerateOrganizations handleSubmit: ', getOrganizationsThunk);
+    // console.log('userLogin in SelectUser handleSubmit: ', userLogin);
+    // console.log('getOrganizationsThunk in SelectUser handleSubmit: ', getOrganizationsThunk);
 
-    getOrganizationsThunk(username);
+    getOrganizationsThunk(userLogin);
   }
 
   render() {
+    const { userLogin } = this.props;
+
+    // console.log('userLogin in SelectUser render: ', userLogin);
+
     return (
       <div className="container center">
         <div className="section center">
           <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
-              <span className="gray-text-color bold-text-style">
-                Generate Orgs
-              </span>
+              <span className="gray-text-color bold-text-style">User</span>
             </span>
 
             <div className="input-field">
-              <label htmlFor="username">
+              <label htmlFor="userLogin">
                 GitHub Username<span className="red-text-color">*</span>
               </label>
 
               <input
                 type="text"
-                id="username"
+                id="userLogin"
                 required
                 onChange={this.handleChange}
               />
@@ -67,10 +69,20 @@ export class GenerateOrganizations extends Component {
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={!this.state.username.length}
+              disabled={!this.state.userLogin.length}
             >
-              Generate
+              Select
             </button>
+
+            <br />
+            <br />
+
+            <span className="italic-text-style">
+              {userLogin ? userLogin : 'Not Selected Yet'}
+            </span>
+
+            <br />
+            <br />
           </form>
         </div>
       </div>
@@ -79,18 +91,23 @@ export class GenerateOrganizations extends Component {
 }
 
 // Container
+const mapStateToProps = state => ({
+  userLogin: state.leaderboard.userLogin,
+});
+
 const mapDispatchToProps = dispatch => ({
-  getOrganizationsThunk(username) {
-    dispatch(getOrganizationsThunkCreator(username));
+  getOrganizationsThunk(userLogin) {
+    dispatch(getOrganizationsThunkCreator(userLogin));
   },
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(GenerateOrganizations);
+)(SelectUser);
 
 // Prop Types
-GenerateOrganizations.propTypes = {
+SelectUser.propTypes = {
+  userLogin: PropTypes.string,
   getOrganizationsThunk: PropTypes.func,
 };
