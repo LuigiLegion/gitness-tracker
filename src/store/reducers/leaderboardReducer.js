@@ -19,7 +19,7 @@ const initialState = {
   teamSlug: '',
   contributors: [],
   isLoading: false,
-  disabledClear: true,
+  isNotClearable: true,
 };
 
 // Action Types
@@ -31,6 +31,7 @@ const GOT_TEAM_SLUG = 'GOT_TEAM_SLUG';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
 const TOGGLED_PRELOADER = 'TOGGLED_PRELOADER';
+const TOGGLED_CLEAR_BUTTON = 'TOGGLED_CLEAR_BUTTON';
 const CLEARED_CONTRIBUTORS = 'CLEARED_CONTRIBUTORS';
 
 // Action Creators
@@ -71,6 +72,11 @@ export const gotTeamContributorsActionCreator = contributors => ({
 
 export const toggledPreloaderActionCreator = status => ({
   type: TOGGLED_PRELOADER,
+  status,
+});
+
+export const toggledClearButtonActionCreator = status => ({
+  type: TOGGLED_CLEAR_BUTTON,
   status,
 });
 
@@ -183,6 +189,7 @@ export const getOrganizationContributorsThunkCreator = time => {
       await getAllContributors();
 
       dispatch(toggledPreloaderActionCreator(false));
+      dispatch(toggledClearButtonActionCreator(false));
 
       toastNotificationGenerator(
         'Organization Leaderboard Generated Successfully',
@@ -243,6 +250,7 @@ export const getTeamContributorsThunkCreator = time => {
       await getAllContributors();
 
       dispatch(toggledPreloaderActionCreator(false));
+      dispatch(toggledClearButtonActionCreator(false));
 
       toastNotificationGenerator(
         'Team Leaderboard Generated Successfully',
@@ -310,7 +318,6 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         contributors: [...state.contributors, ...action.contributors],
-        disabledClear: false,
       };
 
     case GOT_TEAM_CONTRIBUTORS:
@@ -319,7 +326,6 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         contributors: [...state.contributors, ...action.contributors],
-        disabledClear: false,
       };
 
     case TOGGLED_PRELOADER:
@@ -330,11 +336,19 @@ const leaderboardReducer = (state = initialState, action) => {
         isLoading: action.status,
       };
 
+    case TOGGLED_CLEAR_BUTTON:
+      // console.log('action.status in TOGGLED_CLEAR_BUTTON: ', action.status);
+
+      return {
+        ...state,
+        isNotClearable: action.status,
+      };
+
     case CLEARED_CONTRIBUTORS:
       return {
         ...state,
         contributors: [],
-        disabledClear: true,
+        isNotClearable: true,
       };
 
     default:
