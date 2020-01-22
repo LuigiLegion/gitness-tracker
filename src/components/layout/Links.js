@@ -33,7 +33,7 @@ const Links = props => {
           rel="noopener noreferrer"
           className="gray-text-color"
         >
-          <span className="gray-text-color bold-text-style">Contact Info</span>
+          <span className="gray-text-color bold-text-style">Contact</span>
         </a>
       </li>
     </ul>
