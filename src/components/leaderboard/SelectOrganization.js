@@ -24,7 +24,10 @@ export class SelectOrganization extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.userLogin !== this.props.userLogin) {
+    if (
+      prevProps.userLogin !== this.props.userLogin &&
+      prevState.organizationLogin
+    ) {
       this.setState({ organizationLogin: '' });
       this.props.gotOrganizationLoginAction('');
     }

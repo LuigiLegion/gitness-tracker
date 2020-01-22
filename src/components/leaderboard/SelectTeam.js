@@ -22,7 +22,10 @@ export class SelectTeam extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.organizationLogin !== this.props.organizationLogin) {
+    if (
+      prevProps.organizationLogin !== this.props.organizationLogin &&
+      prevState.teamSlug
+    ) {
       this.setState({ teamSlug: '' });
       this.props.gotTeamSlugAction('');
     }
