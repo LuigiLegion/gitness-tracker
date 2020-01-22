@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable react/button-has-type */
 
 // Imports
@@ -16,18 +17,50 @@ export class GenerateContributors extends Component {
     super();
 
     this.state = {
-      team: '',
+      type: '',
       time: '0',
+      disabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.organization !== this.props.organization) {
-      this.setState({ team: '' });
+    const { type, time } = this.state;
+    const { userLogin, organizationLogin, teamSlug } = this.props;
+
+    // console.log('type in GenerateContributors componentDidUpdate: ', type);
+    // console.log('time in GenerateContributors componentDidUpdate: ', time);
+    // console.log('userLogin in GenerateContributors componentDidUpdate: ', userLogin);
+    // console.log('organizationLogin in GenerateContributors componentDidUpdate: ', organizationLogin);
+    // console.log('teamSlug in GenerateContributors componentDidUpdate: ', teamSlug);
+
+    if (
+      prevState.type !== type ||
+      prevState.time !== time ||
+      prevProps.userLogin !== userLogin ||
+      prevProps.organizationLogin !== organizationLogin ||
+      prevProps.teamSlug !== teamSlug
+    ) {
+      const userLoginCheck = type === 'user' && userLogin;
+      const organizationLoginCheck =
+        type === 'organization' && organizationLogin;
+      const teamSlugCheck = type === 'team' && teamSlug;
+      const timeCheck = Number(time);
+
+      let newDisabledStatus = true;
+
+      if (
+        (userLoginCheck || organizationLoginCheck || teamSlugCheck) &&
+        timeCheck
+      ) {
+        newDisabledStatus = false;
+      }
+
+      this.setState({
+        disabled: newDisabledStatus,
+      });
     }
   }
 
@@ -40,47 +73,64 @@ export class GenerateContributors extends Component {
     });
   }
 
-  handleClick(event) {
-    event.preventDefault();
-
-    const { time } = this.state;
-    const { organization, getOrganizationContributorsThunk } = this.props;
-
-    // console.log('time in GenerateTeams handleClick: ', time);
-    // console.log('organization in GenerateTeams handleClick: ', organization);
-    // console.log('getOrganizationContributorsThunk in GenerateTeams handleClick: ', getOrganizationContributorsThunk);
-
-    getOrganizationContributorsThunk(organization, time);
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
-    const { team, time } = this.state;
-    const { getTeamContributorsThunk } = this.props;
+    const { type, time } = this.state;
 
-    // console.log('team in GenerateContributors handleSubmit: ', team);
+    // console.log('type in GenerateContributors handleSubmit: ', type);
     // console.log('time in GenerateContributors handleSubmit: ', time);
-    // console.log('getTeamContributorsThunk in GenerateContributors handleSubmit: ', getTeamContributorsThunk);
 
-    getTeamContributorsThunk(team, time);
+    if (type === 'user') {
+      const { userLogin } = this.props;
+
+      console.log('userLogin in GenerateTeams handleSubmit: ', userLogin);
+    } else if (type === 'organization') {
+      const { getOrganizationContributorsThunk } = this.props;
+
+      // console.log('getOrganizationContributorsThunk in GenerateTeams handleSubmit: ', getOrganizationContributorsThunk);
+
+      getOrganizationContributorsThunk(time);
+    } else if (type === 'team') {
+      const { getTeamContributorsThunk } = this.props;
+
+      // console.log('getTeamContributorsThunk in GenerateContributors handleSubmit: ', getTeamContributorsThunk);
+
+      getTeamContributorsThunk(time);
+    }
   }
 
   render() {
-    const { organization, teams } = this.props;
-
-    // console.log('organization in GenerateContributors: ', organization);
-    // console.log('teams in GenerateContributors: ', teams);
-
     return (
       <div className="container center">
         <div className="section center">
           <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
-              <span className="gray-text-color bold-text-style">
-                Generate Leaderboard
-              </span>
+              <span className="gray-text-color bold-text-style">Time</span>
             </span>
+
+            <br />
+
+            <div className="input-field col s12">
+              <label htmlFor="type">
+                Type<span className="red-text-color">*</span>
+              </label>
+
+              <br />
+              <br />
+
+              <select
+                id="type"
+                className="browser-default"
+                required
+                onChange={this.handleChange}
+              >
+                <option value="">Select Type</option>
+                <option value="user">User</option>
+                <option value="organization">Org</option>
+                <option value="team">Team</option>
+              </select>
+            </div>
 
             <br />
 
@@ -98,7 +148,7 @@ export class GenerateContributors extends Component {
                 required
                 onChange={this.handleChange}
               >
-                <option value="0">Choose Time</option>
+                <option value="0">Select Time</option>
                 <option value="86400000">Past Day</option>
                 <option value="604800000">Past Week</option>
                 <option value="2629746000">Past Month</option>
@@ -109,74 +159,12 @@ export class GenerateContributors extends Component {
               </select>
             </div>
 
-            <div className="col s12">
-              <hr className="select-hr" />
-
-              <span className="card-title">
-                <span className="gray-text-color bold-text-style">Team</span>
-              </span>
-
-              <div className="input-field col s12">
-                <label htmlFor="team">
-                  Teams<span className="red-text-color">*</span>
-                </label>
-
-                <br />
-                <br />
-
-                <select
-                  id="team"
-                  className="browser-default"
-                  required
-                  onChange={this.handleChange}
-                >
-                  <option value="">Choose Team</option>
-
-                  {teams.length
-                    ? teams.map(curTeam => (
-                        <option key={curTeam.node.id} value={curTeam.node.slug}>
-                          {curTeam.node.slug}
-                        </option>
-                      ))
-                    : null}
-                </select>
-              </div>
-            </div>
-
             <br />
 
             <button
               className="btn black lighten-1 z-depth-0"
-              disabled={
-                !teams.length ||
-                !this.state.team.length ||
-                !Number(this.state.time)
-              }
-            >
-              Generate
-            </button>
-
-            <br />
-
-            <hr className="button-hr" />
-
-            <span className="card-title">
-              <span className="gray-text-color bold-text-style">Org</span>
-            </span>
-
-            <br />
-            <br />
-
-            <span className="italic-text-style">
-              {organization ? organization : 'Not Chosen Yet'}
-            </span>
-
-            <br />
-
-            <button
-              className="btn black lighten-1 z-depth-0"
-              disabled={!organization.length || !Number(this.state.time)}
-              onClick={this.handleClick}
+              // disabled={!this.state.type.length || !Number(this.state.time)}
+              disabled={this.state.disabled}
             >
               Generate
             </button>
@@ -189,16 +177,17 @@ export class GenerateContributors extends Component {
 
 // Container
 const mapStateToProps = state => ({
-  organization: state.leaderboard.organization,
-  teams: state.leaderboard.teams,
+  userLogin: state.leaderboard.userLogin,
+  organizationLogin: state.leaderboard.organizationLogin,
+  teamSlug: state.leaderboard.teamSlug,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getOrganizationContributorsThunk(organizationLogin, time) {
-    dispatch(getOrganizationContributorsThunkCreator(organizationLogin, time));
+  getOrganizationContributorsThunk(time) {
+    dispatch(getOrganizationContributorsThunkCreator(time));
   },
-  getTeamContributorsThunk(teamSlug, time) {
-    dispatch(getTeamContributorsThunkCreator(teamSlug, time));
+  getTeamContributorsThunk(time) {
+    dispatch(getTeamContributorsThunkCreator(time));
   },
 });
 
@@ -209,8 +198,9 @@ export default connect(
 
 // Prop Types
 GenerateContributors.propTypes = {
-  organization: PropTypes.string,
-  teams: PropTypes.array,
+  userLogin: PropTypes.string,
+  organizationLogin: PropTypes.string,
+  teamSlug: PropTypes.string,
   getOrganizationContributorsThunk: PropTypes.func,
   getTeamContributorsThunk: PropTypes.func,
 };
