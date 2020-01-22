@@ -6,6 +6,9 @@ export {
   default as teamsQueryGenerator,
 } from './generators/teamsQueryGenerator';
 export {
+  default as userContributionsQueryGenerator,
+} from './generators/userContributionsQueryGenerator';
+export {
   default as organizationContributorsQueryGenerator,
 } from './generators/organizationContributorsQueryGenerator';
 export {

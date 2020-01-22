@@ -4,6 +4,7 @@
 import {
   organizationsQueryGenerator,
   teamsQueryGenerator,
+  userContributionsQueryGenerator,
   organizationContributorsQueryGenerator,
   teamContributorsQueryGenerator,
   githubDataFetcher,
