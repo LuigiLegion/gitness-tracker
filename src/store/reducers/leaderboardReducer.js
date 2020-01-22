@@ -29,6 +29,7 @@ const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
 const GOT_ORGANIZATION_LOGIN = 'GOT_ORGANIZATION_LOGIN';
 const GOT_TEAMS = 'GOT_TEAMS';
 const GOT_TEAM_SLUG = 'GOT_TEAM_SLUG';
+const GOT_USER_CONTRIBUTIONS = 'GOT_USER_CONTRIBUTIONS';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
 const TOGGLED_PRELOADER = 'TOGGLED_PRELOADER';
@@ -59,6 +60,11 @@ export const gotTeamsActionCreator = teams => ({
 export const gotTeamSlugActionCreator = teamSlug => ({
   type: GOT_TEAM_SLUG,
   teamSlug,
+});
+
+export const gotUserContributionsActionCreator = contributor => ({
+  type: GOT_USER_CONTRIBUTIONS,
+  contributor,
 });
 
 export const gotOrganizationContributorsActionCreator = contributors => ({
@@ -149,6 +155,47 @@ export const getTeamsThunkCreator = organizationLogin => {
   };
 };
 
+export const getUserContributionsThunkCreator = time => {
+  return async (dispatch, getState, { getFirestore }) => {
+    try {
+      dispatch(toggledPreloaderActionCreator(true));
+      dispatch(clearedContributorsActionCreator());
+
+      const timeUTC = new Date(Date.now() - time);
+      const timeISO = timeUTC.toISOString();
+
+      const { userLogin } = getState().leaderboard;
+
+      const customQuery = userContributionsQueryGenerator(userLogin, timeISO);
+
+      const { data } = await githubDataFetcher(customQuery);
+      const contributor = {
+        node: data.user,
+      };
+
+      // console.log('contributor in getUserContributionsThunkCreator: ', contributor);
+
+      dispatch(gotUserContributionsActionCreator(contributor));
+      dispatch(toggledPreloaderActionCreator(false));
+      dispatch(toggledClearButtonActionCreator(false));
+
+      toastNotificationGenerator(
+        'User Leaderboard Generated Successfully',
+        'green'
+      );
+    } catch (error) {
+      console.error(error);
+
+      dispatch(toggledPreloaderActionCreator(false));
+
+      toastNotificationGenerator(
+        'Error! Please Try A Shorter Time Period',
+        'red'
+      );
+    }
+  };
+};
+
 export const getOrganizationContributorsThunkCreator = time => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
@@ -176,7 +223,7 @@ export const getOrganizationContributorsThunkCreator = time => {
         const { data } = await githubDataFetcher(customQuery);
         const curContributors = data.organization.membersWithRole.edges;
 
-        // console.log('curContributors in : getOrganizationContributorsThunkCreator', curContributors);
+        // console.log('curContributors in getOrganizationContributorsThunkCreator: ', curContributors);
 
         dispatch(gotOrganizationContributorsActionCreator(curContributors));
 
@@ -311,6 +358,14 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         teamSlug: action.teamSlug,
+      };
+
+    case GOT_USER_CONTRIBUTIONS:
+      // console.log('action.contributor in GOT_USER_CONTRIBUTIONS: ', action.contributor);
+
+      return {
+        ...state,
+        contributors: [action.contributor],
       };
 
     case GOT_ORGANIZATION_CONTRIBUTORS:
