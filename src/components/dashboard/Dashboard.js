@@ -2,8 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import GenerateOrganizations from '../leaderboard/GenerateOrganizations';
-import GenerateTeams from '../leaderboard/GenerateTeams';
+import SelectUser from '../leaderboard/SelectUser';
+import SelectOrganization from '../leaderboard/SelectOrganization';
+import SelectTeam from '../leaderboard/SelectTeam';
 import GenerateContributors from '../leaderboard/GenerateContributors';
 import DisplayContributors from '../leaderboard/DisplayContributors';
 import { generateStyle, displayStyle } from '../../styles';
@@ -16,15 +17,19 @@ const Dashboard = props => {
     <div className="dashboard container">
       <div>
         <div className="row">
-          <div className="col s12 m4" style={generateStyle}>
-            <GenerateOrganizations />
+          <div className="col s12 m3" style={generateStyle}>
+            <SelectUser />
           </div>
 
-          <div className="col s12 m4" style={generateStyle}>
-            <GenerateTeams />
+          <div className="col s12 m3" style={generateStyle}>
+            <SelectOrganization />
           </div>
 
-          <div className="col s12 m4" style={generateStyle}>
+          <div className="col s12 m3" style={generateStyle}>
+            <SelectTeam />
+          </div>
+
+          <div className="col s12 m3" style={generateStyle}>
             <GenerateContributors />
           </div>
         </div>
