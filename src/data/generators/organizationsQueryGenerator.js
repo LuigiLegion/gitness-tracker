@@ -3,16 +3,11 @@ const organizationsQueryGenerator = userLogin => {
   const organizationsQuery = `
     {
       user(login: "${userLogin}") {
-        id
-        name
-        email
+        id,
         organizations(first: 100) {
           nodes {
-            id
+            id,
             login
-            email
-            name
-            avatarUrl
           }
         }
       }
