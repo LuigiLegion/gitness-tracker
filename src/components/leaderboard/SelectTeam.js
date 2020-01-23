@@ -47,9 +47,9 @@ export class SelectTeam extends Component {
     const { gotTeamSlugAction } = this.props;
 
     // console.log('teamSlug in SelectTeam handleSubmit: ', teamSlug);
-    // console.log('getTeamAction in SelectTeam handleSubmit: ', getTeamAction);
 
     gotTeamSlugAction(teamSlug);
+
     toastNotificationGenerator('Team Selected Succesfully', 'green');
   }
 

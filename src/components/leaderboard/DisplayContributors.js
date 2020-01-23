@@ -24,8 +24,6 @@ class DisplayContributors extends Component {
 
     const { clearedContributorsAction } = this.props;
 
-    // console.log('clearedContributorsAction in DisplayContributors handleSubmit: ', clearedContributorsAction);
-
     clearedContributorsAction();
 
     toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
@@ -36,8 +34,8 @@ class DisplayContributors extends Component {
 
     contributorsSorter(contributors);
 
-    // console.log('contributors in DisplayContributors: ', contributors);
-    // console.log('isNotClearable in DisplayContributors: ', isNotClearable);
+    // console.log('contributors in DisplayContributors render: ', contributors);
+    // console.log('isNotClearable in DisplayContributors render: ', isNotClearable);
 
     return (
       <div className="section center">

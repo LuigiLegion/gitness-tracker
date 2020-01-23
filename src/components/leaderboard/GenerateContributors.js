@@ -78,16 +78,21 @@ export class GenerateContributors extends Component {
     event.preventDefault();
 
     const { type, time } = this.state;
+    const {
+      getUserContributionsThunk,
+      getOrganizationContributorsThunk,
+      getTeamContributorsThunk,
+    } = this.props;
 
     // console.log('type in GenerateContributors handleSubmit: ', type);
     // console.log('time in GenerateContributors handleSubmit: ', time);
 
     if (type === 'user') {
-      this.props.getUserContributionsThunk(time);
+      getUserContributionsThunk(time);
     } else if (type === 'organization') {
-      this.props.getOrganizationContributorsThunk(time);
+      getOrganizationContributorsThunk(time);
     } else if (type === 'team') {
-      this.props.getTeamContributorsThunk(time);
+      getTeamContributorsThunk(time);
     }
   }
 

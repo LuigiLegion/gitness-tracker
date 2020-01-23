@@ -49,7 +49,6 @@ export class SelectOrganization extends Component {
     const { getTeamsThunk } = this.props;
 
     // console.log('organizationLogin in SelectOrganization handleSubmit: ', organizationLogin);
-    // console.log('getTeamsThunk in SelectOrganization handleSubmit: ', getTeamsThunk);
 
     getTeamsThunk(organizationLogin);
   }
