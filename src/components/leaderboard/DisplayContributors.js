@@ -24,20 +24,18 @@ class DisplayContributors extends Component {
 
     const { clearedContributorsAction } = this.props;
 
-    // console.log('clearedContributorsAction in DisplayContributors handleSubmit: ', clearedContributorsAction);
-
     clearedContributorsAction();
 
     toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
   }
 
   render() {
-    const { contributors, disabledClear } = this.props;
+    const { contributors, isNotClearable } = this.props;
 
     contributorsSorter(contributors);
 
-    // console.log('contributors in DisplayContributors: ', DisplayContributors);
-    // console.log('disabledClear in DisplayContributors: ', DisplayContributors);
+    // console.log('contributors in DisplayContributors render: ', contributors);
+    // console.log('isNotClearable in DisplayContributors render: ', isNotClearable);
 
     return (
       <div className="section center">
@@ -107,7 +105,7 @@ class DisplayContributors extends Component {
             <form className="clear-form" onSubmit={this.handleSubmit}>
               <button
                 className="btn black black-1 z-depth-0"
-                disabled={disabledClear}
+                disabled={isNotClearable}
               >
                 Clear
               </button>
@@ -122,7 +120,7 @@ class DisplayContributors extends Component {
 // Container
 const mapStateToProps = state => ({
   contributors: state.leaderboard.contributors,
-  disabledClear: state.leaderboard.disabledClear,
+  isNotClearable: state.leaderboard.isNotClearable,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -139,6 +137,6 @@ export default connect(
 // Prop Types
 DisplayContributors.propTypes = {
   contributors: PropTypes.array,
-  disabledClear: PropTypes.bool,
+  isNotClearable: PropTypes.bool,
   clearedContributorsAction: PropTypes.func,
 };

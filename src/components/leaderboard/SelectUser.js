@@ -36,7 +36,6 @@ export class SelectUser extends Component {
     const { getOrganizationsThunk } = this.props;
 
     // console.log('userLogin in SelectUser handleSubmit: ', userLogin);
-    // console.log('getOrganizationsThunk in SelectUser handleSubmit: ', getOrganizationsThunk);
 
     getOrganizationsThunk(userLogin);
   }

@@ -22,7 +22,10 @@ export class SelectTeam extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.organizationLogin !== this.props.organizationLogin) {
+    if (
+      prevProps.organizationLogin !== this.props.organizationLogin &&
+      prevState.teamSlug
+    ) {
       this.setState({ teamSlug: '' });
       this.props.gotTeamSlugAction('');
     }
@@ -44,9 +47,9 @@ export class SelectTeam extends Component {
     const { gotTeamSlugAction } = this.props;
 
     // console.log('teamSlug in SelectTeam handleSubmit: ', teamSlug);
-    // console.log('getTeamAction in SelectTeam handleSubmit: ', getTeamAction);
 
     gotTeamSlugAction(teamSlug);
+
     toastNotificationGenerator('Team Selected Succesfully', 'green');
   }
 

@@ -4,6 +4,7 @@
 import {
   organizationsQueryGenerator,
   teamsQueryGenerator,
+  userContributionsQueryGenerator,
   organizationContributorsQueryGenerator,
   teamContributorsQueryGenerator,
   githubDataFetcher,
@@ -19,7 +20,7 @@ const initialState = {
   teamSlug: '',
   contributors: [],
   isLoading: false,
-  disabledClear: true,
+  isNotClearable: true,
 };
 
 // Action Types
@@ -28,9 +29,11 @@ const GOT_ORGANIZATIONS = 'GOT_ORGANIZATIONS';
 const GOT_ORGANIZATION_LOGIN = 'GOT_ORGANIZATION_LOGIN';
 const GOT_TEAMS = 'GOT_TEAMS';
 const GOT_TEAM_SLUG = 'GOT_TEAM_SLUG';
+const GOT_USER_CONTRIBUTIONS = 'GOT_USER_CONTRIBUTIONS';
 const GOT_ORGANIZATION_CONTRIBUTORS = 'GOT_ORGANIZATION_CONTRIBUTORS';
 const GOT_TEAM_CONTRIBUTORS = 'GOT_TEAM_CONTRIBUTORS';
 const TOGGLED_PRELOADER = 'TOGGLED_PRELOADER';
+const TOGGLED_CLEAR_BUTTON = 'TOGGLED_CLEAR_BUTTON';
 const CLEARED_CONTRIBUTORS = 'CLEARED_CONTRIBUTORS';
 
 // Action Creators
@@ -59,6 +62,11 @@ export const gotTeamSlugActionCreator = teamSlug => ({
   teamSlug,
 });
 
+export const gotUserContributionsActionCreator = contributor => ({
+  type: GOT_USER_CONTRIBUTIONS,
+  contributor,
+});
+
 export const gotOrganizationContributorsActionCreator = contributors => ({
   type: GOT_ORGANIZATION_CONTRIBUTORS,
   contributors,
@@ -71,6 +79,11 @@ export const gotTeamContributorsActionCreator = contributors => ({
 
 export const toggledPreloaderActionCreator = status => ({
   type: TOGGLED_PRELOADER,
+  status,
+});
+
+export const toggledClearButtonActionCreator = status => ({
+  type: TOGGLED_CLEAR_BUTTON,
   status,
 });
 
@@ -142,6 +155,47 @@ export const getTeamsThunkCreator = organizationLogin => {
   };
 };
 
+export const getUserContributionsThunkCreator = time => {
+  return async (dispatch, getState, { getFirestore }) => {
+    try {
+      dispatch(toggledPreloaderActionCreator(true));
+      dispatch(clearedContributorsActionCreator());
+
+      const timeUTC = new Date(Date.now() - time);
+      const timeISO = timeUTC.toISOString();
+
+      const { userLogin } = getState().leaderboard;
+
+      const customQuery = userContributionsQueryGenerator(userLogin, timeISO);
+
+      const { data } = await githubDataFetcher(customQuery);
+      const contributor = {
+        node: data.user,
+      };
+
+      // console.log('contributor in getUserContributionsThunkCreator: ', contributor);
+
+      dispatch(gotUserContributionsActionCreator(contributor));
+      dispatch(toggledPreloaderActionCreator(false));
+      dispatch(toggledClearButtonActionCreator(false));
+
+      toastNotificationGenerator(
+        'User Leaderboard Generated Successfully',
+        'green'
+      );
+    } catch (error) {
+      console.error(error);
+
+      dispatch(toggledPreloaderActionCreator(false));
+
+      toastNotificationGenerator(
+        'Error! Please Try A Shorter Time Period',
+        'red'
+      );
+    }
+  };
+};
+
 export const getOrganizationContributorsThunkCreator = time => {
   return async (dispatch, getState, { getFirestore }) => {
     try {
@@ -169,7 +223,7 @@ export const getOrganizationContributorsThunkCreator = time => {
         const { data } = await githubDataFetcher(customQuery);
         const curContributors = data.organization.membersWithRole.edges;
 
-        // console.log('curContributors in : getOrganizationContributorsThunkCreator', curContributors);
+        // console.log('curContributors in getOrganizationContributorsThunkCreator: ', curContributors);
 
         dispatch(gotOrganizationContributorsActionCreator(curContributors));
 
@@ -183,6 +237,7 @@ export const getOrganizationContributorsThunkCreator = time => {
       await getAllContributors();
 
       dispatch(toggledPreloaderActionCreator(false));
+      dispatch(toggledClearButtonActionCreator(false));
 
       toastNotificationGenerator(
         'Organization Leaderboard Generated Successfully',
@@ -243,6 +298,7 @@ export const getTeamContributorsThunkCreator = time => {
       await getAllContributors();
 
       dispatch(toggledPreloaderActionCreator(false));
+      dispatch(toggledClearButtonActionCreator(false));
 
       toastNotificationGenerator(
         'Team Leaderboard Generated Successfully',
@@ -304,13 +360,20 @@ const leaderboardReducer = (state = initialState, action) => {
         teamSlug: action.teamSlug,
       };
 
+    case GOT_USER_CONTRIBUTIONS:
+      // console.log('action.contributor in GOT_USER_CONTRIBUTIONS: ', action.contributor);
+
+      return {
+        ...state,
+        contributors: [action.contributor],
+      };
+
     case GOT_ORGANIZATION_CONTRIBUTORS:
       // console.log('action.contributors in GOT_ORGANIZATION_CONTRIBUTORS: ', action.contributors);
 
       return {
         ...state,
         contributors: [...state.contributors, ...action.contributors],
-        disabledClear: false,
       };
 
     case GOT_TEAM_CONTRIBUTORS:
@@ -319,7 +382,6 @@ const leaderboardReducer = (state = initialState, action) => {
       return {
         ...state,
         contributors: [...state.contributors, ...action.contributors],
-        disabledClear: false,
       };
 
     case TOGGLED_PRELOADER:
@@ -330,11 +392,19 @@ const leaderboardReducer = (state = initialState, action) => {
         isLoading: action.status,
       };
 
+    case TOGGLED_CLEAR_BUTTON:
+      // console.log('action.status in TOGGLED_CLEAR_BUTTON: ', action.status);
+
+      return {
+        ...state,
+        isNotClearable: action.status,
+      };
+
     case CLEARED_CONTRIBUTORS:
       return {
         ...state,
         contributors: [],
-        disabledClear: true,
+        isNotClearable: true,
       };
 
     default:

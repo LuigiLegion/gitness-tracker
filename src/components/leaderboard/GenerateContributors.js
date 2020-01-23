@@ -1,5 +1,5 @@
-/* eslint-disable complexity */
 /* eslint-disable react/button-has-type */
+/* eslint-disable complexity */
 
 // Imports
 import React, { Component } from 'react';
@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
+  getUserContributionsThunkCreator,
   getOrganizationContributorsThunkCreator,
   getTeamContributorsThunkCreator,
 } from '../../store/reducers/leaderboardReducer';
@@ -77,25 +78,20 @@ export class GenerateContributors extends Component {
     event.preventDefault();
 
     const { type, time } = this.state;
+    const {
+      getUserContributionsThunk,
+      getOrganizationContributorsThunk,
+      getTeamContributorsThunk,
+    } = this.props;
 
     // console.log('type in GenerateContributors handleSubmit: ', type);
     // console.log('time in GenerateContributors handleSubmit: ', time);
 
     if (type === 'user') {
-      const { userLogin } = this.props;
-
-      console.log('userLogin in GenerateTeams handleSubmit: ', userLogin);
+      getUserContributionsThunk(time);
     } else if (type === 'organization') {
-      const { getOrganizationContributorsThunk } = this.props;
-
-      // console.log('getOrganizationContributorsThunk in GenerateTeams handleSubmit: ', getOrganizationContributorsThunk);
-
       getOrganizationContributorsThunk(time);
     } else if (type === 'team') {
-      const { getTeamContributorsThunk } = this.props;
-
-      // console.log('getTeamContributorsThunk in GenerateContributors handleSubmit: ', getTeamContributorsThunk);
-
       getTeamContributorsThunk(time);
     }
   }
@@ -106,7 +102,7 @@ export class GenerateContributors extends Component {
         <div className="section center">
           <form onSubmit={this.handleSubmit} className="card white center">
             <span className="card-title">
-              <span className="gray-text-color bold-text-style">Time</span>
+              <span className="gray-text-color bold-text-style">Generate</span>
             </span>
 
             <br />
@@ -163,7 +159,6 @@ export class GenerateContributors extends Component {
 
             <button
               className="btn black lighten-1 z-depth-0"
-              // disabled={!this.state.type.length || !Number(this.state.time)}
               disabled={this.state.disabled}
             >
               Generate
@@ -183,6 +178,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getUserContributionsThunk(time) {
+    dispatch(getUserContributionsThunkCreator(time));
+  },
   getOrganizationContributorsThunk(time) {
     dispatch(getOrganizationContributorsThunkCreator(time));
   },
@@ -201,6 +199,7 @@ GenerateContributors.propTypes = {
   userLogin: PropTypes.string,
   organizationLogin: PropTypes.string,
   teamSlug: PropTypes.string,
+  getUserContributionsThunk: PropTypes.func,
   getOrganizationContributorsThunk: PropTypes.func,
   getTeamContributorsThunk: PropTypes.func,
 };

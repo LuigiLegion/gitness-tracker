@@ -6,10 +6,8 @@ const teamsQueryGenerator = organizationLogin => {
         teams(first: 100, orderBy: {field: NAME, direction: ASC}) {
           edges {
             node {
-              id
+              id,
               slug
-              name
-              createdAt
             }
           }
         }

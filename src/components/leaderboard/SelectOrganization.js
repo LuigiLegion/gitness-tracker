@@ -24,7 +24,10 @@ export class SelectOrganization extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.userLogin !== this.props.userLogin) {
+    if (
+      prevProps.userLogin !== this.props.userLogin &&
+      prevState.organizationLogin
+    ) {
       this.setState({ organizationLogin: '' });
       this.props.gotOrganizationLoginAction('');
     }
@@ -46,7 +49,6 @@ export class SelectOrganization extends Component {
     const { getTeamsThunk } = this.props;
 
     // console.log('organizationLogin in SelectOrganization handleSubmit: ', organizationLogin);
-    // console.log('getTeamsThunk in SelectOrganization handleSubmit: ', getTeamsThunk);
 
     getTeamsThunk(organizationLogin);
   }
