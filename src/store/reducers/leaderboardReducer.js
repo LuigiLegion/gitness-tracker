@@ -114,7 +114,7 @@ export const getOrganizationsThunkCreator = userLogin => {
           'green'
         );
       } else {
-        toastNotificationGenerator('No Organizations Were Found', 'red');
+        toastNotificationGenerator('No Organizations Found', 'red');
       }
     } catch (error) {
       console.error(error);
@@ -145,7 +145,7 @@ export const getTeamsThunkCreator = organizationLogin => {
       if (teams.length) {
         toastNotificationGenerator('Teams Generated Successfully', 'green');
       } else {
-        toastNotificationGenerator('No Teams Were Found', 'red');
+        toastNotificationGenerator('No Teams Found', 'red');
       }
     } catch (error) {
       console.error(error);
