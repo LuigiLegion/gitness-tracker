@@ -14,11 +14,9 @@ import {
 export class SelectOrganization extends Component {
   constructor() {
     super();
-
     this.state = {
       organizationLogin: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,15 +26,14 @@ export class SelectOrganization extends Component {
       prevProps.userLogin !== this.props.userLogin &&
       prevState.organizationLogin
     ) {
-      this.setState({ organizationLogin: '' });
+      this.setState({
+        organizationLogin: '',
+      });
       this.props.gotOrganizationLoginAction('');
     }
   }
 
   handleChange(event) {
-    // console.log('event.target.id: ', event.target.id);
-    // console.log('event.target.value: ', event.target.value);
-
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -45,19 +42,11 @@ export class SelectOrganization extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { organizationLogin } = this.state;
-    const { getTeamsThunk } = this.props;
-
-    // console.log('organizationLogin in SelectOrganization handleSubmit: ', organizationLogin);
-
-    getTeamsThunk(organizationLogin);
+    this.props.getTeamsThunk(this.state.organizationLogin);
   }
 
   render() {
     const { organizations, organizationLogin } = this.props;
-
-    // console.log('organizations in SelectOrganization render: ', organizations);
-    // console.log('organizationLogin in SelectOrganization render: ', organizationLogin);
 
     return (
       <div className="container center">

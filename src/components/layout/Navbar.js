@@ -13,11 +13,9 @@ import { navbarStyle } from '../../styles';
 class Navbar extends Component {
   constructor() {
     super();
-
     this.state = {
       width: 0,
     };
-
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
@@ -31,7 +29,9 @@ class Navbar extends Component {
   }
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth });
+    this.setState({
+      width: window.innerWidth,
+    });
   }
 
   render() {

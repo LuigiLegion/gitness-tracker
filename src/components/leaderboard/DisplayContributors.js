@@ -15,27 +15,19 @@ import {
 class DisplayContributors extends Component {
   constructor() {
     super();
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    const { clearedContributorsAction } = this.props;
-
-    clearedContributorsAction();
-
+    this.props.clearedContributorsAction();
     toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
   }
 
   render() {
     const { contributors, isNotClearable } = this.props;
-
     contributorsSorter(contributors);
-
-    // console.log('contributors in DisplayContributors render: ', contributors);
-    // console.log('isNotClearable in DisplayContributors render: ', isNotClearable);
 
     return (
       <div className="section center">

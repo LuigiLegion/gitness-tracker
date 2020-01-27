@@ -12,8 +12,6 @@ const userContributionsQueryGenerator = (userLogin, timeISO) => {
     }
   `;
 
-  // console.log({ userContributionsQuery });
-
   return userContributionsQuery;
 };
 

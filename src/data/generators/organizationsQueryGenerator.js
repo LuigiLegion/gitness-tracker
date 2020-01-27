@@ -14,8 +14,6 @@ const organizationsQueryGenerator = userLogin => {
     }
   `;
 
-  // console.log({ organizationsQuery });
-
   return organizationsQuery;
 };
 
