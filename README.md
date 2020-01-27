@@ -1,18 +1,25 @@
 # Gitness Tracker
 
-Coming soon...
+Screenshot coming soon...
 
-### Video Presentation:
+### Deployed Web App:
 
-Coming soon...
+https://gitness-tracker.web.app
 
 ### Description:
 
-Coming soon...
+Responsive web app that allows open source project maintainers to
+hold friendly coding competitions and easily see who
+contributes the most code over a given period of time.
+Contributions are pulled from GitHub using their GraphQL
+API and presented in the form of an organization, team, or
+user leaderboard.
+
+MVP completed in 4 days for a solo project.
 
 ### Tech Stack:
 
-Coming soon...
+Built using React, Redux, and Materialize.css, and utilizes the GitHub GraphQL API.
 
 ### Dev Team:
 
