@@ -120,12 +120,3 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .preloader {
   margin: 0px;
 }
-
-.select-hr {
-  margin-top: 12.5px;
-  margin-bottom: 15px;
-}
-
-.button-hr {
-  margin-bottom: 15px;
-}

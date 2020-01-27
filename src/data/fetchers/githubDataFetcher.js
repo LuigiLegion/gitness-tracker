@@ -18,11 +18,9 @@ const githubDataFetcher = async query => {
 
     const { data } = fetchedGithubData;
 
-    // console.log({ data });
-
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

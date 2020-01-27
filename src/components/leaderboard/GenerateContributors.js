@@ -16,13 +16,11 @@ import {
 export class GenerateContributors extends Component {
   constructor() {
     super();
-
     this.state = {
       type: '',
       time: '0',
       disabled: true,
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -30,12 +28,6 @@ export class GenerateContributors extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { type, time } = this.state;
     const { userLogin, organizationLogin, teamSlug } = this.props;
-
-    // console.log('type in GenerateContributors componentDidUpdate: ', type);
-    // console.log('time in GenerateContributors componentDidUpdate: ', time);
-    // console.log('userLogin in GenerateContributors componentDidUpdate: ', userLogin);
-    // console.log('organizationLogin in GenerateContributors componentDidUpdate: ', organizationLogin);
-    // console.log('teamSlug in GenerateContributors componentDidUpdate: ', teamSlug);
 
     if (
       prevState.type !== type ||
@@ -51,7 +43,6 @@ export class GenerateContributors extends Component {
       const timeCheck = Number(time);
 
       let newDisabledStatus = true;
-
       if (
         (userLoginCheck || organizationLoginCheck || teamSlugCheck) &&
         timeCheck
@@ -66,9 +57,6 @@ export class GenerateContributors extends Component {
   }
 
   handleChange(event) {
-    // console.log('event.target.id: ', event.target.id);
-    // console.log('event.target.value: ', event.target.value);
-
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -83,9 +71,6 @@ export class GenerateContributors extends Component {
       getOrganizationContributorsThunk,
       getTeamContributorsThunk,
     } = this.props;
-
-    // console.log('type in GenerateContributors handleSubmit: ', type);
-    // console.log('time in GenerateContributors handleSubmit: ', time);
 
     if (type === 'user') {
       getUserContributionsThunk(time);

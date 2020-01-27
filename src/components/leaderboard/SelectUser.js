@@ -11,19 +11,14 @@ import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardRe
 export class SelectUser extends Component {
   constructor() {
     super();
-
     this.state = {
       userLogin: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    // console.log('event.target.id: ', event.target.id);
-    // console.log('event.target.value: ', event.target.value);
-
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -32,18 +27,11 @@ export class SelectUser extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { userLogin } = this.state;
-    const { getOrganizationsThunk } = this.props;
-
-    // console.log('userLogin in SelectUser handleSubmit: ', userLogin);
-
-    getOrganizationsThunk(userLogin);
+    this.props.getOrganizationsThunk(this.state.userLogin);
   }
 
   render() {
     const { userLogin } = this.props;
-
-    // console.log('userLogin in SelectUser render: ', userLogin);
 
     return (
       <div className="container center">

@@ -15,8 +15,6 @@ const teamsQueryGenerator = organizationLogin => {
     }
   `;
 
-  // console.log({ teamsQuery });
-
   return teamsQuery;
 };
 

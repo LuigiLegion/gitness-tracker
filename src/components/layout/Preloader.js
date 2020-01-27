@@ -1,11 +1,8 @@
 // Imports
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Component
-const Preloader = props => {
-  // console.log('props in Preloader: ', props);
-
+const Preloader = () => {
   return (
     <div className="progress preloader">
       <div className="indeterminate" />
@@ -14,8 +11,3 @@ const Preloader = props => {
 };
 
 export default Preloader;
-
-// Prop Types
-Preloader.propTypes = {
-  props: PropTypes.object,
-};

@@ -12,11 +12,9 @@ import { toastNotificationGenerator } from '../../data/index';
 export class SelectTeam extends Component {
   constructor() {
     super();
-
     this.state = {
       teamSlug: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -26,15 +24,14 @@ export class SelectTeam extends Component {
       prevProps.organizationLogin !== this.props.organizationLogin &&
       prevState.teamSlug
     ) {
-      this.setState({ teamSlug: '' });
+      this.setState({
+        teamSlug: '',
+      });
       this.props.gotTeamSlugAction('');
     }
   }
 
   handleChange(event) {
-    // console.log('event.target.id: ', event.target.id);
-    // console.log('event.target.value: ', event.target.value);
-
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -43,21 +40,12 @@ export class SelectTeam extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { teamSlug } = this.state;
-    const { gotTeamSlugAction } = this.props;
-
-    // console.log('teamSlug in SelectTeam handleSubmit: ', teamSlug);
-
-    gotTeamSlugAction(teamSlug);
-
+    this.props.gotTeamSlugAction(this.state.teamSlug);
     toastNotificationGenerator('Team Selected Succesfully', 'green');
   }
 
   render() {
     const { teams, teamSlug } = this.props;
-
-    // console.log('teams in SelectTeam render: ', teams);
-    // console.log('teamSlug in SelectTeam render: ', teamSlug);
 
     return (
       <div className="container center">
