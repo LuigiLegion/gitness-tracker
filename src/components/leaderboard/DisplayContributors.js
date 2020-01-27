@@ -45,6 +45,8 @@ class DisplayContributors extends Component {
               <span className="bold-text-style">Commits Leaderboard</span>
             </span>
 
+            <br />
+
             <div className="contributors">
               {contributors.length ? (
                 <table className="striped centered">
