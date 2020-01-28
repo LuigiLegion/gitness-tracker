@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,7 +12,7 @@ import {
 } from '../../data/index';
 
 // Component
-class DisplayContributors extends Component {
+class DisplayContributors extends PureComponent {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);

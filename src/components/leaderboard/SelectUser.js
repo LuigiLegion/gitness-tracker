@@ -1,14 +1,14 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class SelectUser extends Component {
+export class SelectUser extends PureComponent {
   constructor() {
     super();
     this.state = {

@@ -2,7 +2,7 @@
 /* eslint-disable complexity */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -13,7 +13,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class GenerateContributors extends Component {
+export class GenerateContributors extends PureComponent {
   constructor() {
     super();
     this.state = {

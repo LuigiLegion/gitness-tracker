@@ -1,12 +1,12 @@
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 
 import { burgerStyles } from '../../styles';
 
 // Component
-class LinksBurger extends Component {
+class LinksBurger extends PureComponent {
   constructor() {
     super();
     this.state = {

@@ -1,5 +1,5 @@
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import Preloader from './Preloader';
 import { navbarStyle } from '../../styles';
 
 // Component
-class Navbar extends Component {
+class Navbar extends PureComponent {
   constructor() {
     super();
     this.state = {

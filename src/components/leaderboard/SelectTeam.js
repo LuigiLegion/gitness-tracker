@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReduce
 import { toastNotificationGenerator } from '../../data/index';
 
 // Component
-export class SelectTeam extends Component {
+export class SelectTeam extends PureComponent {
   constructor() {
     super();
     this.state = {
