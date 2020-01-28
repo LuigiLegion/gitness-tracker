@@ -13,17 +13,12 @@ import {
 
 // Component
 class DisplayContributors extends PureComponent {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.clearedContributorsAction();
     toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
-  }
+  };
 
   render() {
     const { contributors, isNotClearable } = this.props;

@@ -7,26 +7,21 @@ import { burgerStyles } from '../../styles';
 
 // Component
 class LinksBurger extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      menuOpen: false,
-    };
-    this.handleStateChange = this.handleStateChange.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
-  }
+  state = {
+    menuOpen: false,
+  };
 
-  handleStateChange(state) {
+  handleStateChange = state => {
     this.setState({
       menuOpen: state.isOpen,
     });
-  }
+  };
 
-  closeMenu() {
+  closeMenu = () => {
     this.setState({
       menuOpen: false,
     });
-  }
+  };
 
   render() {
     return (

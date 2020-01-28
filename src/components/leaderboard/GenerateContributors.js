@@ -14,16 +14,11 @@ import {
 
 // Component
 export class GenerateContributors extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      type: '',
-      time: '0',
-      disabled: true,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    type: '',
+    time: '0',
+    disabled: true,
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { type, time } = this.state;
@@ -56,13 +51,13 @@ export class GenerateContributors extends PureComponent {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     const { type, time } = this.state;
@@ -79,7 +74,7 @@ export class GenerateContributors extends PureComponent {
     } else if (type === 'team') {
       getTeamContributorsThunk(time);
     }
-  }
+  };
 
   render() {
     return (

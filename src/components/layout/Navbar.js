@@ -11,28 +11,24 @@ import { navbarStyle } from '../../styles';
 
 // Component
 class Navbar extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      width: 0,
-    };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-  }
+  state = {
+    width: 0,
+  };
 
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     window.removeEventListener('resize', this.updateWindowDimensions);
-  }
+  };
 
-  updateWindowDimensions() {
+  updateWindowDimensions = () => {
     this.setState({
       width: window.innerWidth,
     });
-  }
+  };
 
   render() {
     const largeViewCheck = this.state.width > 1007;

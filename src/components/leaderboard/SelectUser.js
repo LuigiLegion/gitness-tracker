@@ -9,26 +9,21 @@ import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardRe
 
 // Component
 export class SelectUser extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      userLogin: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    userLogin: '',
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.getOrganizationsThunk(this.state.userLogin);
-  }
+  };
 
   render() {
     const { userLogin } = this.props;

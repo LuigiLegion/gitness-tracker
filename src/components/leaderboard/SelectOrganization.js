@@ -12,14 +12,9 @@ import {
 
 // Component
 export class SelectOrganization extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      organizationLogin: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    organizationLogin: '',
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -33,17 +28,17 @@ export class SelectOrganization extends PureComponent {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.getTeamsThunk(this.state.organizationLogin);
-  }
+  };
 
   render() {
     const { organizations, organizationLogin } = this.props;

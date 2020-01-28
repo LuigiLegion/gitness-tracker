@@ -10,14 +10,9 @@ import { toastNotificationGenerator } from '../../data/index';
 
 // Component
 export class SelectTeam extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      teamSlug: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    teamSlug: '',
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -31,18 +26,18 @@ export class SelectTeam extends PureComponent {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.gotTeamSlugAction(this.state.teamSlug);
     toastNotificationGenerator('Team Selected Succesfully', 'green');
-  }
+  };
 
   render() {
     const { teams, teamSlug } = this.props;
