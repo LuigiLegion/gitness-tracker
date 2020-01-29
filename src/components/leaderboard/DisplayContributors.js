@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,18 +12,13 @@ import {
 } from '../../data/index';
 
 // Component
-class DisplayContributors extends Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
+class DisplayContributors extends PureComponent {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.clearedContributorsAction();
     toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
-  }
+  };
 
   render() {
     const { contributors, isNotClearable } = this.props;
@@ -98,7 +93,7 @@ class DisplayContributors extends Component {
 
             <form className="clear-form" onSubmit={this.handleSubmit}>
               <button
-                className="btn black black-1 z-depth-0"
+                className="btn waves-effect waves-light black black-1 z-depth-0"
                 disabled={isNotClearable}
               >
                 Clear

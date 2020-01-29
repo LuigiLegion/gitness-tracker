@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -11,15 +11,10 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class SelectOrganization extends Component {
-  constructor() {
-    super();
-    this.state = {
-      organizationLogin: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export class SelectOrganization extends PureComponent {
+  state = {
+    organizationLogin: '',
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -33,17 +28,17 @@ export class SelectOrganization extends Component {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.getTeamsThunk(this.state.organizationLogin);
-  }
+  };
 
   render() {
     const { organizations, organizationLogin } = this.props;
@@ -88,7 +83,7 @@ export class SelectOrganization extends Component {
             <br />
 
             <button
-              className="btn black lighten-1 z-depth-0"
+              className="btn waves-effect waves-light black lighten-1 z-depth-0"
               disabled={!this.state.organizationLogin.length}
             >
               Select

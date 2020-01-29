@@ -2,7 +2,7 @@
 /* eslint-disable complexity */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -13,17 +13,12 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class GenerateContributors extends Component {
-  constructor() {
-    super();
-    this.state = {
-      type: '',
-      time: '0',
-      disabled: true,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export class GenerateContributors extends PureComponent {
+  state = {
+    type: '',
+    time: '0',
+    disabled: true,
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { type, time } = this.state;
@@ -56,13 +51,13 @@ export class GenerateContributors extends Component {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     const { type, time } = this.state;
@@ -79,7 +74,7 @@ export class GenerateContributors extends Component {
     } else if (type === 'team') {
       getTeamContributorsThunk(time);
     }
-  }
+  };
 
   render() {
     return (
@@ -143,7 +138,7 @@ export class GenerateContributors extends Component {
             <br />
 
             <button
-              className="btn black lighten-1 z-depth-0"
+              className="btn waves-effect waves-light black lighten-1 z-depth-0"
               disabled={this.state.disabled}
             >
               Generate

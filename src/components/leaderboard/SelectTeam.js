@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -9,15 +9,10 @@ import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReduce
 import { toastNotificationGenerator } from '../../data/index';
 
 // Component
-export class SelectTeam extends Component {
-  constructor() {
-    super();
-    this.state = {
-      teamSlug: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export class SelectTeam extends PureComponent {
+  state = {
+    teamSlug: '',
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -31,18 +26,18 @@ export class SelectTeam extends Component {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.gotTeamSlugAction(this.state.teamSlug);
     toastNotificationGenerator('Team Selected Succesfully', 'green');
-  }
+  };
 
   render() {
     const { teams, teamSlug } = this.props;
@@ -84,7 +79,7 @@ export class SelectTeam extends Component {
             <br />
 
             <button
-              className="btn black lighten-1 z-depth-0"
+              className="btn waves-effect waves-light black lighten-1 z-depth-0"
               disabled={!teams.length || !this.state.teamSlug.length}
             >
               Select

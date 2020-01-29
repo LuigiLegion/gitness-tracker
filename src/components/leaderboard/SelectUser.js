@@ -1,34 +1,29 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class SelectUser extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userLogin: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export class SelectUser extends PureComponent {
+  state = {
+    userLogin: '',
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     this.props.getOrganizationsThunk(this.state.userLogin);
-  }
+  };
 
   render() {
     const { userLogin } = this.props;
@@ -55,7 +50,7 @@ export class SelectUser extends Component {
             </div>
 
             <button
-              className="btn black lighten-1 z-depth-0"
+              className="btn waves-effect waves-light black lighten-1 z-depth-0"
               disabled={!this.state.userLogin.length}
             >
               Select
