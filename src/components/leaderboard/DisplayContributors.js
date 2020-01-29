@@ -93,7 +93,7 @@ class DisplayContributors extends PureComponent {
 
             <form className="clear-form" onSubmit={this.handleSubmit}>
               <button
-                className="btn black black-1 z-depth-0"
+                className="btn waves-effect waves-light black black-1 z-depth-0"
                 disabled={isNotClearable}
               >
                 Clear
