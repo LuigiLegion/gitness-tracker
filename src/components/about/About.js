@@ -16,29 +16,26 @@ const About = () => {
                 </span>
 
                 <ul className="about">
-                  <li>
-                    <div>Gitness Tracker is a fitness tracker for coding.</div>
-                  </li>
+                  <li>Gitness Tracker is a fitness tracker for coding.</li>
 
                   <br />
 
                   <li>
-                    <div>
-                      I made it as a tool for open source project maintainers to
-                      hold friendly coding competitions and easily see who
-                      contributes the most code over a given period of time.
-                    </div>
+                    I built it as a tool that allows open source project
+                    maintainers to hold friendly code contribution competitions
+                    and determine who contributes the most code over a given
+                    period of time.
+                  </li>
+
+                  <li>
+                    Contributions are pulled from GitHub using their GraphQL API
+                    and presented in the form of an organization, team, or user
+                    leaderboard.
                   </li>
 
                   <br />
 
-                  <li>
-                    <div>
-                      Contributions are pulled from GitHub using their GraphQL
-                      API and presented in the form of an organization, team, or
-                      user leaderboard.
-                    </div>
-                  </li>
+                  <li>I hope you like it, enjoy!</li>
                 </ul>
 
                 <br />
