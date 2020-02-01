@@ -1,6 +1,6 @@
 # Gitness Tracker
 
-Screenshot coming soon...
+![Gitness Tracker Screenshot](./public/screenshot.png)
 
 ### Deployed Web App:
 
@@ -8,12 +8,7 @@ https://gitness-tracker.web.app
 
 ### Description:
 
-Responsive web app that allows open source project maintainers to
-hold friendly coding competitions and easily see who
-contributes the most code over a given period of time.
-Contributions are pulled from GitHub using their GraphQL
-API and presented in the form of an organization, team, or
-user leaderboard.
+Responsive web app that allows open source project maintainers to hold friendly code contribution competitions and determine who contributes the most code over a given period of time. Contributions are pulled from GitHub using their GraphQL API and presented in the form of an organization, team, or user leaderboard.
 
 MVP completed in 4 days for a solo project.
 
