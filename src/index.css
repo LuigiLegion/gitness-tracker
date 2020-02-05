@@ -124,3 +124,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .page-not-found-message {
   margin: 30px 0px;
 }
+
+.preloader-inner-color {
+  background-color: #bdbdbd !important;
+}
+
+.preloader-outer-gray {
+  background-color: #424242 !important;
+}
