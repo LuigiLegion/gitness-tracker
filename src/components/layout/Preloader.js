@@ -5,7 +5,7 @@ import React from 'react';
 const Preloader = () => {
   return (
     <div className="progress preloader preloader-inner-color">
-      <div className="indeterminate preloader-outer-gray" />
+      <div className="indeterminate preloader-outer-color" />
     </div>
   );
 };
