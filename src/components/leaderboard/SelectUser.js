@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class SelectUser extends PureComponent {
+class SelectUser extends PureComponent {
   state = {
     userLogin: '',
   };

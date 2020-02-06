@@ -13,7 +13,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class GenerateContributors extends PureComponent {
+class GenerateContributors extends PureComponent {
   state = {
     type: '',
     time: '0',

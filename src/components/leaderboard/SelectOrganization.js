@@ -11,7 +11,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-export class SelectOrganization extends PureComponent {
+class SelectOrganization extends PureComponent {
   state = {
     organizationLogin: '',
   };
