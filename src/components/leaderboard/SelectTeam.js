@@ -9,7 +9,7 @@ import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReduce
 import { toastNotificationGenerator } from '../../helpers/index';
 
 // Component
-export class SelectTeam extends PureComponent {
+class SelectTeam extends PureComponent {
   state = {
     teamSlug: '',
   };

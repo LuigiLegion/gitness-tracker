@@ -8,7 +8,7 @@ https://gitness-tracker.web.app
 
 ### Description:
 
-Responsive web app that allows open source project maintainers to hold friendly code contribution competitions and determine who contributes the most code over a given period of time. Contributions are pulled from GitHub using their GraphQL API and presented in the form of an organization, team, or user leaderboard.
+Responsive web app that helps open source project maintainers hold friendly code contribution competitions by allowing them to determine who contributed the most code over a given period of time. Contributions are pulled from GitHub using their GraphQL API and presented in the form of an organization, team, or user leaderboard.
 
 MVP completed in 4 days for a solo project.
 
