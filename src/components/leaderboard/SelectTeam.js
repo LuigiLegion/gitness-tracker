@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReducer';
-import { toastNotificationGenerator } from '../../data/index';
+import { toastNotificationGenerator } from '../../helpers/index';
 
 // Component
 export class SelectTeam extends PureComponent {

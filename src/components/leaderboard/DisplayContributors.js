@@ -9,7 +9,7 @@ import { clearedContributorsActionCreator } from '../../store/reducers/leaderboa
 import {
   contributorsSorter,
   toastNotificationGenerator,
-} from '../../data/index';
+} from '../../helpers/index';
 
 // Component
 class DisplayContributors extends PureComponent {
