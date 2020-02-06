@@ -9,7 +9,7 @@ import {
   teamContributorsQueryGenerator,
   githubDataFetcher,
   toastNotificationGenerator,
-} from '../../data';
+} from '../../helpers';
 
 // Initial State
 const initialState = {

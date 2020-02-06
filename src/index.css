@@ -129,6 +129,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
   background-color: #bdbdbd !important;
 }
 
-.preloader-outer-gray {
+.preloader-outer-color {
   background-color: #424242 !important;
 }
