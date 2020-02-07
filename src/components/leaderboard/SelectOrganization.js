@@ -93,7 +93,7 @@ class SelectOrganization extends PureComponent {
             <br />
 
             <span className="italic-text-style">
-              {organizationLogin ? organizationLogin : 'Not Selected Yet'}
+              {organizationLogin ? organizationLogin : 'Not Yet Selected'}
             </span>
 
             <br />

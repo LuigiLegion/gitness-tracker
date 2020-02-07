@@ -53,7 +53,7 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
           <br />
 
           <span className="italic-text-style">
-            {userLogin ? userLogin : 'Not Selected Yet'}
+            {userLogin ? userLogin : 'Not Yet Selected'}
           </span>
 
           <br />

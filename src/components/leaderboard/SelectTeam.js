@@ -89,7 +89,7 @@ class SelectTeam extends PureComponent {
             <br />
 
             <span className="italic-text-style">
-              {teamSlug ? teamSlug : 'Not Selected Yet'}
+              {teamSlug ? teamSlug : 'Not Yet Selected'}
             </span>
 
             <br />
