@@ -1,5 +1,5 @@
 // Imports
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,55 +10,49 @@ import Preloader from './Preloader';
 import { navbarStyle } from '../../styles';
 
 // Component
-class Navbar extends PureComponent {
-  state = {
-    width: 0,
+const Navbar = ({ isLoading }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const largeViewCheck = width > 1007;
+
+  const updateNavbarDimensions = () => {
+    setWidth(window.innerWidth);
   };
 
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
+  useEffect(() => {
+    updateNavbarDimensions();
+    window.addEventListener('resize', updateNavbarDimensions);
 
-  componentWillUnmount = () => {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  };
+    return () => {
+      window.removeEventListener('resize', updateNavbarDimensions);
+      updateNavbarDimensions();
+    };
+  }, [width]);
 
-  updateWindowDimensions = () => {
-    this.setState({
-      width: window.innerWidth,
-    });
-  };
+  return (
+    <div className="navbar-fixed">
+      <nav
+        className="nav-wrapper grey lighten-5 preloader-container"
+        style={navbarStyle}
+      >
+        <div>
+          <NavLink
+            to="/"
+            className="left brand-logo navbar-logo name-text-positioning"
+          >
+            <span className="gray-text-color bold-text-style">
+              Gitness Tracker
+            </span>
+          </NavLink>
 
-  render() {
-    const largeViewCheck = this.state.width > 1007;
-    const { isLoading } = this.props;
+          {largeViewCheck ? <Links /> : <LinksBurger />}
+        </div>
 
-    return (
-      <div className="navbar-fixed">
-        <nav
-          className="nav-wrapper grey lighten-5 preloader-container"
-          style={navbarStyle}
-        >
-          <div>
-            <NavLink
-              to="/"
-              className="left brand-logo navbar-logo name-text-positioning"
-            >
-              <span className="gray-text-color bold-text-style">
-                Gitness Tracker
-              </span>
-            </NavLink>
-
-            {largeViewCheck ? <Links /> : <LinksBurger />}
-          </div>
-
-          <div>{isLoading ? <Preloader /> : null}</div>
-        </nav>
-      </div>
-    );
-  }
-}
+        <div>{isLoading ? <Preloader /> : null}</div>
+      </nav>
+    </div>
+  );
+};
 
 // Container
 const mapStateToProps = state => ({
