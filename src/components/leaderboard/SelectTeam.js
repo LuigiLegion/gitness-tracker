@@ -1,105 +1,101 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReducer';
-import { toastNotificationGenerator } from '../../helpers/index';
+import { usePrevious, toastNotificationGenerator } from '../../helpers/index';
 
 // Component
-class SelectTeam extends PureComponent {
-  state = {
-    teamSlug: '',
-  };
+const SelectTeam = ({
+  organizationLogin,
+  teams,
+  teamSlug,
+  gotTeamSlugAction,
+}) => {
+  const [selectedTeamSlug, setSelectedTeamSlug] = useState('');
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.organizationLogin !== this.props.organizationLogin &&
-      prevState.teamSlug
-    ) {
-      this.setState({
-        teamSlug: '',
-      });
-      this.props.gotTeamSlugAction('');
+  const prevTeamSlug = usePrevious(selectedTeamSlug);
+
+  useEffect(() => {
+    if (prevTeamSlug) {
+      setSelectedTeamSlug('');
+      document.getElementById('teamSlug').value = '';
+      gotTeamSlugAction('');
     }
-  }
+    // eslint-disable-next-line
+  }, [organizationLogin]);
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value,
-    });
+  const handleChange = event => {
+    setSelectedTeamSlug(event.target.value);
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    this.props.gotTeamSlugAction(this.state.teamSlug);
+    gotTeamSlugAction(selectedTeamSlug);
     toastNotificationGenerator('Team Selected Succesfully', 'green');
   };
 
-  render() {
-    const { teams, teamSlug } = this.props;
+  return (
+    <div className="container center">
+      <div className="section center">
+        <form onSubmit={handleSubmit} className="card white center">
+          <span className="card-title">
+            <span className="gray-text-color bold-text-style">Team</span>
+          </span>
 
-    return (
-      <div className="container center">
-        <div className="section center">
-          <form onSubmit={this.handleSubmit} className="card white center">
-            <span className="card-title">
-              <span className="gray-text-color bold-text-style">Team</span>
-            </span>
-
-            <div className="input-field col s12">
-              <label htmlFor="teamSlug">
-                Teams<span className="red-text-color">*</span>
-              </label>
-
-              <br />
-              <br />
-
-              <select
-                id="teamSlug"
-                className="browser-default"
-                required
-                onChange={this.handleChange}
-              >
-                <option value="">Select Team</option>
-
-                {teams.length
-                  ? teams.map(curTeam => (
-                      <option key={curTeam.node.id} value={curTeam.node.slug}>
-                        {curTeam.node.slug}
-                      </option>
-                    ))
-                  : null}
-              </select>
-            </div>
+          <div className="input-field col s12">
+            <label htmlFor="teamSlug">
+              Teams<span className="red-text-color">*</span>
+            </label>
 
             <br />
+            <br />
 
-            <button
-              className="btn waves-effect waves-light black lighten-1 z-depth-0"
-              disabled={!teams.length || !this.state.teamSlug.length}
+            <select
+              id="teamSlug"
+              className="browser-default"
+              required
+              onChange={handleChange}
             >
-              Select
-            </button>
+              <option value="">Select Team</option>
 
-            <br />
-            <br />
+              {teams.length
+                ? teams.map(curTeam => (
+                    <option key={curTeam.node.id} value={curTeam.node.slug}>
+                      {curTeam.node.slug}
+                    </option>
+                  ))
+                : null}
+            </select>
+          </div>
 
-            <span className="italic-text-style">
-              {teamSlug ? teamSlug : 'Not Selected Yet'}
-            </span>
+          <br />
 
-            <br />
-            <br />
-          </form>
-        </div>
+          <button
+            className="btn waves-effect waves-light black lighten-1 z-depth-0"
+            disabled={!teams.length || !selectedTeamSlug.length}
+          >
+            Select
+          </button>
+
+          <br />
+          <br />
+
+          <span className="italic-text-style">
+            {teamSlug ? teamSlug : 'Not Yet Selected'}
+          </span>
+
+          <br />
+          <br />
+        </form>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 // Container
 const mapStateToProps = state => ({

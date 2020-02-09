@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 
 // Imports
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,99 +12,100 @@ import {
 } from '../../helpers/index';
 
 // Component
-class DisplayContributors extends PureComponent {
-  handleSubmit = event => {
+const DisplayContributors = ({
+  contributors,
+  isNotClearable,
+  clearedContributorsAction,
+}) => {
+  contributorsSorter(contributors);
+
+  const handleSubmit = event => {
     event.preventDefault();
 
-    this.props.clearedContributorsAction();
+    clearedContributorsAction();
     toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
   };
 
-  render() {
-    const { contributors, isNotClearable } = this.props;
-    contributorsSorter(contributors);
+  return (
+    <div className="section center">
+      <div className="card white center">
+        <div className="card-content grey-text text-darken-3 center">
+          <span className="card-title">
+            <span className="bold-text-style">Commits Leaderboard</span>
+          </span>
 
-    return (
-      <div className="section center">
-        <div className="card white center">
-          <div className="card-content grey-text text-darken-3 center">
-            <span className="card-title">
-              <span className="bold-text-style">Commits Leaderboard</span>
-            </span>
+          <br />
 
-            <br />
+          <div className="contributors">
+            {contributors.length ? (
+              <table className="striped centered">
+                <thead>
+                  <tr>
+                    <th title="Leaderboard Rank">Rank</th>
 
-            <div className="contributors">
-              {contributors.length ? (
-                <table className="striped centered">
-                  <thead>
-                    <tr>
-                      <th title="Leaderboard Rank">Rank</th>
+                    <th title="GitHub Username">Username</th>
 
-                      <th title="GitHub Username">Username</th>
+                    <th title="Total GitHub Commits">Score</th>
+                  </tr>
+                </thead>
 
-                      <th title="Total GitHub Commits">Score</th>
-                    </tr>
-                  </thead>
+                <tbody>
+                  {contributors.map((curContributor, idx) => {
+                    const {
+                      id,
+                      login,
+                      contributionsCollection,
+                    } = curContributor.node;
 
-                  <tbody>
-                    {contributors.map((curContributor, idx) => {
-                      const {
-                        id,
-                        login,
-                        contributionsCollection,
-                      } = curContributor.node;
+                    return (
+                      <tr key={id}>
+                        <td>
+                          <strong>{idx + 1}</strong>
+                        </td>
 
-                      return (
-                        <tr key={id}>
-                          <td>
-                            <strong>{idx + 1}</strong>
-                          </td>
+                        <td>
+                          <a
+                            className="events-time-and-rsvp-containee"
+                            href={`https://github.com/${login}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span>
+                              <strong>{login}</strong>
+                            </span>
+                          </a>
+                        </td>
 
-                          <td>
-                            <a
-                              className="events-time-and-rsvp-containee"
-                              href={`https://github.com/${login}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <span>
-                                <strong>{login}</strong>
-                              </span>
-                            </a>
-                          </td>
-
-                          <td>
-                            <strong>
-                              {contributionsCollection.totalCommitContributions}
-                            </strong>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              ) : (
-                <div>Generate a leaderboard to populate this section.</div>
-              )}
-            </div>
-
-            <br />
-
-            <form className="clear-form" onSubmit={this.handleSubmit}>
-              <button
-                className="btn waves-effect waves-light black black-1 z-depth-0"
-                disabled={isNotClearable}
-              >
-                Clear
-              </button>
-            </form>
+                        <td>
+                          <strong>
+                            {contributionsCollection.totalCommitContributions}
+                          </strong>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <div>Generate a leaderboard to populate this section.</div>
+            )}
           </div>
+
+          <br />
+
+          <form className="clear-form" onSubmit={handleSubmit}>
+            <button
+              className="btn waves-effect waves-light black black-1 z-depth-0"
+              disabled={isNotClearable}
+            >
+              Clear
+            </button>
+          </form>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 // Container
 const mapStateToProps = state => ({

@@ -19,3 +19,4 @@ export { default as contributorsSorter } from './sorters/contributorsSorter';
 export {
   default as toastNotificationGenerator,
 } from './generators/toastNotificationGenerator';
+export { default as usePrevious } from './hooks/usePrevious';
