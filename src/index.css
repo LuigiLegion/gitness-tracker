@@ -112,23 +112,23 @@ textarea.materialize-textarea:focus:not([readonly]) {
   padding-bottom: 40px;
 }
 
-.preloader-container {
-  display: flex;
-  flex-direction: column;
+.page-not-found-message {
+  margin: 30px 0px;
 }
 
 .preloader {
   margin: 0px;
 }
 
-.page-not-found-message {
-  margin: 30px 0px;
+.preloader-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.preloader-inner-color {
-  background-color: #bdbdbd !important;
+.progress.preloader.preloader-inner-color {
+  background-color: #bdbdbd;
 }
 
-.preloader-outer-color {
-  background-color: #424242 !important;
+.progress .indeterminate.preloader-outer-color {
+  background-color: #424242;
 }
