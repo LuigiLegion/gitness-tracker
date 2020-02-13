@@ -95,7 +95,7 @@ const DisplayContributors = ({
 
           <form className="clear-form" onSubmit={handleSubmit}>
             <button
-              className="btn waves-effect waves-light black black-1 z-depth-0"
+              className="btn waves-effect waves-light grey darken-4"
               disabled={isNotClearable}
             >
               Clear
