@@ -9,7 +9,6 @@ import {
   getTeamsThunkCreator,
   gotOrganizationLoginActionCreator,
 } from '../../store/reducers/leaderboardReducer';
-import { usePrevious } from '../../helpers/index';
 
 // Component
 const SelectOrganization = ({
@@ -23,16 +22,12 @@ const SelectOrganization = ({
     ''
   );
 
-  const prevOrganizationLogin = usePrevious(selectedOrganizationLogin);
-
   useEffect(() => {
-    if (prevOrganizationLogin) {
+    if (userLogin) {
       setSelectedOrganizationLogin('');
-      document.getElementById('organizationLogin').value = '';
       gotOrganizationLoginAction('');
     }
-    // eslint-disable-next-line
-  }, [userLogin]);
+  }, [userLogin, setSelectedOrganizationLogin, gotOrganizationLoginAction]);
 
   const handleChange = event => {
     setSelectedOrganizationLogin(event.target.value);
@@ -63,6 +58,7 @@ const SelectOrganization = ({
             <select
               id="organizationLogin"
               className="browser-default"
+              value={selectedOrganizationLogin}
               required
               onChange={handleChange}
             >
@@ -84,7 +80,7 @@ const SelectOrganization = ({
           <br />
 
           <button
-            className="btn waves-effect waves-light black lighten-1 z-depth-0"
+            className="btn waves-effect waves-light grey darken-4"
             disabled={!selectedOrganizationLogin.length}
           >
             Select

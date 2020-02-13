@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReducer';
-import { usePrevious, toastNotificationGenerator } from '../../helpers/index';
+import { toastNotificationGenerator } from '../../helpers/index';
 
 // Component
 const SelectTeam = ({
@@ -17,16 +17,12 @@ const SelectTeam = ({
 }) => {
   const [selectedTeamSlug, setSelectedTeamSlug] = useState('');
 
-  const prevTeamSlug = usePrevious(selectedTeamSlug);
-
   useEffect(() => {
-    if (prevTeamSlug) {
+    if (organizationLogin) {
       setSelectedTeamSlug('');
-      document.getElementById('teamSlug').value = '';
       gotTeamSlugAction('');
     }
-    // eslint-disable-next-line
-  }, [organizationLogin]);
+  }, [organizationLogin, setSelectedTeamSlug, gotTeamSlugAction]);
 
   const handleChange = event => {
     setSelectedTeamSlug(event.target.value);
@@ -58,6 +54,7 @@ const SelectTeam = ({
             <select
               id="teamSlug"
               className="browser-default"
+              value={selectedTeamSlug}
               required
               onChange={handleChange}
             >
@@ -76,7 +73,7 @@ const SelectTeam = ({
           <br />
 
           <button
-            className="btn waves-effect waves-light black lighten-1 z-depth-0"
+            className="btn waves-effect waves-light grey darken-4"
             disabled={!teams.length || !selectedTeamSlug.length}
           >
             Select
