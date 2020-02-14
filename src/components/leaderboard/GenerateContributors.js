@@ -123,7 +123,7 @@ const GenerateContributors = ({
           <br />
 
           <button
-            className="btn waves-effect waves-light black lighten-1 z-depth-0"
+            className="btn waves-effect waves-light grey darken-4"
             disabled={disabled}
           >
             Generate
