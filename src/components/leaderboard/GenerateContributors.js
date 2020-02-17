@@ -20,15 +20,18 @@ const GenerateContributors = ({
   getOrganizationContributorsThunk,
   getTeamContributorsThunk,
 }) => {
-  const [type, setType] = useState('');
-  const [time, setTime] = useState('0');
-  const [disabled, setDisabled] = useState(true);
+  const [state, setState] = useState({
+    type: '',
+    time: '0',
+  });
+  const [disabled, setSDisabled] = useState(true);
 
   useEffect(() => {
-    const userLoginCheck = type === 'user' && userLogin;
-    const organizationLoginCheck = type === 'organization' && organizationLogin;
-    const teamSlugCheck = type === 'team' && teamSlug;
-    const timeCheck = Number(time);
+    const userLoginCheck = state.type === 'user' && userLogin;
+    const organizationLoginCheck =
+      state.type === 'organization' && organizationLogin;
+    const teamSlugCheck = state.type === 'team' && teamSlug;
+    const timeCheck = Number(state.time);
 
     let newDisabledStatus = true;
     if (
@@ -38,27 +41,25 @@ const GenerateContributors = ({
       newDisabledStatus = false;
     }
 
-    setDisabled(newDisabledStatus);
-    // eslint-disable-next-line
-  }, [type, time, userLogin, organizationLogin, teamSlug]);
+    setSDisabled(newDisabledStatus);
+  }, [state, userLogin, organizationLogin, teamSlug]);
 
   const handleChange = event => {
-    if (event.target.id === 'type') {
-      setType(event.target.value);
-    } else if (event.target.id === 'time') {
-      setTime(event.target.value);
-    }
+    setState({
+      ...state,
+      [event.target.id]: event.target.value,
+    });
   };
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    if (type === 'user') {
-      getUserContributionsThunk(time);
-    } else if (type === 'organization') {
-      getOrganizationContributorsThunk(time);
-    } else if (type === 'team') {
-      getTeamContributorsThunk(time);
+    if (state.type === 'user') {
+      getUserContributionsThunk(state.time);
+    } else if (state.type === 'organization') {
+      getOrganizationContributorsThunk(state.time);
+    } else if (state.type === 'team') {
+      getTeamContributorsThunk(state.time);
     }
   };
 
