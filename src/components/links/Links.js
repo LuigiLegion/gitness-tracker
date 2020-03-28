@@ -14,10 +14,10 @@ const Links = () => {
 
       <li>
         <a
+          className="gray-text-color"
           href="https://github.com/LuigiLegion/gitness-tracker"
           target="_blank"
           rel="noopener noreferrer"
-          className="gray-text-color"
         >
           <span className="gray-text-color bold-text-style">Source</span>
         </a>
@@ -25,10 +25,10 @@ const Links = () => {
 
       <li>
         <a
+          className="gray-text-color"
           href="http://taluigi.netlify.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="gray-text-color"
         >
           <span className="gray-text-color bold-text-style">Contact</span>
         </a>
