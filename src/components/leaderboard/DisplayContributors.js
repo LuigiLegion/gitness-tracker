@@ -50,40 +50,31 @@ const DisplayContributors = ({
                 </thead>
 
                 <tbody>
-                  {contributors.map((curContributor, idx) => {
-                    const {
-                      id,
-                      login,
-                      contributionsCollection,
-                    } = curContributor.node;
+                  {contributors.map((curContributor, idx) => (
+                    <tr key={curContributor.node.id}>
+                      <td className="bold-text-style">{idx + 1}</td>
 
-                    return (
-                      <tr key={id}>
-                        <td>
-                          <strong>{idx + 1}</strong>
-                        </td>
+                      <td>
+                        <a
+                          className="events-time-and-rsvp-containee"
+                          href={`https://github.com/${curContributor.node.login}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="bold-text-style">
+                            {curContributor.node.login}
+                          </span>
+                        </a>
+                      </td>
 
-                        <td>
-                          <a
-                            className="events-time-and-rsvp-containee"
-                            href={`https://github.com/${login}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <span>
-                              <strong>{login}</strong>
-                            </span>
-                          </a>
-                        </td>
-
-                        <td>
-                          <strong>
-                            {contributionsCollection.totalCommitContributions}
-                          </strong>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                      <td className="bold-text-style">
+                        {
+                          curContributor.node.contributionsCollection
+                            .totalCommitContributions
+                        }
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             ) : (
