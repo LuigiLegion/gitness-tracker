@@ -24,7 +24,7 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
             <span className="gray-text-color bold-text-style">User</span>
           </span>
@@ -37,6 +37,7 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
             <input
               type="text"
               id="userLogin"
+              autoComplete="user-login"
               required
               onChange={handleChange}
             />

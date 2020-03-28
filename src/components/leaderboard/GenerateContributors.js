@@ -66,7 +66,7 @@ const GenerateContributors = ({
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
             <span className="gray-text-color bold-text-style">Generate</span>
           </span>
@@ -82,8 +82,8 @@ const GenerateContributors = ({
             <br />
 
             <select
-              id="type"
               className="browser-default"
+              id="type"
               required
               onChange={handleChange}
             >
@@ -105,8 +105,8 @@ const GenerateContributors = ({
             <br />
 
             <select
-              id="time"
               className="browser-default"
+              id="time"
               required
               onChange={handleChange}
             >

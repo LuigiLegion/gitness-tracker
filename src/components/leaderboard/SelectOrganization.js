@@ -42,7 +42,7 @@ const SelectOrganization = ({
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
             <span className="gray-text-color bold-text-style">Org</span>
           </span>
@@ -56,8 +56,8 @@ const SelectOrganization = ({
             <br />
 
             <select
-              id="organizationLogin"
               className="browser-default"
+              id="organizationLogin"
               value={selectedOrganizationLogin}
               required
               onChange={handleChange}

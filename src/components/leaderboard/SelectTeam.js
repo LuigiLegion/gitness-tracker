@@ -38,7 +38,7 @@ const SelectTeam = ({
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
             <span className="gray-text-color bold-text-style">Team</span>
           </span>
@@ -52,8 +52,8 @@ const SelectTeam = ({
             <br />
 
             <select
-              id="teamSlug"
               className="browser-default"
+              id="teamSlug"
               value={selectedTeamSlug}
               required
               onChange={handleChange}
