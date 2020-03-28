@@ -93,7 +93,7 @@ export const clearedContributorsActionCreator = () => ({
 
 // Thunk Creators
 export const getOrganizationsThunkCreator = userLogin => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async dispatch => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(gotUserLoginActionCreator(userLogin));
@@ -123,7 +123,7 @@ export const getOrganizationsThunkCreator = userLogin => {
 };
 
 export const getTeamsThunkCreator = organizationLogin => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async dispatch => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(gotOrganizationLoginActionCreator(organizationLogin));
@@ -149,7 +149,7 @@ export const getTeamsThunkCreator = organizationLogin => {
 };
 
 export const getUserContributionsThunkCreator = time => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(clearedContributorsActionCreator());
@@ -186,7 +186,7 @@ export const getUserContributionsThunkCreator = time => {
 };
 
 export const getOrganizationContributorsThunkCreator = time => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(clearedContributorsActionCreator());
@@ -242,7 +242,7 @@ export const getOrganizationContributorsThunkCreator = time => {
 };
 
 export const getTeamContributorsThunkCreator = time => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(clearedContributorsActionCreator());
