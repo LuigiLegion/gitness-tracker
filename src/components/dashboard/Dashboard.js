@@ -38,7 +38,7 @@ const Dashboard = () => {
         </div>
 
         <div className="center-text-align padding-bottom">
-          Made with ❤ by{' '}
+          {'Made with ❤ by '}
           <a
             href="https://www.linkedin.com/in/talluigi"
             target="_blank"
