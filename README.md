@@ -2,6 +2,10 @@
 
 ![Gitness Tracker Screenshot](./public/screenshot.png)
 
+### Video Presentation:
+
+Coming soon...
+
 ### Deployed Web App:
 
 https://gitness-tracker.web.app
