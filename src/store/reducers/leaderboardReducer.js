@@ -8,7 +8,7 @@ import {
   organizationContributorsQueryGenerator,
   teamContributorsQueryGenerator,
   githubDataFetcher,
-  toastNotificationGenerator,
+  toastNotification,
 } from '../../helpers';
 
 // Initial State
@@ -107,17 +107,14 @@ export const getOrganizationsThunkCreator = userLogin => {
       dispatch(toggledPreloaderActionCreator(false));
 
       if (organizations.length) {
-        toastNotificationGenerator(
-          'Organizations Generated Successfully',
-          'green'
-        );
+        toastNotification('Organizations Generated Successfully', 'green');
       } else {
-        toastNotificationGenerator('No Organizations Found', 'red');
+        toastNotification('No Organizations Found', 'red');
       }
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator('Error! Invalid GitHub Username', 'red');
+      toastNotification('Error! Invalid GitHub Username', 'red');
     }
   };
 };
@@ -137,9 +134,9 @@ export const getTeamsThunkCreator = organizationLogin => {
       dispatch(toggledPreloaderActionCreator(false));
 
       if (teams.length) {
-        toastNotificationGenerator('Teams Generated Successfully', 'green');
+        toastNotification('Teams Generated Successfully', 'green');
       } else {
-        toastNotificationGenerator('No Teams Found', 'red');
+        toastNotification('No Teams Found', 'red');
       }
     } catch (error) {
       console.error(error);
@@ -170,17 +167,11 @@ export const getUserContributionsThunkCreator = time => {
       dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotificationGenerator(
-        'User Leaderboard Generated Successfully',
-        'green'
-      );
+      toastNotification('User Leaderboard Generated Successfully', 'green');
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator(
-        'Error! Please Try A Shorter Time Period',
-        'red'
-      );
+      toastNotification('Error! Please Try A Shorter Time Period', 'red');
     }
   };
 };
@@ -226,17 +217,14 @@ export const getOrganizationContributorsThunkCreator = time => {
       dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotificationGenerator(
+      toastNotification(
         'Organization Leaderboard Generated Successfully',
         'green'
       );
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator(
-        'Error! Please Try A Shorter Time Period',
-        'red'
-      );
+      toastNotification('Error! Please Try A Shorter Time Period', 'red');
     }
   };
 };
@@ -283,17 +271,11 @@ export const getTeamContributorsThunkCreator = time => {
       dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotificationGenerator(
-        'Team Leaderboard Generated Successfully',
-        'green'
-      );
+      toastNotification('Team Leaderboard Generated Successfully', 'green');
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator(
-        'Error! Please Try A Shorter Time Period',
-        'red'
-      );
+      toastNotification('Error! Please Try A Shorter Time Period', 'red');
     }
   };
 };
