@@ -7,7 +7,7 @@ import {
   userContributionsQueryGenerator,
   organizationContributorsQueryGenerator,
   teamContributorsQueryGenerator,
-  githubDataFetcher,
+  githubData,
   toastNotification,
 } from '../../helpers';
 
@@ -100,7 +100,7 @@ export const getOrganizationsThunkCreator = userLogin => {
 
       const customQuery = organizationsQueryGenerator(userLogin);
 
-      const { data } = await githubDataFetcher(customQuery);
+      const { data } = await githubData(customQuery);
       const organizations = data.user.organizations.nodes;
 
       dispatch(gotOrganizationsActionCreator(organizations));
@@ -127,7 +127,7 @@ export const getTeamsThunkCreator = organizationLogin => {
 
       const customQuery = teamsQueryGenerator(organizationLogin);
 
-      const { data } = await githubDataFetcher(customQuery);
+      const { data } = await githubData(customQuery);
       const teams = data.organization.teams.edges;
 
       dispatch(gotTeamsActionCreator(teams));
@@ -158,7 +158,7 @@ export const getUserContributionsThunkCreator = time => {
 
       const customQuery = userContributionsQueryGenerator(userLogin, timeISO);
 
-      const { data } = await githubDataFetcher(customQuery);
+      const { data } = await githubData(customQuery);
       const contributor = {
         node: data.user,
       };
@@ -200,7 +200,7 @@ export const getOrganizationContributorsThunkCreator = time => {
           timeISO
         );
 
-        const { data } = await githubDataFetcher(customQuery);
+        const { data } = await githubData(customQuery);
         const curContributors = data.organization.membersWithRole.edges;
 
         dispatch(gotOrganizationContributorsActionCreator(curContributors));
@@ -254,7 +254,7 @@ export const getTeamContributorsThunkCreator = time => {
           timeISO
         );
 
-        const { data } = await githubDataFetcher(customQuery);
+        const { data } = await githubData(customQuery);
         const curContributors = data.organization.team.members.edges;
 
         dispatch(gotTeamContributorsActionCreator(curContributors));
