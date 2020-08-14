@@ -6,10 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { clearedContributorsActionCreator } from '../../store/reducers/leaderboardReducer';
-import {
-  contributorsSorter,
-  toastNotificationGenerator,
-} from '../../helpers/index';
+import { contributorsSorter, toastNotification } from '../../utils';
 
 // Component
 const DisplayContributors = ({
@@ -23,7 +20,7 @@ const DisplayContributors = ({
     event.preventDefault();
 
     clearedContributorsAction();
-    toastNotificationGenerator('Leaderboard Cleared Succesfully', 'green');
+    toastNotification('Leaderboard Cleared Succesfully', 'green');
   };
 
   return (
@@ -31,7 +28,7 @@ const DisplayContributors = ({
       <div className="card white center">
         <div className="card-content grey-text text-darken-3 center">
           <span className="card-title">
-            <span className="bold-text-style">Commits Leaderboard</span>
+            <span className="text-style-bold">Commits Leaderboard</span>
           </span>
 
           <br />
@@ -52,7 +49,7 @@ const DisplayContributors = ({
                 <tbody>
                   {contributors.map((curContributor, idx) => (
                     <tr key={curContributor.node.id}>
-                      <td className="bold-text-style">{idx + 1}</td>
+                      <td className="text-style-bold">{idx + 1}</td>
 
                       <td>
                         <a
@@ -61,13 +58,13 @@ const DisplayContributors = ({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <span className="bold-text-style">
+                          <span className="text-style-bold">
                             {curContributor.node.login}
                           </span>
                         </a>
                       </td>
 
-                      <td className="bold-text-style">
+                      <td className="text-style-bold">
                         {
                           curContributor.node.contributionsCollection
                             .totalCommitContributions

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReducer';
-import { toastNotificationGenerator } from '../../helpers/index';
+import { toastNotification } from '../../utils';
 
 // Component
 const SelectTeam = ({
@@ -32,7 +32,7 @@ const SelectTeam = ({
     event.preventDefault();
 
     gotTeamSlugAction(selectedTeamSlug);
-    toastNotificationGenerator('Team Selected Succesfully', 'green');
+    toastNotification('Team Selected Succesfully', 'green');
   };
 
   return (
@@ -40,12 +40,12 @@ const SelectTeam = ({
       <div className="section center">
         <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">Team</span>
+            <span className="text-color-gray text-style-bold">Team</span>
           </span>
 
           <div className="input-field col s12">
             <label htmlFor="teamSlug">
-              Teams<span className="red-text-color">*</span>
+              Teams<span className="text-color-red">*</span>
             </label>
 
             <br />
@@ -82,7 +82,7 @@ const SelectTeam = ({
           <br />
           <br />
 
-          <span className="italic-text-style">
+          <span className="text-style-italic">
             {teamSlug ? teamSlug : 'Not Yet Selected'}
           </span>
 
