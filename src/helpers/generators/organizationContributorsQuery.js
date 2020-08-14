@@ -1,10 +1,6 @@
 // Query Generator
-const organizationContributorsQueryGenerator = (
-  organizationLogin,
-  cursor,
-  timeISO
-) => {
-  const organizationContributorsQuery = `
+const organizationContributorsQuery = (organizationLogin, cursor, timeISO) =>
+  `
     {
       organization(login: "${organizationLogin}") {
         membersWithRole(first: 25${cursor ? `, after: "${cursor}"` : ''}) {
@@ -23,8 +19,5 @@ const organizationContributorsQueryGenerator = (
     }
   `;
 
-  return organizationContributorsQuery;
-};
-
 // Exports
-export default organizationContributorsQueryGenerator;
+export default organizationContributorsQuery;

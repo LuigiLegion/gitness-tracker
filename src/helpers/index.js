@@ -1,19 +1,15 @@
 // Exports
+export { default as organizationsQuery } from './generators/organizationsQuery';
+export { default as teamsQuery } from './generators/teamsQuery';
 export {
-  default as organizationsQueryGenerator,
-} from './generators/organizationsQueryGenerator';
+  default as userContributionsQuery,
+} from './generators/userContributionsQuery';
 export {
-  default as teamsQueryGenerator,
-} from './generators/teamsQueryGenerator';
+  default as organizationContributorsQuery,
+} from './generators/organizationContributorsQuery';
 export {
-  default as userContributionsQueryGenerator,
-} from './generators/userContributionsQueryGenerator';
-export {
-  default as organizationContributorsQueryGenerator,
-} from './generators/organizationContributorsQueryGenerator';
-export {
-  default as teamContributorsQueryGenerator,
-} from './generators/teamContributorsQueryGenerator';
+  default as teamContributorsQuery,
+} from './generators/teamContributorsQuery';
 export { default as githubData } from './fetchers/githubData';
 export { default as contributorsSorter } from './sorters/contributorsSorter';
 export { default as toastNotification } from './generators/toastNotification';

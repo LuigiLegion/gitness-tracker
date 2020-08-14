@@ -2,11 +2,11 @@
 
 // Imports
 import {
-  organizationsQueryGenerator,
-  teamsQueryGenerator,
-  userContributionsQueryGenerator,
-  organizationContributorsQueryGenerator,
-  teamContributorsQueryGenerator,
+  organizationsQuery,
+  teamsQuery,
+  userContributionsQuery,
+  organizationContributorsQuery,
+  teamContributorsQuery,
   githubData,
   toastNotification,
 } from '../../helpers';
@@ -98,7 +98,7 @@ export const getOrganizationsThunkCreator = userLogin => {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(gotUserLoginActionCreator(userLogin));
 
-      const customQuery = organizationsQueryGenerator(userLogin);
+      const customQuery = organizationsQuery(userLogin);
 
       const { data } = await githubData(customQuery);
       const organizations = data.user.organizations.nodes;
@@ -125,7 +125,7 @@ export const getTeamsThunkCreator = organizationLogin => {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(gotOrganizationLoginActionCreator(organizationLogin));
 
-      const customQuery = teamsQueryGenerator(organizationLogin);
+      const customQuery = teamsQuery(organizationLogin);
 
       const { data } = await githubData(customQuery);
       const teams = data.organization.teams.edges;
@@ -156,7 +156,7 @@ export const getUserContributionsThunkCreator = time => {
 
       const { userLogin } = getState().leaderboard;
 
-      const customQuery = userContributionsQueryGenerator(userLogin, timeISO);
+      const customQuery = userContributionsQuery(userLogin, timeISO);
 
       const { data } = await githubData(customQuery);
       const contributor = {
@@ -194,7 +194,7 @@ export const getOrganizationContributorsThunkCreator = time => {
           cursor = totalContributors[totalContributors.length - 1].cursor;
         }
 
-        const customQuery = organizationContributorsQueryGenerator(
+        const customQuery = organizationContributorsQuery(
           organizationLogin,
           cursor,
           timeISO
@@ -247,7 +247,7 @@ export const getTeamContributorsThunkCreator = time => {
           cursor = totalContributors[totalContributors.length - 1].cursor;
         }
 
-        const customQuery = teamContributorsQueryGenerator(
+        const customQuery = teamContributorsQuery(
           organizationLogin,
           teamSlug,
           cursor,

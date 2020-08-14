@@ -1,6 +1,6 @@
 // Query Generator
-const userContributionsQueryGenerator = (userLogin, timeISO) => {
-  const userContributionsQuery = `
+const userContributionsQuery = (userLogin, timeISO) =>
+  `
     {
       user(login: "${userLogin}") {
         id,
@@ -12,8 +12,5 @@ const userContributionsQueryGenerator = (userLogin, timeISO) => {
     }
   `;
 
-  return userContributionsQuery;
-};
-
 // Exports
-export default userContributionsQueryGenerator;
+export default userContributionsQuery;
