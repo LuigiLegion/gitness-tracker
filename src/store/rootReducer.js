@@ -12,4 +12,5 @@ const rootReducer = combineReducers({
   leaderboard: leaderboardReducer,
 });
 
+// Exports
 export default rootReducer;
