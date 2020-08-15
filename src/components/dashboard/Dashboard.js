@@ -44,7 +44,7 @@ const Dashboard = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="bold-text-style">Tal Luigi</span>
+            <span className="text-style-bold">Tal Luigi</span>
           </a>
         </div>
       </div>

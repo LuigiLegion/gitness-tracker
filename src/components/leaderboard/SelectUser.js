@@ -26,12 +26,12 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
       <div className="section center">
         <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">User</span>
+            <span className="text-color-gray text-style-bold">User</span>
           </span>
 
           <div className="input-field">
             <label htmlFor="userLogin">
-              GitHub Username<span className="red-text-color">*</span>
+              GitHub Username<span className="text-color-red">*</span>
             </label>
 
             <input
@@ -53,7 +53,7 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
           <br />
           <br />
 
-          <span className="italic-text-style">
+          <span className="text-style-italic">
             {userLogin ? userLogin : 'Not Yet Selected'}
           </span>
 

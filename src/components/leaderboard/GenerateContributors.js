@@ -68,14 +68,14 @@ const GenerateContributors = ({
       <div className="section center">
         <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">Generate</span>
+            <span className="text-color-gray text-style-bold">Generate</span>
           </span>
 
           <br />
 
           <div className="input-field col s12">
             <label htmlFor="type">
-              Type<span className="red-text-color">*</span>
+              Type<span className="text-color-red">*</span>
             </label>
 
             <br />
@@ -98,7 +98,7 @@ const GenerateContributors = ({
 
           <div className="input-field col s12">
             <label htmlFor="time">
-              Time<span className="red-text-color">*</span>
+              Time<span className="text-color-red">*</span>
             </label>
 
             <br />

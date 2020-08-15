@@ -44,12 +44,12 @@ const SelectOrganization = ({
       <div className="section center">
         <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">Org</span>
+            <span className="text-color-gray text-style-bold">Org</span>
           </span>
 
           <div className="input-field col s12">
             <label htmlFor="organizationLogin">
-              Orgs<span className="red-text-color">*</span>
+              Orgs<span className="text-color-red">*</span>
             </label>
 
             <br />
@@ -89,7 +89,7 @@ const SelectOrganization = ({
           <br />
           <br />
 
-          <span className="italic-text-style">
+          <span className="text-style-italic">
             {organizationLogin ? organizationLogin : 'Not Yet Selected'}
           </span>
 

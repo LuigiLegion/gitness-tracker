@@ -36,11 +36,8 @@ const Navbar = ({ isLoading }) => {
         style={navbarStyle}
       >
         <div>
-          <NavLink
-            to="/"
-            className="left brand-logo navbar-logo name-text-positioning"
-          >
-            <span className="gray-text-color bold-text-style">
+          <NavLink to="/" className="left navbar-logo">
+            <span className="text-color-gray text-style-bold">
               Gitness Tracker
             </span>
           </NavLink>

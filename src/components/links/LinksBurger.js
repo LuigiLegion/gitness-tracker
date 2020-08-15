@@ -28,7 +28,7 @@ const LinksBurger = () => {
       <div className="remove-outline">
         <div>
           <NavLink to="/about" onClick={closeMenu}>
-            <span className="gray-text-color bold-text-style">About</span>
+            <span className="text-color-gray text-style-bold">About</span>
           </NavLink>
         </div>
 
@@ -39,18 +39,18 @@ const LinksBurger = () => {
             rel="noopener noreferrer"
             onClick={closeMenu}
           >
-            <span className="gray-text-color  bold-text-style">Source</span>
+            <span className="text-color-gray  text-style-bold">Source</span>
           </a>
         </div>
 
         <div>
           <a
-            href="http://taluigi.netlify.com"
+            href="https://taluigi.netlify.com"
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeMenu}
           >
-            <span className="gray-text-color bold-text-style">Contact</span>
+            <span className="text-color-gray text-style-bold">Contact</span>
           </a>
         </div>
       </div>
