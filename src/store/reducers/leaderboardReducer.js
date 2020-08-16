@@ -355,4 +355,5 @@ const leaderboardReducer = (state = initialState, action) => {
   }
 };
 
+// Exports
 export default leaderboardReducer;

@@ -58,4 +58,5 @@ const About = () => {
   );
 };
 
+// Exports
 export default About;
