@@ -1,4 +1,4 @@
-// Query Generator
+// Initializations
 const organizationContributorsQuery = (organizationLogin, cursor, timeISO) =>
   `
     {

@@ -1,4 +1,4 @@
-// Query Generator
+// Initializations
 const organizationsQuery = userLogin =>
   `
     {
