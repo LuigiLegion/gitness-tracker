@@ -154,11 +154,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GenerateContributors);
-
 // Prop Types
 GenerateContributors.propTypes = {
   userLogin: PropTypes.string,
@@ -168,3 +163,9 @@ GenerateContributors.propTypes = {
   getOrganizationContributorsThunk: PropTypes.func,
   getTeamContributorsThunk: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GenerateContributors);

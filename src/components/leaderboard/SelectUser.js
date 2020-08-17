@@ -76,13 +76,14 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectUser);
-
 // Prop Types
 SelectUser.propTypes = {
   userLogin: PropTypes.string,
   getOrganizationsThunk: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectUser);

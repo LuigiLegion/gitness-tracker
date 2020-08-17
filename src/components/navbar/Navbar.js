@@ -56,9 +56,10 @@ const mapStateToProps = state => ({
   isLoading: state.leaderboard.isLoading,
 });
 
-export default connect(mapStateToProps)(Navbar);
-
 // Prop Types
 Navbar.propTypes = {
   isLoading: PropTypes.bool,
 };
+
+// Exports
+export default connect(mapStateToProps)(Navbar);

@@ -107,14 +107,15 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DisplayContributors);
-
 // Prop Types
 DisplayContributors.propTypes = {
   contributors: PropTypes.array,
   isNotClearable: PropTypes.bool,
   clearedContributorsAction: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DisplayContributors);

@@ -107,11 +107,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectTeam);
-
 // Prop Types
 SelectTeam.propTypes = {
   organizationLogin: PropTypes.string,
@@ -119,3 +114,9 @@ SelectTeam.propTypes = {
   teamSlug: PropTypes.string,
   gotTeamSlugAction: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectTeam);

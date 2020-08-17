@@ -117,11 +117,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectOrganization);
-
 // Prop Types
 SelectOrganization.propTypes = {
   userLogin: PropTypes.string,
@@ -130,3 +125,9 @@ SelectOrganization.propTypes = {
   getTeamsThunk: PropTypes.func,
   gotOrganizationLoginAction: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectOrganization);
