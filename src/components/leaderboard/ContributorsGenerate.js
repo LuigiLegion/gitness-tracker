@@ -12,7 +12,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-const GenerateContributors = ({
+const ContributorsGenerate = ({
   userLogin,
   organizationLogin,
   teamSlug,
@@ -152,7 +152,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 // Prop Types
-GenerateContributors.propTypes = {
+ContributorsGenerate.propTypes = {
   userLogin: PropTypes.string,
   organizationLogin: PropTypes.string,
   teamSlug: PropTypes.string,
@@ -165,4 +165,4 @@ GenerateContributors.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GenerateContributors);
+)(ContributorsGenerate);

@@ -11,7 +11,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-const SelectOrganization = ({
+const OrganizationSelect = ({
   userLogin,
   organizations,
   organizationLogin,
@@ -116,7 +116,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 // Prop Types
-SelectOrganization.propTypes = {
+OrganizationSelect.propTypes = {
   userLogin: PropTypes.string,
   organizations: PropTypes.array,
   organizationLogin: PropTypes.string,
@@ -128,4 +128,4 @@ SelectOrganization.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SelectOrganization);
+)(OrganizationSelect);

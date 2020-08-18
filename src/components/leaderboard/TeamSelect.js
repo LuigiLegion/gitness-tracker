@@ -9,7 +9,7 @@ import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReduce
 import { toastNotification } from '../../utils';
 
 // Component
-const SelectTeam = ({
+const TeamSelect = ({
   organizationLogin,
   teams,
   teamSlug,
@@ -106,7 +106,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 // Prop Types
-SelectTeam.propTypes = {
+TeamSelect.propTypes = {
   organizationLogin: PropTypes.string,
   teams: PropTypes.array,
   teamSlug: PropTypes.string,
@@ -117,4 +117,4 @@ SelectTeam.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SelectTeam);
+)(TeamSelect);

@@ -9,7 +9,7 @@ import { clearedContributorsActionCreator } from '../../store/reducers/leaderboa
 import { contributorsSorter, toastNotification } from '../../utils';
 
 // Component
-const DisplayContributors = ({
+const ContributorsDisplay = ({
   contributors,
   isNotClearable,
   clearedContributorsAction,
@@ -106,7 +106,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 // Prop Types
-DisplayContributors.propTypes = {
+ContributorsDisplay.propTypes = {
   contributors: PropTypes.array,
   isNotClearable: PropTypes.bool,
   clearedContributorsAction: PropTypes.func,
@@ -116,4 +116,4 @@ DisplayContributors.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DisplayContributors);
+)(ContributorsDisplay);

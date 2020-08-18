@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
-const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
+const UserSelect = ({ userLogin, getOrganizationsThunk }) => {
   const [selectedUserLogin, setSelectedUserLogin] = useState('');
 
   const handleChange = event => {
@@ -76,7 +76,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 // Prop Types
-SelectUser.propTypes = {
+UserSelect.propTypes = {
   userLogin: PropTypes.string,
   getOrganizationsThunk: PropTypes.func,
 };
@@ -85,4 +85,4 @@ SelectUser.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SelectUser);
+)(UserSelect);
