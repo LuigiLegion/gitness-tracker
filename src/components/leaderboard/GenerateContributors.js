@@ -143,15 +143,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUserContributionsThunk(time) {
-    dispatch(getUserContributionsThunkCreator(time));
-  },
-  getOrganizationContributorsThunk(time) {
-    dispatch(getOrganizationContributorsThunkCreator(time));
-  },
-  getTeamContributorsThunk(time) {
-    dispatch(getTeamContributorsThunkCreator(time));
-  },
+  getUserContributionsThunk: time =>
+    dispatch(getUserContributionsThunkCreator(time)),
+  getOrganizationContributorsThunk: time =>
+    dispatch(getOrganizationContributorsThunkCreator(time)),
+  getTeamContributorsThunk: time =>
+    dispatch(getTeamContributorsThunkCreator(time)),
 });
 
 // Prop Types

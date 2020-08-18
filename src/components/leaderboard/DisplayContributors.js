@@ -102,9 +102,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearedContributorsAction() {
-    dispatch(clearedContributorsActionCreator());
-  },
+  clearedContributorsAction: () => dispatch(clearedContributorsActionCreator()),
 });
 
 // Prop Types

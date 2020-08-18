@@ -102,9 +102,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  gotTeamSlugAction(teamSlug) {
-    dispatch(gotTeamSlugActionCreator(teamSlug));
-  },
+  gotTeamSlugAction: teamSlug => dispatch(gotTeamSlugActionCreator(teamSlug)),
 });
 
 // Prop Types

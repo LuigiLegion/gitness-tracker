@@ -71,9 +71,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getOrganizationsThunk(userLogin) {
-    dispatch(getOrganizationsThunkCreator(userLogin));
-  },
+  getOrganizationsThunk: userLogin =>
+    dispatch(getOrganizationsThunkCreator(userLogin)),
 });
 
 // Prop Types
