@@ -37,7 +37,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="center-text-align padding-bottom">
+        <div className="text-align-center padding-bottom">
           {'Made with ❤ by '}
           <a
             href="https://www.linkedin.com/in/talluigi"

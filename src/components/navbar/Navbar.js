@@ -31,13 +31,10 @@ const Navbar = ({ isLoading }) => {
 
   return (
     <div className="navbar-fixed">
-      <nav
-        className="nav-wrapper grey lighten-5 preloader-container"
-        style={navbarStyle}
-      >
+      <nav className="nav-wrapper grey lighten-5" style={navbarStyle}>
         <div>
           <NavLink to="/" className="left navbar-logo">
-            <span className="text-color-gray text-style-bold">
+            <span className="text-style-bold text-color-gray">
               Gitness Tracker
             </span>
           </NavLink>

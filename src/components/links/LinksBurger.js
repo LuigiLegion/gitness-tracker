@@ -25,7 +25,7 @@ const LinksBurger = () => {
       width="50%"
       onStateChange={state => handleStateChange(state)}
     >
-      <div className="remove-outline">
+      <div className="outline-none">
         <div>
           <NavLink to="/about" onClick={closeMenu}>
             <span className="text-color-gray text-style-bold">About</span>
