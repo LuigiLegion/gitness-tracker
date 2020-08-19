@@ -16,9 +16,7 @@ const ContributorsDisplay = ({
 }) => {
   contributorsSorter(contributors);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
+  const handleClear = () => {
     clearedContributorsAction();
     toastNotification('Leaderboard Cleared Succesfully', 'green');
   };
@@ -81,14 +79,14 @@ const ContributorsDisplay = ({
 
           <br />
 
-          <form className="clear-form" onSubmit={handleSubmit}>
-            <button
-              className="btn waves-effect waves-light grey darken-4"
-              disabled={isNotClearable}
-            >
-              Clear
-            </button>
-          </form>
+          <button
+            className="btn grey darken-4 waves-effect waves-light clear-button"
+            type="button"
+            disabled={isNotClearable}
+            onClick={handleClear}
+          >
+            Clear
+          </button>
         </div>
       </div>
     </div>
