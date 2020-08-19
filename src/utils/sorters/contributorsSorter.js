@@ -1,4 +1,4 @@
-// Sorter
+// Initializations
 const contributorsSorter = contributors => {
   contributors.sort((contributorOne, contributorTwo) => {
     if (

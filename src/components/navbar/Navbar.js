@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Links from './Links';
-import LinksBurger from './LinksBurger';
+import Links from '../links/Links';
+import LinksBurger from '../links/LinksBurger';
 import Preloader from './Preloader';
 import { navbarStyle } from '../../styles';
 
@@ -31,16 +31,10 @@ const Navbar = ({ isLoading }) => {
 
   return (
     <div className="navbar-fixed">
-      <nav
-        className="nav-wrapper grey lighten-5 preloader-container"
-        style={navbarStyle}
-      >
+      <nav className="nav-wrapper grey lighten-5" style={navbarStyle}>
         <div>
-          <NavLink
-            to="/"
-            className="left brand-logo navbar-logo name-text-positioning"
-          >
-            <span className="gray-text-color bold-text-style">
+          <NavLink to="/" className="left navbar-logo">
+            <span className="text-style-bold text-color-gray">
               Gitness Tracker
             </span>
           </NavLink>
@@ -59,9 +53,10 @@ const mapStateToProps = state => ({
   isLoading: state.leaderboard.isLoading,
 });
 
-export default connect(mapStateToProps)(Navbar);
-
 // Prop Types
 Navbar.propTypes = {
   isLoading: PropTypes.bool,
 };
+
+// Exports
+export default connect(mapStateToProps)(Navbar);

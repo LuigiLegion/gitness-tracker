@@ -11,7 +11,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-const SelectOrganization = ({
+const OrganizationSelect = ({
   userLogin,
   organizations,
   organizationLogin,
@@ -42,22 +42,22 @@ const SelectOrganization = ({
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">Org</span>
+            <span className="text-color-gray text-style-bold">Org</span>
           </span>
 
           <div className="input-field col s12">
             <label htmlFor="organizationLogin">
-              Orgs<span className="red-text-color">*</span>
+              Orgs<span className="text-color-red">*</span>
             </label>
 
             <br />
             <br />
 
             <select
-              id="organizationLogin"
               className="browser-default"
+              id="organizationLogin"
               value={selectedOrganizationLogin}
               required
               onChange={handleChange}
@@ -89,7 +89,7 @@ const SelectOrganization = ({
           <br />
           <br />
 
-          <span className="italic-text-style">
+          <span className="text-style-italic">
             {organizationLogin ? organizationLogin : 'Not Yet Selected'}
           </span>
 
@@ -109,24 +109,23 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getTeamsThunk(organizationLogin) {
-    dispatch(getTeamsThunkCreator(organizationLogin));
-  },
-  gotOrganizationLoginAction(organizationLogin) {
-    dispatch(gotOrganizationLoginActionCreator(organizationLogin));
-  },
+  getTeamsThunk: organizationLogin =>
+    dispatch(getTeamsThunkCreator(organizationLogin)),
+  gotOrganizationLoginAction: organizationLogin =>
+    dispatch(gotOrganizationLoginActionCreator(organizationLogin)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectOrganization);
-
 // Prop Types
-SelectOrganization.propTypes = {
+OrganizationSelect.propTypes = {
   userLogin: PropTypes.string,
   organizations: PropTypes.array,
   organizationLogin: PropTypes.string,
   getTeamsThunk: PropTypes.func,
   gotOrganizationLoginAction: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrganizationSelect);

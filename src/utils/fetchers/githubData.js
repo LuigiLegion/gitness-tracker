@@ -7,16 +7,13 @@ import githubAccessToken from '../../config/ghConfig';
 const githubApiEndpoint = 'https://api.github.com/graphql';
 const headers = { Authorization: `bearer ${githubAccessToken}` };
 
-// Data Fetcher
-const githubDataFetcher = async query => {
+const githubData = async query => {
   try {
-    const fetchedGithubData = await axios.post(
+    const { data } = await axios.post(
       githubApiEndpoint,
       { query },
       { headers }
     );
-
-    const { data } = fetchedGithubData;
 
     return data;
   } catch (error) {
@@ -25,4 +22,4 @@ const githubDataFetcher = async query => {
 };
 
 // Exports
-export default githubDataFetcher;
+export default githubData;

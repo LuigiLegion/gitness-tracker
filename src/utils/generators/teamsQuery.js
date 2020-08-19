@@ -1,6 +1,6 @@
-// Query Generator
-const teamsQueryGenerator = organizationLogin => {
-  const teamsQuery = `
+// Initializations
+const teamsQuery = organizationLogin =>
+  `
     {
       organization(login: "${organizationLogin}") {
         teams(first: 100, orderBy: {field: NAME, direction: ASC}) {
@@ -15,8 +15,5 @@ const teamsQueryGenerator = organizationLogin => {
     }
   `;
 
-  return teamsQuery;
-};
-
 // Exports
-export default teamsQueryGenerator;
+export default teamsQuery;

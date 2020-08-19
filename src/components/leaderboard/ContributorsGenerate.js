@@ -12,7 +12,7 @@ import {
 } from '../../store/reducers/leaderboardReducer';
 
 // Component
-const GenerateContributors = ({
+const ContributorsGenerate = ({
   userLogin,
   organizationLogin,
   teamSlug,
@@ -66,24 +66,24 @@ const GenerateContributors = ({
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">Generate</span>
+            <span className="text-color-gray text-style-bold">Generate</span>
           </span>
 
           <br />
 
           <div className="input-field col s12">
             <label htmlFor="type">
-              Type<span className="red-text-color">*</span>
+              Type<span className="text-color-red">*</span>
             </label>
 
             <br />
             <br />
 
             <select
-              id="type"
               className="browser-default"
+              id="type"
               required
               onChange={handleChange}
             >
@@ -98,15 +98,15 @@ const GenerateContributors = ({
 
           <div className="input-field col s12">
             <label htmlFor="time">
-              Time<span className="red-text-color">*</span>
+              Time<span className="text-color-red">*</span>
             </label>
 
             <br />
             <br />
 
             <select
-              id="time"
               className="browser-default"
+              id="time"
               required
               onChange={handleChange}
             >
@@ -143,24 +143,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUserContributionsThunk(time) {
-    dispatch(getUserContributionsThunkCreator(time));
-  },
-  getOrganizationContributorsThunk(time) {
-    dispatch(getOrganizationContributorsThunkCreator(time));
-  },
-  getTeamContributorsThunk(time) {
-    dispatch(getTeamContributorsThunkCreator(time));
-  },
+  getUserContributionsThunk: time =>
+    dispatch(getUserContributionsThunkCreator(time)),
+  getOrganizationContributorsThunk: time =>
+    dispatch(getOrganizationContributorsThunkCreator(time)),
+  getTeamContributorsThunk: time =>
+    dispatch(getTeamContributorsThunkCreator(time)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GenerateContributors);
-
 // Prop Types
-GenerateContributors.propTypes = {
+ContributorsGenerate.propTypes = {
   userLogin: PropTypes.string,
   organizationLogin: PropTypes.string,
   teamSlug: PropTypes.string,
@@ -168,3 +160,9 @@ GenerateContributors.propTypes = {
   getOrganizationContributorsThunk: PropTypes.func,
   getTeamContributorsThunk: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ContributorsGenerate);

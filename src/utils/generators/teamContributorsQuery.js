@@ -1,11 +1,6 @@
-// Query Generator
-const teamContributorsQueryGenerator = (
-  organizationLogin,
-  teamSlug,
-  cursor,
-  timeISO
-) => {
-  const teamContributorsQuery = `
+// Initializations
+const teamContributorsQuery = (organizationLogin, teamSlug, cursor, timeISO) =>
+  `
     {
       organization(login: "${organizationLogin}") {
         team(slug: "${teamSlug}") {
@@ -26,8 +21,5 @@ const teamContributorsQueryGenerator = (
     }
   `;
 
-  return teamContributorsQuery;
-};
-
 // Exports
-export default teamContributorsQueryGenerator;
+export default teamContributorsQuery;

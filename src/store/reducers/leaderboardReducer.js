@@ -2,14 +2,14 @@
 
 // Imports
 import {
-  organizationsQueryGenerator,
-  teamsQueryGenerator,
-  userContributionsQueryGenerator,
-  organizationContributorsQueryGenerator,
-  teamContributorsQueryGenerator,
-  githubDataFetcher,
-  toastNotificationGenerator,
-} from '../../helpers';
+  organizationsQuery,
+  teamsQuery,
+  userContributionsQuery,
+  organizationContributorsQuery,
+  teamContributorsQuery,
+  githubData,
+  toastNotification,
+} from '../../utils';
 
 // Initial State
 const initialState = {
@@ -93,53 +93,50 @@ export const clearedContributorsActionCreator = () => ({
 
 // Thunk Creators
 export const getOrganizationsThunkCreator = userLogin => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async dispatch => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(gotUserLoginActionCreator(userLogin));
 
-      const customQuery = organizationsQueryGenerator(userLogin);
+      const customQuery = organizationsQuery(userLogin);
 
-      const { data } = await githubDataFetcher(customQuery);
+      const { data } = await githubData(customQuery);
       const organizations = data.user.organizations.nodes;
 
       dispatch(gotOrganizationsActionCreator(organizations));
       dispatch(toggledPreloaderActionCreator(false));
 
       if (organizations.length) {
-        toastNotificationGenerator(
-          'Organizations Generated Successfully',
-          'green'
-        );
+        toastNotification('Organizations Generated Successfully', 'green');
       } else {
-        toastNotificationGenerator('No Organizations Found', 'red');
+        toastNotification('No Organizations Found', 'red');
       }
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator('Error! Invalid GitHub Username', 'red');
+      toastNotification('Error! Invalid GitHub Username', 'red');
     }
   };
 };
 
 export const getTeamsThunkCreator = organizationLogin => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async dispatch => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(gotOrganizationLoginActionCreator(organizationLogin));
 
-      const customQuery = teamsQueryGenerator(organizationLogin);
+      const customQuery = teamsQuery(organizationLogin);
 
-      const { data } = await githubDataFetcher(customQuery);
+      const { data } = await githubData(customQuery);
       const teams = data.organization.teams.edges;
 
       dispatch(gotTeamsActionCreator(teams));
       dispatch(toggledPreloaderActionCreator(false));
 
       if (teams.length) {
-        toastNotificationGenerator('Teams Generated Successfully', 'green');
+        toastNotification('Teams Generated Successfully', 'green');
       } else {
-        toastNotificationGenerator('No Teams Found', 'red');
+        toastNotification('No Teams Found', 'red');
       }
     } catch (error) {
       console.error(error);
@@ -149,7 +146,7 @@ export const getTeamsThunkCreator = organizationLogin => {
 };
 
 export const getUserContributionsThunkCreator = time => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(clearedContributorsActionCreator());
@@ -159,9 +156,9 @@ export const getUserContributionsThunkCreator = time => {
 
       const { userLogin } = getState().leaderboard;
 
-      const customQuery = userContributionsQueryGenerator(userLogin, timeISO);
+      const customQuery = userContributionsQuery(userLogin, timeISO);
 
-      const { data } = await githubDataFetcher(customQuery);
+      const { data } = await githubData(customQuery);
       const contributor = {
         node: data.user,
       };
@@ -170,23 +167,17 @@ export const getUserContributionsThunkCreator = time => {
       dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotificationGenerator(
-        'User Leaderboard Generated Successfully',
-        'green'
-      );
+      toastNotification('User Leaderboard Generated Successfully', 'green');
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator(
-        'Error! Please Try A Shorter Time Period',
-        'red'
-      );
+      toastNotification('Error! Please Try A Shorter Time Period', 'red');
     }
   };
 };
 
 export const getOrganizationContributorsThunkCreator = time => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(clearedContributorsActionCreator());
@@ -203,13 +194,13 @@ export const getOrganizationContributorsThunkCreator = time => {
           cursor = totalContributors[totalContributors.length - 1].cursor;
         }
 
-        const customQuery = organizationContributorsQueryGenerator(
+        const customQuery = organizationContributorsQuery(
           organizationLogin,
           cursor,
           timeISO
         );
 
-        const { data } = await githubDataFetcher(customQuery);
+        const { data } = await githubData(customQuery);
         const curContributors = data.organization.membersWithRole.edges;
 
         dispatch(gotOrganizationContributorsActionCreator(curContributors));
@@ -226,23 +217,20 @@ export const getOrganizationContributorsThunkCreator = time => {
       dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotificationGenerator(
+      toastNotification(
         'Organization Leaderboard Generated Successfully',
         'green'
       );
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator(
-        'Error! Please Try A Shorter Time Period',
-        'red'
-      );
+      toastNotification('Error! Please Try A Shorter Time Period', 'red');
     }
   };
 };
 
 export const getTeamContributorsThunkCreator = time => {
-  return async (dispatch, getState, { getFirestore }) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(toggledPreloaderActionCreator(true));
       dispatch(clearedContributorsActionCreator());
@@ -259,14 +247,14 @@ export const getTeamContributorsThunkCreator = time => {
           cursor = totalContributors[totalContributors.length - 1].cursor;
         }
 
-        const customQuery = teamContributorsQueryGenerator(
+        const customQuery = teamContributorsQuery(
           organizationLogin,
           teamSlug,
           cursor,
           timeISO
         );
 
-        const { data } = await githubDataFetcher(customQuery);
+        const { data } = await githubData(customQuery);
         const curContributors = data.organization.team.members.edges;
 
         dispatch(gotTeamContributorsActionCreator(curContributors));
@@ -283,17 +271,11 @@ export const getTeamContributorsThunkCreator = time => {
       dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotificationGenerator(
-        'Team Leaderboard Generated Successfully',
-        'green'
-      );
+      toastNotification('Team Leaderboard Generated Successfully', 'green');
     } catch (error) {
       console.error(error);
       dispatch(toggledPreloaderActionCreator(false));
-      toastNotificationGenerator(
-        'Error! Please Try A Shorter Time Period',
-        'red'
-      );
+      toastNotification('Error! Please Try A Shorter Time Period', 'red');
     }
   };
 };
@@ -373,4 +355,5 @@ const leaderboardReducer = (state = initialState, action) => {
   }
 };
 
+// Exports
 export default leaderboardReducer;

@@ -1,6 +1,6 @@
-// Query Generator
-const organizationsQueryGenerator = userLogin => {
-  const organizationsQuery = `
+// Initializations
+const organizationsQuery = userLogin =>
+  `
     {
       user(login: "${userLogin}") {
         id,
@@ -14,8 +14,5 @@ const organizationsQueryGenerator = userLogin => {
     }
   `;
 
-  return organizationsQuery;
-};
-
 // Exports
-export default organizationsQueryGenerator;
+export default organizationsQuery;

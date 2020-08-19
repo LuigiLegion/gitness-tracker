@@ -1,11 +1,11 @@
 // Imports
 import React from 'react';
 
-import SelectUser from '../leaderboard/SelectUser';
-import SelectOrganization from '../leaderboard/SelectOrganization';
-import SelectTeam from '../leaderboard/SelectTeam';
-import GenerateContributors from '../leaderboard/GenerateContributors';
-import DisplayContributors from '../leaderboard/DisplayContributors';
+import UserSelect from '../leaderboard/UserSelect';
+import OrganizationSelect from '../leaderboard/OrganizationSelect';
+import TeamSelect from '../leaderboard/TeamSelect';
+import ContributorsGenerate from '../leaderboard/ContributorsGenerate';
+import ContributorsDisplay from '../leaderboard/ContributorsDisplay';
 import { generateStyle, displayStyle } from '../../styles';
 
 // Component
@@ -15,36 +15,36 @@ const Dashboard = () => {
       <div>
         <div className="row">
           <div className="col s12 m3" style={generateStyle}>
-            <SelectUser />
+            <UserSelect />
           </div>
 
           <div className="col s12 m3" style={generateStyle}>
-            <SelectOrganization />
+            <OrganizationSelect />
           </div>
 
           <div className="col s12 m3" style={generateStyle}>
-            <SelectTeam />
+            <TeamSelect />
           </div>
 
           <div className="col s12 m3" style={generateStyle}>
-            <GenerateContributors />
+            <ContributorsGenerate />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m12" style={displayStyle}>
-            <DisplayContributors />
+            <ContributorsDisplay />
           </div>
         </div>
 
-        <div className="center-text-align padding-bottom">
-          Made with ❤ by{' '}
+        <div className="text-align-center padding-bottom">
+          {'Made with ❤ by '}
           <a
             href="https://www.linkedin.com/in/talluigi"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="bold-text-style">Tal Luigi</span>
+            <span className="text-style-bold">Tal Luigi</span>
           </a>
         </div>
       </div>
@@ -52,4 +52,5 @@ const Dashboard = () => {
   );
 };
 
+// Exports
 export default Dashboard;

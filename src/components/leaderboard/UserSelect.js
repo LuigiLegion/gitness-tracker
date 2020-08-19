@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
 
 // Component
-const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
+const UserSelect = ({ userLogin, getOrganizationsThunk }) => {
   const [selectedUserLogin, setSelectedUserLogin] = useState('');
 
   const handleChange = event => {
@@ -24,19 +24,20 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">User</span>
+            <span className="text-color-gray text-style-bold">User</span>
           </span>
 
           <div className="input-field">
             <label htmlFor="userLogin">
-              GitHub Username<span className="red-text-color">*</span>
+              GitHub Username<span className="text-color-red">*</span>
             </label>
 
             <input
               type="text"
               id="userLogin"
+              autoComplete="user-login"
               required
               onChange={handleChange}
             />
@@ -52,7 +53,7 @@ const SelectUser = ({ userLogin, getOrganizationsThunk }) => {
           <br />
           <br />
 
-          <span className="italic-text-style">
+          <span className="text-style-italic">
             {userLogin ? userLogin : 'Not Yet Selected'}
           </span>
 
@@ -70,18 +71,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getOrganizationsThunk(userLogin) {
-    dispatch(getOrganizationsThunkCreator(userLogin));
-  },
+  getOrganizationsThunk: userLogin =>
+    dispatch(getOrganizationsThunkCreator(userLogin)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectUser);
-
 // Prop Types
-SelectUser.propTypes = {
+UserSelect.propTypes = {
   userLogin: PropTypes.string,
   getOrganizationsThunk: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserSelect);

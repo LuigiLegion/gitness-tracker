@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReducer';
-import { toastNotificationGenerator } from '../../helpers/index';
+import { toastNotification } from '../../utils';
 
 // Component
-const SelectTeam = ({
+const TeamSelect = ({
   organizationLogin,
   teams,
   teamSlug,
@@ -32,28 +32,28 @@ const SelectTeam = ({
     event.preventDefault();
 
     gotTeamSlugAction(selectedTeamSlug);
-    toastNotificationGenerator('Team Selected Succesfully', 'green');
+    toastNotification('Team Selected Succesfully', 'green');
   };
 
   return (
     <div className="container center">
       <div className="section center">
-        <form onSubmit={handleSubmit} className="card white center">
+        <form className="card white center" onSubmit={handleSubmit}>
           <span className="card-title">
-            <span className="gray-text-color bold-text-style">Team</span>
+            <span className="text-color-gray text-style-bold">Team</span>
           </span>
 
           <div className="input-field col s12">
             <label htmlFor="teamSlug">
-              Teams<span className="red-text-color">*</span>
+              Teams<span className="text-color-red">*</span>
             </label>
 
             <br />
             <br />
 
             <select
-              id="teamSlug"
               className="browser-default"
+              id="teamSlug"
               value={selectedTeamSlug}
               required
               onChange={handleChange}
@@ -82,7 +82,7 @@ const SelectTeam = ({
           <br />
           <br />
 
-          <span className="italic-text-style">
+          <span className="text-style-italic">
             {teamSlug ? teamSlug : 'Not Yet Selected'}
           </span>
 
@@ -102,20 +102,19 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  gotTeamSlugAction(teamSlug) {
-    dispatch(gotTeamSlugActionCreator(teamSlug));
-  },
+  gotTeamSlugAction: teamSlug => dispatch(gotTeamSlugActionCreator(teamSlug)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectTeam);
-
 // Prop Types
-SelectTeam.propTypes = {
+TeamSelect.propTypes = {
   organizationLogin: PropTypes.string,
   teams: PropTypes.array,
   teamSlug: PropTypes.string,
   gotTeamSlugAction: PropTypes.func,
 };
+
+// Exports
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeamSelect);
