@@ -1,4 +1,5 @@
-export const burgerStyles = {
+// Initializations
+const burgerStyles = {
   bmBurgerButton: {
     position: 'fixed',
     width: '36px',
@@ -43,13 +44,19 @@ export const burgerStyles = {
   },
 };
 
-export const navbarStyle = {
+const navbarStyle = {
   boxShadow: '0 0 2px #fafafa, 0 0 5px #fafafa',
 };
 
-export const generateStyle = {
+const generateStyle = {
   paddingRight: '0px',
   paddingLeft: '0px',
 };
 
-export const displayStyle = { paddingRight: '15px', paddingLeft: '15px' };
+const displayStyle = {
+  paddingRight: '15px',
+  paddingLeft: '15px',
+};
+
+// Exports
+export { burgerStyles, navbarStyle, generateStyle, displayStyle };
