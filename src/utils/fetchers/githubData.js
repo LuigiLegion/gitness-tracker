@@ -1,11 +1,11 @@
 // Imports
 import axios from 'axios';
 
-import githubAccessToken from '../../config/ghConfig';
-
 // Initializations
 const githubApiEndpoint = 'https://api.github.com/graphql';
-const headers = { Authorization: `bearer ${githubAccessToken}` };
+const headers = {
+  Authorization: `bearer ${process.env.REACT_APP_GITHUB_ACCESS_TOKEN}`,
+};
 
 const githubData = async query => {
   try {
