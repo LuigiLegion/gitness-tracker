@@ -26,4 +26,3 @@ yarn-debug.log*
 yarn-error.log*
 
 src/config/fbConfig.js
-src/config/ghConfig.js
