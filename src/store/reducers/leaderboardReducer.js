@@ -104,7 +104,6 @@ export const getOrganizationsThunkCreator = userLogin => {
       const organizations = data.user.organizations.nodes;
 
       dispatch(gotOrganizationsActionCreator(organizations));
-      dispatch(toggledPreloaderActionCreator(false));
 
       if (organizations.length) {
         toastNotification('Organizations Generated Successfully', 'green');
@@ -113,8 +112,9 @@ export const getOrganizationsThunkCreator = userLogin => {
       }
     } catch (error) {
       console.error(error);
-      dispatch(toggledPreloaderActionCreator(false));
       toastNotification('Error! Invalid GitHub Username', 'red');
+    } finally {
+      dispatch(toggledPreloaderActionCreator(false));
     }
   };
 };
@@ -131,7 +131,6 @@ export const getTeamsThunkCreator = organizationLogin => {
       const teams = data.organization.teams.edges;
 
       dispatch(gotTeamsActionCreator(teams));
-      dispatch(toggledPreloaderActionCreator(false));
 
       if (teams.length) {
         toastNotification('Teams Generated Successfully', 'green');
@@ -140,6 +139,7 @@ export const getTeamsThunkCreator = organizationLogin => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
       dispatch(toggledPreloaderActionCreator(false));
     }
   };
@@ -164,14 +164,14 @@ export const getUserContributionsThunkCreator = time => {
       };
 
       dispatch(gotUserContributionsActionCreator(contributor));
-      dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
       toastNotification('User Leaderboard Generated Successfully', 'green');
     } catch (error) {
       console.error(error);
-      dispatch(toggledPreloaderActionCreator(false));
       toastNotification('Error! Please Try A Shorter Time Period', 'red');
+    } finally {
+      dispatch(toggledPreloaderActionCreator(false));
     }
   };
 };
@@ -214,7 +214,6 @@ export const getOrganizationContributorsThunkCreator = time => {
 
       await getAllContributors();
 
-      dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
       toastNotification(
@@ -223,8 +222,9 @@ export const getOrganizationContributorsThunkCreator = time => {
       );
     } catch (error) {
       console.error(error);
-      dispatch(toggledPreloaderActionCreator(false));
       toastNotification('Error! Please Try A Shorter Time Period', 'red');
+    } finally {
+      dispatch(toggledPreloaderActionCreator(false));
     }
   };
 };
@@ -268,14 +268,14 @@ export const getTeamContributorsThunkCreator = time => {
 
       await getAllContributors();
 
-      dispatch(toggledPreloaderActionCreator(false));
       dispatch(toggledClearButtonActionCreator(false));
 
       toastNotification('Team Leaderboard Generated Successfully', 'green');
     } catch (error) {
       console.error(error);
-      dispatch(toggledPreloaderActionCreator(false));
       toastNotification('Error! Please Try A Shorter Time Period', 'red');
+    } finally {
+      dispatch(toggledPreloaderActionCreator(false));
     }
   };
 };
