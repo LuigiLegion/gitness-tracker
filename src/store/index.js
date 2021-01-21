@@ -27,3 +27,4 @@ const store = createStore(rootReducer, middleware);
 
 // Exports
 export default store;
+export * from './reducers/leaderboardReducer';
