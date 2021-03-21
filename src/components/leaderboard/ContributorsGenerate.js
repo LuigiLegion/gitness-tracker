@@ -9,7 +9,7 @@ import {
   getUserContributionsThunkCreator,
   getOrganizationContributorsThunkCreator,
   getTeamContributorsThunkCreator,
-} from '../../store/reducers/leaderboardReducer';
+} from '../../store';
 
 // Component
 const ContributorsGenerate = ({

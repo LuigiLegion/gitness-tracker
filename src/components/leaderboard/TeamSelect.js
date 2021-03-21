@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { gotTeamSlugActionCreator } from '../../store/reducers/leaderboardReducer';
+import { gotTeamSlugActionCreator } from '../../store';
 import { toastNotification } from '../../utils';
 
 // Component

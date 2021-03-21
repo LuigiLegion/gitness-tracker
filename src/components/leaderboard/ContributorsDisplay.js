@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { clearedContributorsActionCreator } from '../../store/reducers/leaderboardReducer';
+import { clearedContributorsActionCreator } from '../../store';
 import { contributorsSorter, toastNotification } from '../../utils';
 
 // Component

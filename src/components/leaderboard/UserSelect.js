@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getOrganizationsThunkCreator } from '../../store/reducers/leaderboardReducer';
+import { getOrganizationsThunkCreator } from '../../store';
 
 // Component
 const UserSelect = ({ userLogin, getOrganizationsThunk }) => {

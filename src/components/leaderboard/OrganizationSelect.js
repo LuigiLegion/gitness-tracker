@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  getTeamsThunkCreator,
   gotOrganizationLoginActionCreator,
-} from '../../store/reducers/leaderboardReducer';
+  getTeamsThunkCreator,
+} from '../../store';
 
 // Component
 const OrganizationSelect = ({
