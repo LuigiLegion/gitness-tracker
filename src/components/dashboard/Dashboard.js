@@ -1,11 +1,13 @@
 // Imports
 import React from 'react';
 
-import UserSelect from '../leaderboard/UserSelect';
-import OrganizationSelect from '../leaderboard/OrganizationSelect';
-import TeamSelect from '../leaderboard/TeamSelect';
-import ContributorsGenerate from '../leaderboard/ContributorsGenerate';
-import ContributorsDisplay from '../leaderboard/ContributorsDisplay';
+import {
+  UserSelect,
+  OrganizationSelect,
+  TeamSelect,
+  ContributorsGenerate,
+  ContributorsDisplay,
+} from '..';
 import { generateStyle, displayStyle } from '../../styles';
 
 // Component
