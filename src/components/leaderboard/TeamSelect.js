@@ -45,7 +45,7 @@ const TeamSelect = ({
 
           <div className="input-field col s12">
             <label htmlFor="teamSlug">
-              Teams<span className="text-color-red">*</span>
+              GitHub Teams<span className="text-color-red">*</span>
             </label>
 
             <br />

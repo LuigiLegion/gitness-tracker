@@ -26,7 +26,7 @@ const ContributorsDisplay = ({
       <div className="card white center">
         <div className="card-content grey-text text-darken-3 center">
           <span className="card-title">
-            <span className="text-style-bold">Commits Leaderboard</span>
+            <span className="text-style-bold">Leaderboard</span>
           </span>
 
           <br />
@@ -40,7 +40,7 @@ const ContributorsDisplay = ({
 
                     <th title="GitHub Username">Username</th>
 
-                    <th title="Total GitHub Commits">Score</th>
+                    <th title="Total Public GitHub Commits">Commits</th>
                   </tr>
                 </thead>
 

@@ -49,7 +49,7 @@ const OrganizationSelect = ({
 
           <div className="input-field col s12">
             <label htmlFor="organizationLogin">
-              Orgs<span className="text-color-red">*</span>
+              GitHub Orgs<span className="text-color-red">*</span>
             </label>
 
             <br />
