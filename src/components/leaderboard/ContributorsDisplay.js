@@ -105,7 +105,7 @@ const mapDispatchToProps = dispatch => ({
 
 // Prop Types
 ContributorsDisplay.propTypes = {
-  contributors: PropTypes.array,
+  contributors: PropTypes.arrayOf(PropTypes.object),
   isNotClearable: PropTypes.bool,
   clearedContributorsAction: PropTypes.func,
 };

@@ -108,7 +108,7 @@ const mapDispatchToProps = dispatch => ({
 // Prop Types
 TeamSelect.propTypes = {
   organizationLogin: PropTypes.string,
-  teams: PropTypes.array,
+  teams: PropTypes.arrayOf(PropTypes.object),
   teamSlug: PropTypes.string,
   gotTeamSlugAction: PropTypes.func,
 };
