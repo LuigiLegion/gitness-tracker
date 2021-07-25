@@ -2,6 +2,7 @@
 export { default as PageNotFound } from './404/PageNotFound';
 export { default as About } from './about/About';
 export { default as Dashboard } from './dashboard/Dashboard';
+export { default as MadeBy } from './dashboard/MadeBy';
 export {
   default as ContributorsDisplay,
 } from './leaderboard/ContributorsDisplay';
