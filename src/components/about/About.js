@@ -15,7 +15,7 @@ const About = () => {
                   <span className="text-style-bold">About</span>
                 </span>
 
-                <ul className="about">
+                <ul>
                   <li>Gitness Tracker is a fitness tracker for coding.</li>
 
                   <br />
