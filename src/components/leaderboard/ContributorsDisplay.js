@@ -33,7 +33,7 @@ const ContributorsDisplay = ({
 
           <div className="contributors">
             {contributors.length ? (
-              <table className="striped centered">
+              <table className="striped centered responsive-table">
                 <thead>
                   <tr>
                     <th title="Leaderboard Rank">Rank</th>
