@@ -120,3 +120,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .padding-bottom {
   padding-bottom: 40px;
 }
+
+.padding-right {
+  padding-right: 2em;
+}
