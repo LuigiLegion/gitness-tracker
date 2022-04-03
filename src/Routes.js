@@ -2,7 +2,11 @@
 import React from 'react';
 import { withRouter, Switch, Route } from 'react-router-dom';
 
-import { About, Dashboard, PageNotFound } from './components';
+import {
+  About,
+  Dashboard,
+  PageNotFound,
+} from './components';
 
 // Component
 const Routes = () => {
