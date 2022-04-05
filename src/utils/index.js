@@ -1,6 +1,6 @@
 // Exports
 export { default as githubData } from './fetchers/githubData';
-export { default as toastNotification } from './generators/toastNotification';
+export { default as toast } from './materialize/toast';
 export {
   default as organizationContributorsQuery,
 } from './queries/organizationContributorsQuery';
