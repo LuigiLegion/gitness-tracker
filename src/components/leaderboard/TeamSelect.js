@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { gotTeamSlugActionCreator } from '../../store';
-import { toastNotification } from '../../utils';
+import { toast } from '../../utils';
 
 // Component
 const TeamSelect = ({
@@ -32,7 +32,7 @@ const TeamSelect = ({
     event.preventDefault();
 
     gotTeamSlugAction(selectedTeamSlug);
-    toastNotification('Team Selected Succesfully', 'green');
+    toast('Team selected', 'green');
   };
 
   return (

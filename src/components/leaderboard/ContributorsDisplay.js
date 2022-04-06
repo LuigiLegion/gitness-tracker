@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { clearedContributorsActionCreator } from '../../store';
-import { contributorsSorter, toastNotification } from '../../utils';
+import { contributorsSorter, toast } from '../../utils';
 
 // Component
 const ContributorsDisplay = ({
@@ -18,7 +18,7 @@ const ContributorsDisplay = ({
 
   const handleClear = () => {
     clearedContributorsAction();
-    toastNotification('Leaderboard Cleared Succesfully', 'green');
+    toast('Leaderboard cleared', 'green');
   };
 
   return (
