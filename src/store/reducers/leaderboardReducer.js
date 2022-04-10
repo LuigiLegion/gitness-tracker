@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 
 // Imports
+import { toggledPreloaderActionCreator } from '..';
 import {
   organizationsQuery,
   teamsQuery,
@@ -8,7 +9,7 @@ import {
   organizationContributorsQuery,
   teamContributorsQuery,
   githubData,
-  toastNotification,
+  toast,
 } from '../../utils';
 
 // Initial State
@@ -77,11 +78,6 @@ export const gotTeamContributorsActionCreator = contributors => ({
   contributors,
 });
 
-export const toggledPreloaderActionCreator = status => ({
-  type: TOGGLED_PRELOADER,
-  status,
-});
-
 export const toggledClearButtonActionCreator = status => ({
   type: TOGGLED_CLEAR_BUTTON,
   status,
@@ -106,13 +102,13 @@ export const getOrganizationsThunkCreator = userLogin => {
       dispatch(gotOrganizationsActionCreator(organizations));
 
       if (organizations.length) {
-        toastNotification('Organizations Generated Successfully', 'green');
+        toast('Organizations generated', 'green');
       } else {
-        toastNotification('No Organizations Found', 'red');
+        toast('No organizations found', 'red');
       }
     } catch (error) {
       console.error(error);
-      toastNotification('Error! Invalid GitHub Username', 'red');
+      toast('Error! Invalid GitHub username', 'red');
     } finally {
       dispatch(toggledPreloaderActionCreator(false));
     }
@@ -133,9 +129,9 @@ export const getTeamsThunkCreator = organizationLogin => {
       dispatch(gotTeamsActionCreator(teams));
 
       if (teams.length) {
-        toastNotification('Teams Generated Successfully', 'green');
+        toast('Teams generated', 'green');
       } else {
-        toastNotification('No Teams Found', 'red');
+        toast('No teams found', 'red');
       }
     } catch (error) {
       console.error(error);
@@ -166,10 +162,10 @@ export const getUserContributionsThunkCreator = time => {
       dispatch(gotUserContributionsActionCreator(contributor));
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotification('User Leaderboard Generated Successfully', 'green');
+      toast('User leaderboard generated', 'green');
     } catch (error) {
       console.error(error);
-      toastNotification('Error! Please Try A Shorter Time Period', 'red');
+      toast('Error! Please try a shorter time period', 'red');
     } finally {
       dispatch(toggledPreloaderActionCreator(false));
     }
@@ -216,13 +212,10 @@ export const getOrganizationContributorsThunkCreator = time => {
 
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotification(
-        'Organization Leaderboard Generated Successfully',
-        'green'
-      );
+      toast('Organization leaderboard generated', 'green');
     } catch (error) {
       console.error(error);
-      toastNotification('Error! Please Try A Shorter Time Period', 'red');
+      toast('Error! Please try a shorter time period', 'red');
     } finally {
       dispatch(toggledPreloaderActionCreator(false));
     }
@@ -270,10 +263,10 @@ export const getTeamContributorsThunkCreator = time => {
 
       dispatch(toggledClearButtonActionCreator(false));
 
-      toastNotification('Team Leaderboard Generated Successfully', 'green');
+      toast('Team leaderboard generated', 'green');
     } catch (error) {
       console.error(error);
-      toastNotification('Error! Please Try A Shorter Time Period', 'red');
+      toast('Error! Please try a shorter time period', 'red');
     } finally {
       dispatch(toggledPreloaderActionCreator(false));
     }
