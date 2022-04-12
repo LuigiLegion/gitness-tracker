@@ -27,30 +27,36 @@ const LinksBurger = () => {
     >
       <div className="outline-none">
         <div>
-          <NavLink to="/about" onClick={closeMenu}>
-            <span className="text-color-gray text-style-bold">About</span>
+          <NavLink
+            className="text-color-gray text-style-bold"
+            to="/about"
+            onClick={closeMenu}
+          >
+            About
           </NavLink>
         </div>
 
         <div>
           <a
+            className="text-color-gray text-style-bold"
             href="https://github.com/LuigiLegion/gitness-tracker"
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeMenu}
           >
-            <span className="text-color-gray  text-style-bold">Source</span>
+            Source
           </a>
         </div>
 
         <div>
           <a
+            className="text-color-gray text-style-bold"
             href="https://taluigi.netlify.com"
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeMenu}
           >
-            <span className="text-color-gray text-style-bold">Contact</span>
+            Contact
           </a>
         </div>
       </div>
