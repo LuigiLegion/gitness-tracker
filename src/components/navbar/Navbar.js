@@ -1,17 +1,21 @@
 // Imports
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Links, LinksBurger, Preloader } from '..';
+import {
+  Links,
+  LinksBurger,
+  Logo,
+  Preloader,
+} from '..';
 import { navbarStyle } from '../../styles';
 
 // Component
 const Navbar = ({ isLoading }) => {
   const [width, setWidth] = useState(window.innerWidth);
 
-  const largeViewCheck = width > 1007;
+  const isLargeView = width > 1007;
 
   const updateNavbarDimensions = () => {
     setWidth(window.innerWidth);
@@ -31,13 +35,9 @@ const Navbar = ({ isLoading }) => {
     <div className="navbar-fixed">
       <nav className="nav-wrapper grey lighten-5" style={navbarStyle}>
         <div>
-          <NavLink to="/" className="left navbar-logo">
-            <span className="text-style-bold text-color-gray">
-              Gitness Tracker
-            </span>
-          </NavLink>
+          <Logo isLargeView={isLargeView} />
 
-          {largeViewCheck ? <Links /> : <LinksBurger />}
+          {isLargeView ? <Links /> : <LinksBurger />}
         </div>
 
         <div>{isLoading ? <Preloader /> : null}</div>
