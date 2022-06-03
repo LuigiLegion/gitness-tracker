@@ -1,6 +1,8 @@
+// Imports
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+// Component
 const Logo = () => {
   return (
     <NavLink
@@ -12,4 +14,5 @@ const Logo = () => {
   )
 };
 
+// Exports
 export default Logo;
