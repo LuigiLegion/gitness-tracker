@@ -14,8 +14,8 @@ export {
 } from './leaderboard/OrganizationSelect';
 export { default as TeamSelect } from './leaderboard/TeamSelect';
 export { default as UserSelect } from './leaderboard/UserSelect';
-export { default as Links } from './links/Links';
-export { default as LinksBurger } from './links/LinksBurger';
+export { default as Links } from './navbar/Links';
+export { default as LinksBurger } from './navbar/LinksBurger';
 export { default as Logo } from './navbar/Logo';
 export { default as Navbar } from './navbar/Navbar';
 export { default as Preloader } from './navbar/Preloader';
