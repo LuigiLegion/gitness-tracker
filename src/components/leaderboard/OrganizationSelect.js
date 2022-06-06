@@ -65,7 +65,7 @@ const OrganizationSelect = ({
               <option value="">Select Org</option>
 
               {organizations.length
-                ? organizations.map(curOrganization => (
+                && organizations.map(curOrganization => (
                     <option
                       key={curOrganization.id}
                       value={curOrganization.login}
@@ -73,7 +73,7 @@ const OrganizationSelect = ({
                       {curOrganization.login}
                     </option>
                   ))
-                : null}
+                }
             </select>
           </div>
 
