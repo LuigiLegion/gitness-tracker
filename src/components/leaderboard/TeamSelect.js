@@ -61,12 +61,12 @@ const TeamSelect = ({
               <option value="">Select Team</option>
 
               {teams.length
-                ? teams.map(curTeam => (
+                && teams.map(curTeam => (
                     <option key={curTeam.node.id} value={curTeam.node.slug}>
                       {curTeam.node.slug}
                     </option>
                   ))
-                : null}
+                }
             </select>
           </div>
 
