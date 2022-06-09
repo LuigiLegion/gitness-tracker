@@ -40,7 +40,7 @@ const Navbar = ({ isLoading }) => {
           {isLargeView ? <Links /> : <LinksBurger />}
         </div>
 
-        <div>{isLoading ? <Preloader /> : null}</div>
+        <div>{isLoading && <Preloader />}</div>
       </nav>
     </div>
   );
