@@ -5,14 +5,15 @@ import React from 'react';
 const MadeBy = () => {
   return (
     <div className="text-align-center padding-bottom">
-      {'Made with ❤ by '}
+      <span>Made with ❤ by </span>
 
       <a
+        className="text-style-bold"
         href="https://www.linkedin.com/in/tal-luigi"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span className="text-style-bold">Tal Luigi</span>
+        Tal Luigi
       </a>
     </div>
   );
