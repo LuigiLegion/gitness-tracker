@@ -5,50 +5,47 @@ import { NavLink } from 'react-router-dom';
 // Component
 const About = () => {
   return (
-    <div className="dashboard container">
+    <div className="container">
       <div className="row">
-        <div className="col s12 m12">
+        <div className="col s12 m12 l12 xl12">
           <div className="section">
             <div className="card white">
               <div className="card-content grey-text text-darken-3">
                 <span className="card-title">
-                  <span className="text-style-bold">About</span>
+                  <span className="text-style-bold">
+                    About
+                  </span>
                 </span>
 
-                <ul>
-                  <li>Gitness Tracker is a fitness tracker for coding.</li>
+                <div className="divider" />
 
-                  <br />
+                <div className="card-content">
+                  <div>
+                    Gitness Tracker is a fitness tracker for coding.
+                  </div>
 
-                  <li>
+                  <div>
                     I built it as a tool that helps open source project
                     maintainers hold friendly code contribution competitions by
                     allowing them to determine who contributed the most code
                     over a given period of time.
-                  </li>
+                  </div>
 
-                  <li>
+                  <div className="section">
                     Contributions are pulled from GitHub using their GraphQL API
                     and presented in the form of an organization, team, or user
                     leaderboard.
-                  </li>
+                  </div>
 
-                  <br />
+                  <div>I hope you like it, enjoy!</div>
+                </div>
 
-                  <li>I hope you like it, enjoy!</li>
-                </ul>
-
-                <br />
-
-                <ul>
-                  <li>
-                    <NavLink to="/">
-                      <span className="text-style-bold">
-                        ← Back To Main Page
-                      </span>
-                    </NavLink>
-                  </li>
-                </ul>
+                <NavLink
+                  className="text-style-bold"
+                  to="/"
+                >
+                  ← Back To Main Page
+                </NavLink>
               </div>
             </div>
           </div>
