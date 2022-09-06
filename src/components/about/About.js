@@ -37,7 +37,9 @@ const About = () => {
                     leaderboard.
                   </div>
 
-                  <div>I hope you like it, enjoy!</div>
+                  <div>
+                    I hope you like it, enjoy!
+                  </div>
                 </div>
 
                 <NavLink
